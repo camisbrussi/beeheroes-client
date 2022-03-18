@@ -1,5 +1,4 @@
 import {
-  Button,
   Flex,
   Stack,
   FormControl,
@@ -15,6 +14,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 
 import { Logo } from "../components/Logo";
 import { Input } from "../components/Input";
+import { Button } from "../components/Button";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { GetServerSideProps } from "next";
@@ -100,11 +100,9 @@ export default function SigIn() {
         </Stack>
 
         <Button
-          type="submit"
           mt="6"
-          colorScheme="yellow"
-          size="lg"
-          color="brown.600"
+          type="submit"
+          title="Entrar"
           isLoading={formState.isSubmitting}
         >
           Entrar

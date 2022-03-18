@@ -28,33 +28,33 @@ type User = {
 
 export const AuthContext = createContext({} as AuthContextData);
 
-let authChannel: BroadcastChannel;
+// let authChannel: BroadcastChannel;
 
 export function signOut() {
   destroyCookie(undefined, "beeheroes.token");
   destroyCookie(undefined, "beeheroes.refreshToken");
 
-  authChannel.postMessage("signOut");
+  // authChannel.postMessage("signOut");
 
-  Router.push("/");
+  typeof window !== "undefined" && Router.push("/");
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User>();
   const isAuthenticated = !!user;
 
-  useEffect(() => {
-    authChannel = new BroadcastChannel("auth");
-    authChannel.onmessage = (message: MessageEvent) => {
-      switch (message.data) {
-        case "signOut":
-          signOut();
-          break;
-        default:
-          break;
-      }
-    };
-  }, []);
+  // useEffect(() => {
+  //   authChannel = new BroadcastChannel("auth");
+  //   authChannel.onmessage = (message: MessageEvent) => {
+  //     switch (message.data) {
+  //       case "signOut":
+  //         signOut();
+  //         break;
+  //       default:
+  //         break;
+  //     }
+  //   };
+  // }, []);
 
   useEffect(() => {
     const { "beeheroes.token": token } = parseCookies();
@@ -98,7 +98,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       Router.push("/profile");
 
-      authChannel.postMessage("signIn");
+      // authChannel.postMessage("signIn");
     } catch (error) {
       console.log(error);
     }

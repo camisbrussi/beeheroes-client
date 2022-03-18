@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { parseCookies, setCookie } from "nookies";
-import { SignOut } from "../contexts/AuthContext";
+import { signOut } from "../contexts/AuthContext";
 import { AuthTokenError } from "../errors/AuthTokenError";
 
 let isRefreshing = false;
@@ -14,7 +14,6 @@ export function setupApiClient(ctx = undefined) {
       Authorization: `Bearer ${cookies["beeheroes.token"]}`,
     },
   });
-
   api.interceptors.response.use(
     (response) => {
       return response;
@@ -63,7 +62,7 @@ export function setupApiClient(ctx = undefined) {
                 failedRequestQueue = [];
 
                 if (process.browser) {
-                  SignOut();
+                  signOut();
                 } else {
                   return Promise.reject(new AuthTokenError());
                 }
@@ -85,7 +84,7 @@ export function setupApiClient(ctx = undefined) {
             });
           });
         } else {
-          SignOut();
+          signOut();
         }
       }
 
