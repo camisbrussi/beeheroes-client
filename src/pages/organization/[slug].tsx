@@ -7,9 +7,11 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { GetStaticPaths, GetStaticProps } from "next";
+import { Address } from "../../components/Address";
 
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
+import { InfoOrganization } from "../../components/infoOrganizations";
 import {
   ListCardDonationsProps,
   ListDonations,
@@ -36,20 +38,13 @@ type Organization = {
     name: string;
     description: string;
   };
-  address: {
-    street: string;
-    number: string;
-    complement: string;
-    district: string;
-    city: string;
-    uf: string;
-  };
+  address: Address;
   images_url: string[];
   projects: ListCardProjectsProps[];
   donations: ListCardDonationsProps[];
 };
 
-export default function Search({ organization }: OrganizationProps) {
+export default function Project({ organization }: OrganizationProps) {
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,
@@ -58,33 +53,10 @@ export default function Search({ organization }: OrganizationProps) {
     <Box w="100%" minW={1440}>
       <Header hasBackButton />
       <Slide imagesUrl={organization?.images_url} />
-      <HStack spacing="20" justify="space-between" w={1160} mt={20} mx="auto">
-        <Stack>
-          <Text as="h1" fontSize="5xl">
-            {organization?.name}{" "}
-            <Text fontSize="md">({organization?.organization_type?.name})</Text>
-          </Text>
-
-          <Text fontSize="lg">{organization?.description}</Text>
-
-          <Text fontSize="lg">
-            Cidade: {organization?.address?.city}/{organization?.address?.uf}
-          </Text>
-
-          <Text fontSize="md">E-mail: {organization?.email}</Text>
-        </Stack>
-
-        <Image
-          ml="10px"
-          boxSize="250px"
-          objectFit="cover"
-          borderRadius="10"
-          src={organization?.avatar_url}
-          alt={organization?.name}
-        />
-      </HStack>
-      <ListProjects projects={organization?.projects} />
-      <ListDonations donations={organization?.donations} />
+      <InfoOrganization data={organization} />
+      <Address data={organization?.address} />
+      <ListProjects data={organization?.projects} />
+      <ListDonations data={organization?.donations} />
       <Footer />
     </Box>
   );

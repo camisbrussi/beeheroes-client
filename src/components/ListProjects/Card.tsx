@@ -7,10 +7,10 @@ interface CardInfoProps {
   name: string;
   start: string;
   end?: string;
-  vacations?: number;
+  vacancies?: number;
 }
 
-export function Card({ name, start, end, vacations, id }: CardInfoProps) {
+export function Card({ name, start, end, vacancies, id }: CardInfoProps) {
   const startDate = moment(start).format("DD/MM/YYYY, h:mm");
   const endDate = moment(end).format("DD/MM/YYYY, h:mm");
   return (
@@ -42,7 +42,7 @@ export function Card({ name, start, end, vacations, id }: CardInfoProps) {
             (Início)
           </Text>
         </Flex>
-        {end && (
+        {endDate && (
           <Flex align="center" mt="2">
             <Icon as={AiOutlineCalendar} mx="2" color="red" />
             <Text fontSize="md">{endDate}</Text>
@@ -53,8 +53,8 @@ export function Card({ name, start, end, vacations, id }: CardInfoProps) {
         )}
         <Divider mt="3" />
         <Flex align="center" justify="center" mt="2" mb="5">
-          {vacations ? (
-            <Text fontSize="md">{vacations} vagas disponíveis</Text>
+          {vacancies ? (
+            <Text fontSize="md">{vacancies}</Text>
           ) : (
             <Text fontSize="md">Livre</Text>
           )}

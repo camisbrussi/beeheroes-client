@@ -9,16 +9,16 @@ export interface ListCardProjectsProps {
   vacations?: number;
 }
 interface ListProjectsProps {
-  projects: ListCardProjectsProps[];
+  data: ListCardProjectsProps[];
 }
 
-export function ListProjects({ projects }: ListProjectsProps) {
+export function ListProjects({ data }: ListProjectsProps) {
   return (
     <Box w={1160} mt={20} mx="auto" fontSize="lg">
       <Divider />
       <Text mt={5}>Projetos em andamento</Text>
       <HStack spacing="20" align="left" w={1160} mt={10} mx="auto">
-        {projects?.map((project) => (
+        {data?.map((project) => (
           <Card
             name={project.name}
             id={project.id}

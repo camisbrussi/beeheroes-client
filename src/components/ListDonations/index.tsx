@@ -8,16 +8,16 @@ export interface ListCardDonationsProps {
   total_collected?: number;
 }
 interface ListDonationsProps {
-  donations: ListCardDonationsProps[];
+  data: ListCardDonationsProps[];
 }
 
-export const ListDonations = ({ donations }: ListDonationsProps) => {
+export const ListDonations = ({ data }: ListDonationsProps) => {
   return (
     <Box w={1160} mt={20} mx="auto" fontSize="lg">
       <Divider />
       <Text mt={5}>Doações em andamento</Text>
       <HStack spacing="20" align="left" w={1160} mt={10} mx="auto">
-        {donations?.map((donation) => (
+        {data?.map((donation) => (
           <Card
             name={donation.name}
             id={donation.id}
