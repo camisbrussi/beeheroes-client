@@ -1,15 +1,4 @@
-import { ChevronDownIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Flex,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  SimpleGrid,
-  Stack,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import { Box, Stack, useBreakpointValue } from "@chakra-ui/react";
 import { Banner } from "../components/Banner";
 import { Button } from "../components/Button";
 import { SearchTypes } from "../components/SearchTypes";

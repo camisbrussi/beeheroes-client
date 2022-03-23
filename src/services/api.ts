@@ -9,7 +9,7 @@ let failedRequestQueue = [];
 export function setupApiClient(ctx = undefined) {
   let cookies = parseCookies(ctx);
   const api = axios.create({
-    baseURL: "http://localhost:3333",
+    baseURL: "http://ec2-18-229-143-197.sa-east-1.compute.amazonaws.com",
     headers: {
       Authorization: `Bearer ${cookies["beeheroes.token"]}`,
     },

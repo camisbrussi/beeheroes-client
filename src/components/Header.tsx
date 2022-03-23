@@ -5,16 +5,18 @@ import {
   Icon,
   useBreakpointValue,
   Text,
+  Button,
 } from "@chakra-ui/react";
 import { FiChevronLeft } from "react-icons/fi";
+import { useRouter } from "next/router";
 import Link from "next/link";
-import { LogoHorizontal } from "./LogoHorizontal";
 
 interface HeaderProps {
   hasBackButton?: boolean;
 }
 
 export function Header({ hasBackButton }: HeaderProps) {
+  const router = useRouter();
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,
@@ -31,28 +33,31 @@ export function Header({ hasBackButton }: HeaderProps) {
       mt="1"
     >
       {hasBackButton && (
-        <Link href="/">
+        <Button onClick={() => router.back()} color="brown.600" variant="link">
           <ChakraLink position="absolute" left={["16px", "40px"]}>
             <Icon as={FiChevronLeft} fontSize={["1rem", "2rem"]} />
           </ChakraLink>
-        </Link>
+        </Button>
       )}
-      <Flex
-        w="100%"
-        maxW={isWideVersion ? "200" : "100"}
-        align="center"
-        mx="auto"
-      >
-        <Image src="/images/logo.svg" alt="logo" m="auto" boxSize="60px" />
-        <Text
-          as="b"
-          fontSize="2xl"
-          color="brown.600"
-          textShadow="2px 2px #D9A404"
+      <Link href="/" passHref={true}>
+        <Flex
+          w="100%"
+          maxW={isWideVersion ? "200" : "100"}
+          align="center"
+          mx="auto"
         >
-          Be Heeroes
-        </Text>
-      </Flex>
+          <Image src="/images/logo.svg" alt="logo" m="auto" boxSize="60px" />
+
+          <Text
+            as="b"
+            fontSize="2xl"
+            color="brown.600"
+            textShadow="2px 2px #D9A404"
+          >
+            Be Heeroes
+          </Text>
+        </Flex>
+      </Link>
     </Flex>
   );
 }

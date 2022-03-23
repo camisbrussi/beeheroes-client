@@ -18,7 +18,7 @@ export function Card({ title, image, slug }: CardInfoProps) {
       align="center"
       justify="center"
     >
-      <Link href={`/search/${slug}`}>
+      <Link href={`/busca/${slug}`}>
         <Image
           src={image}
           alt={title}
