@@ -1,16 +1,18 @@
 import { HStack, Text, Box, Divider } from "@chakra-ui/react";
 import { Card } from "./Card";
 
-export interface ListCardProjectsProps {
+interface ListProjectsProps {
+  data: ProjectProps[];
+}
+
+export type ProjectProps = {
   id: string;
   name: string;
   start: string;
   end?: string;
-  vacations?: number;
-}
-interface ListProjectsProps {
-  data: ListCardProjectsProps[];
-}
+  vacancies?: number;
+  status?: boolean;
+};
 
 export function ListProjects({ data }: ListProjectsProps) {
   return (
@@ -19,14 +21,7 @@ export function ListProjects({ data }: ListProjectsProps) {
       <Text mt={5}>Projetos em andamento</Text>
       <HStack spacing="20" align="left" w={1160} mt={10} mx="auto">
         {data?.map((project) => (
-          <Card
-            name={project.name}
-            id={project.id}
-            key={project.id}
-            start={project.start}
-            end={project.end}
-            vacations={project.vacations}
-          />
+          <Card key={project.id} data={project} />
         ))}
       </HStack>
     </Box>

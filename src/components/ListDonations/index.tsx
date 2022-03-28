@@ -1,15 +1,16 @@
 import { HStack, Text, Box, Divider } from "@chakra-ui/react";
 import { Card } from "./Card";
 
-export interface ListCardDonationsProps {
+interface ListDonationsProps {
+  data: DonationProps[];
+}
+
+export type DonationProps = {
   id: string;
   name: string;
   total_value?: number;
   total_collected?: number;
-}
-interface ListDonationsProps {
-  data: ListCardDonationsProps[];
-}
+};
 
 export const ListDonations = ({ data }: ListDonationsProps) => {
   return (
@@ -18,13 +19,7 @@ export const ListDonations = ({ data }: ListDonationsProps) => {
       <Text mt={5}>Doações em andamento</Text>
       <HStack spacing="20" align="left" w={1160} mt={10} mx="auto">
         {data?.map((donation) => (
-          <Card
-            name={donation.name}
-            id={donation.id}
-            key={donation.id}
-            total_value={donation.total_value}
-            total_collected={donation.total_collected}
-          />
+          <Card key={donation.id} data={donation} />
         ))}
       </HStack>
     </Box>

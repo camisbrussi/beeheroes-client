@@ -54,7 +54,7 @@ export function Header({ hasBackButton }: HeaderProps) {
             color="brown.600"
             textShadow="2px 2px #D9A404"
           >
-            Be Heeroes
+            Bee Heroes
           </Text>
         </Flex>
       </Link>

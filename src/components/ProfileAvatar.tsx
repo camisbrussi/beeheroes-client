@@ -6,16 +6,17 @@ interface ProfileAvatarProps {
 }
 
 export type ProfileAvatarInfo = {
-  id: string;
+  id?: string;
   name: string;
+  user_id: string;
   avatar_url: string;
 };
 
 export function ProfileAvatar({ data }: ProfileAvatarProps) {
   console.log(data);
   return (
-    <Stack w={40} mt={20} direction="column" align="left">
-      <Link href={`profile/${data?.id}`}>
+    <Stack w={40} mt={10} direction="column" align="left">
+      <Link href={`/profile/${data?.user_id}`}>
         <VStack>
           <Avatar size="lg" objectFit="cover" src={data?.avatar_url} />
           <Text>{data?.name}</Text>

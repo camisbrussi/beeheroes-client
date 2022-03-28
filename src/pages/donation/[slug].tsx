@@ -8,6 +8,7 @@ import {
   Divider,
   Flex,
   Icon,
+  Spinner,
 } from "@chakra-ui/react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { RiHandCoinLine } from "react-icons/ri";
@@ -16,11 +17,12 @@ import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
 import { api } from "../../services/apiCLient";
 import { Button } from "../../components/Button";
+import { Address } from "../../components/Address";
+import { Loading } from "../../components/Loading";
 import {
   InfoOrganization,
   OrganizationInfo,
-} from "../../components/infoOrganizations";
-import { Address } from "../../components/Address";
+} from "../../components/Infos/infoOrganizations";
 
 interface DonationProps {
   donation: Donation;
@@ -48,68 +50,74 @@ export default function Search({ donation }: DonationProps) {
     currency: "BRL",
   });
 
-  const slug = donation?.organization?.id;
-
-  const isWideVersion = useBreakpointValue({
-    base: false,
-    lg: true,
-  });
   return (
     <Box w="100%" minW={1440}>
       <Header hasBackButton />
-      <HStack spacing="20" justify="space-between" w={1160} mt={20} mx="auto">
-        <Stack>
-          <Text as="h1" fontSize="5xl">
-            {donation?.name}
-          </Text>
+      {donation ? (
+        <>
+          <HStack
+            spacing="20"
+            justify="space-between"
+            w={1160}
+            mt={20}
+            mx="auto"
+          >
+            <Stack>
+              <Text as="h1" fontSize="5xl">
+                {donation?.name}
+              </Text>
 
-          <Text fontSize="lg">{donation?.description}</Text>
-          <Flex align="center">
-            <Icon as={RiHandCoinLine} mx="2" />
-            <Text fontSize="md">{value}</Text>
-            <Text fontSize="xs" ml="1">
-              (Valor necessário)
-            </Text>
-          </Flex>
-          <Flex align="center" mt="2">
-            <Icon
-              as={RiHandCoinLine}
-              mx="2"
-              color={collected < value ? "red" : "green"}
+              <Text fontSize="lg">{donation?.description}</Text>
+              <Flex align="center">
+                <Icon as={RiHandCoinLine} mx="2" />
+                <Text fontSize="md">{value}</Text>
+                <Text fontSize="xs" ml="1">
+                  (Valor necessário)
+                </Text>
+              </Flex>
+              <Flex align="center" mt="2">
+                <Icon
+                  as={RiHandCoinLine}
+                  mx="2"
+                  color={collected < value ? "red" : "green"}
+                />
+                <Text fontSize="md">{collected}</Text>
+                <Text fontSize="xs" ml="1">
+                  (Valor arrecadado)
+                </Text>
+              </Flex>
+              <Button title="Fazer Doação" />
+            </Stack>
+            <Image
+              ml="10px"
+              objectFit="cover"
+              borderRadius="10"
+              src="/images/donationlogo.svg"
+              alt="Favo de mel com um desenho de coração no meio e flores"
             />
-            <Text fontSize="md">{collected}</Text>
-            <Text fontSize="xs" ml="1">
-              (Valor arrecadado)
-            </Text>
-          </Flex>
-          <Button title="Fazer Doação" />
-        </Stack>
-        <Image
-          ml="10px"
-          objectFit="cover"
-          borderRadius="10"
-          src="/images/donationlogo.svg"
-          alt="Favo de mel com um desenho de coração no meio e flores"
-        />
-      </HStack>
+          </HStack>
 
-      {donation?.address && (
-        <Box w={1160} mt={20} mx="auto" fontSize="lg">
-          <Divider mt="20px" />
-          <Text mt={5} mb={5}>
-            Local Da coleta
-          </Text>
-          <Address data={donation?.address} />
-        </Box>
+          {donation?.address && (
+            <Box w={1160} mt={20} mx="auto" fontSize="lg">
+              <Divider mt="20px" />
+              <Text mt={5} mb={5}>
+                Local Da coleta
+              </Text>
+              <Address data={donation?.address} />
+            </Box>
+          )}
+
+          <Box w={1160} mt={20} mx="auto" fontSize="lg">
+            <Divider mt="20px" />
+            <Text mt={5}>Organização Responsável pela solicitação</Text>
+
+            <InfoOrganization data={donation?.organization} hasVisitButton />
+          </Box>
+          <Footer />
+        </>
+      ) : (
+        <Loading />
       )}
-
-      <Box w={1160} mt={20} mx="auto" fontSize="lg">
-        <Divider mt="20px" />
-        <Text mt={5}>Organização Responsável pela doações</Text>
-
-        <InfoOrganization data={donation?.organization} hasVisitButton />
-      </Box>
-      <Footer />
     </Box>
   );
 }

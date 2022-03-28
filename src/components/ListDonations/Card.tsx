@@ -1,24 +1,17 @@
 import { Divider, Flex, Icon, Link, Text, Center } from "@chakra-ui/react";
 import { MdOutlineRealEstateAgent } from "react-icons/md";
+import { DonationProps } from ".";
 
-interface CardInfoProps {
-  id: string;
-  name: string;
-  total_value?: number;
-  total_collected?: number;
+interface CardDonationInfoProps {
+  data: DonationProps;
 }
 
-export function Card({
-  name,
-  total_value,
-  total_collected,
-  id,
-}: CardInfoProps) {
-  const value = total_value?.toLocaleString("pt-br", {
+export function Card({ data }: CardDonationInfoProps) {
+  const value = data?.total_value?.toLocaleString("pt-br", {
     style: "currency",
     currency: "BRL",
   });
-  const collected = total_collected?.toLocaleString("pt-br", {
+  const collected = data?.total_collected?.toLocaleString("pt-br", {
     style: "currency",
     currency: "BRL",
   });
@@ -32,7 +25,7 @@ export function Card({
       align="center"
       justify="center"
     >
-      <Link href={`/donation/${id}`}>
+      <Link href={`/donation/${data?.id}`}>
         <Center w="200px" h="80px">
           <Text
             align="center"
@@ -42,10 +35,10 @@ export function Card({
             mb="20px"
             mt="20px"
           >
-            {name}
+            {data?.name}
           </Text>
         </Center>
-        {total_value && (
+        {data?.total_value && (
           <Flex align="center" mt="2">
             <Icon as={MdOutlineRealEstateAgent} mx="2" color="green" />
             <Text fontSize="md">{value}</Text>
@@ -53,7 +46,7 @@ export function Card({
         )}
         <Divider mt="3" />
         <Flex align="center" justify="center" mt="2" mb="5">
-          {total_collected ? (
+          {data?.total_collected ? (
             <Text fontSize="md">{collected} (Total Coletado)</Text>
           ) : (
             <Text fontSize="md">Em aberto</Text>

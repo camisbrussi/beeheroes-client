@@ -27,7 +27,7 @@ export function Logo() {
         color="brown.600"
         textShadow="3px 3px #D9A404"
       >
-        Be Heeroes
+        Bee Heroes
       </Text>
       {isWideVersion && (
         <Text

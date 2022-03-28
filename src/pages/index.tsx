@@ -1,4 +1,6 @@
 import { Box, Stack, useBreakpointValue } from "@chakra-ui/react";
+import Router from "next/router";
+
 import { Banner } from "../components/Banner";
 import { Button } from "../components/Button";
 import { SearchTypes } from "../components/SearchTypes";
@@ -19,7 +21,7 @@ export default function Home() {
         left={["16px", "40px"]}
       >
         <Button title="Fazer Cadastro" />
-        <Button title="Fazer Login" />
+        <Button onClick={() => Router.push("/signin")} title="Fazer Login" />
       </Stack>
       <Banner />
       <SearchTypes />

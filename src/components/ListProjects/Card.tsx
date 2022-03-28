@@ -1,18 +1,15 @@
 import { Divider, Flex, Icon, Link, Text, Center } from "@chakra-ui/react";
 import { AiOutlineCalendar } from "react-icons/ai";
 import moment from "moment";
+import { ProjectProps } from ".";
 
 interface CardInfoProps {
-  id: string;
-  name: string;
-  start: string;
-  end?: string;
-  vacancies?: number;
+  data: ProjectProps;
 }
 
-export function Card({ name, start, end, vacancies, id }: CardInfoProps) {
-  const startDate = moment(start).format("DD/MM/YYYY, h:mm");
-  const endDate = moment(end).format("DD/MM/YYYY, h:mm");
+export function Card({ data }: CardInfoProps) {
+  const startDate = moment(data?.start).format("DD/MM/YYYY, h:mm");
+  const endDate = moment(data?.end).format("DD/MM/YYYY, h:mm");
   return (
     <Flex
       w="250px"
@@ -22,7 +19,7 @@ export function Card({ name, start, end, vacancies, id }: CardInfoProps) {
       align="center"
       justify="center"
     >
-      <Link href={`/project/${id}`}>
+      <Link href={`/project/${data?.id}`}>
         <Center w="200px" h="100px">
           <Text
             align="center"
@@ -32,7 +29,7 @@ export function Card({ name, start, end, vacancies, id }: CardInfoProps) {
             mb="20px"
             mt="20px"
           >
-            {name}
+            {data?.name}
           </Text>
         </Center>
         <Flex align="center">
@@ -53,8 +50,8 @@ export function Card({ name, start, end, vacancies, id }: CardInfoProps) {
         )}
         <Divider mt="3" />
         <Flex align="center" justify="center" mt="2" mb="5">
-          {vacancies ? (
-            <Text fontSize="md">{vacancies}</Text>
+          {data?.vacancies ? (
+            <Text fontSize="md">{data?.vacancies}</Text>
           ) : (
             <Text fontSize="md">Livre</Text>
           )}
