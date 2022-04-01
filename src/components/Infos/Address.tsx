@@ -34,9 +34,12 @@ export function Address({ data }: InfoAddress) {
               R. {data?.street}, {data?.number} - {data?.complement}
               {data?.district},
             </Text>
-            <Text>
-              Cidade: {data?.city}/{data?.uf} - {data?.cep}
-            </Text>
+
+            {data?.city && (
+              <Text>
+                {data?.city}/{data?.uf}
+              </Text>
+            )}
           </HStack>
         </Box>
       )}

@@ -12,7 +12,6 @@ export default function Profile() {
   const userCanSeeProfile = useCan({
     roles: ["administrator"],
   });
-  console.log(userCanSeeProfile);
 
   useEffect(() => {
     api

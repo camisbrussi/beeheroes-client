@@ -1,10 +1,13 @@
 import { Box, Divider, Text, useBreakpointValue } from "@chakra-ui/react";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { Address } from "../../components/Address";
+import { Address } from "../../components/Infos/Address";
 
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
-import { InfoOrganization } from "../../components/Infos/infoOrganizations";
+import {
+  InfoOrganization,
+  Organization,
+} from "../../components/Infos/Organizations";
 import { ListDonations, DonationProps } from "../../components/ListDonations";
 import { ListProjects, ProjectProps } from "../../components/ListProjects";
 
@@ -14,7 +17,7 @@ import { Slide } from "../../components/Slide";
 import { api } from "../../services/apiCLient";
 
 interface Organizations {
-  organization: OrganizationProps;
+  organizationData: OrganizationProps;
 }
 
 type Responsibles = {
@@ -24,16 +27,7 @@ type Responsibles = {
 };
 
 type OrganizationProps = {
-  id: string;
-  name: string;
-  description: string;
-  email: string;
-  cnpj: string;
-  avatar_url: string;
-  organization_type: {
-    name: string;
-    description: string;
-  };
+  organization: InfoOrganization;
   address: Address;
   images_url: string[];
   projects: ProjectProps[];
@@ -41,26 +35,22 @@ type OrganizationProps = {
   responsibles: Responsibles[];
 };
 
-export default function Organization({ organization }: Organizations) {
-  const isWideVersion = useBreakpointValue({
-    base: false,
-    lg: true,
-  });
+export default function OrganizationData({ organizationData }: Organizations) {
   return (
     <Box w="100%" minW={1440}>
       <Header hasBackButton />
-      {organization ? (
+      {organizationData ? (
         <>
-          <Slide imagesUrl={organization?.images_url} />
-          <InfoOrganization data={organization} />
-          <Address data={organization?.address} />
-          <ListProjects data={organization?.projects} />
-          <ListDonations data={organization?.donations} />
+          <Slide imagesUrl={organizationData?.images_url} />
+          <Organization data={organizationData?.organization} />
+          <Address data={organizationData?.address} />
+          <ListProjects data={organizationData?.projects} />
+          <ListDonations data={organizationData?.donations} />
           <Box w={1160} mt={20} mx="auto" fontSize="lg">
             <Divider mt="20px" />
             <Text mt={5}>Responsáveis pela organização</Text>
 
-            {organization?.responsibles?.map((responsible) => (
+            {organizationData?.responsibles?.map((responsible) => (
               <ProfileAvatar key={responsible.user_id} data={responsible} />
             ))}
           </Box>

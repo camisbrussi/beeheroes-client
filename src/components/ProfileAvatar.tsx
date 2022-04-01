@@ -13,10 +13,9 @@ export type ProfileAvatarInfo = {
 };
 
 export function ProfileAvatar({ data }: ProfileAvatarProps) {
-  console.log(data);
   return (
     <Stack w={40} mt={10} direction="column" align="left">
-      <Link href={`/profile/${data?.user_id}`}>
+      <Link href={`/profile`}>
         <VStack>
           <Avatar size="lg" objectFit="cover" src={data?.avatar_url} />
           <Text>{data?.name}</Text>

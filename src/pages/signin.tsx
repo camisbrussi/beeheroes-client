@@ -1,7 +1,6 @@
 import {
   Flex,
   Stack,
-  FormControl,
   Text,
   Link,
   Checkbox,
@@ -13,7 +12,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import { Logo } from "../components/Logo";
-import { Input } from "../components/Input";
+import { Input } from "../components/FormsComponents/Input";
 import { Button } from "../components/Button";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
@@ -74,24 +73,20 @@ export default function SigIn() {
           <Text fontSize="2xl" as="b">
             Fazer Login
           </Text>
-          <FormControl>
-            <Input
-              name="email"
-              type="email"
-              label="E-mail"
-              error={errors.email}
-              {...register("email")}
-            />
-          </FormControl>
-          <FormControl>
-            <Input
-              name="password"
-              type="password"
-              label="Senha"
-              error={errors.password}
-              {...register("password")}
-            />
-          </FormControl>
+          <Input
+            name="email"
+            type="email"
+            label="E-mail"
+            error={errors.email}
+            {...register("email")}
+          />
+          <Input
+            name="password"
+            type="password"
+            label="Senha"
+            error={errors.password}
+            {...register("password")}
+          />
           <Stack direction={["column", "row"]}>
             <Checkbox colorScheme="yellow">Lembrar-me</Checkbox>
             <Spacer />
@@ -104,9 +99,7 @@ export default function SigIn() {
           type="submit"
           title="Entrar"
           isLoading={formState.isSubmitting}
-        >
-          Entrar
-        </Button>
+        />
       </Flex>
     </Flex>
   );

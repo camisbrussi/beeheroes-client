@@ -1,33 +1,32 @@
-import { HStack, Stack, Text, Image, Tag, Link } from "@chakra-ui/react";
+import { HStack, Stack, Text, Image } from "@chakra-ui/react";
 
 interface InfoUserProps {
-  data: User;
+  data: InfoUser;
 }
 
-export type User = {
-  id: string;
+export type InfoUser = {
+  id?: string;
   name: string;
-  description: string;
   email: string;
   avatar_url: string;
   is_volunteer: boolean;
-  address: {
+  address?: {
     city: string;
     uf: string;
   };
 };
 
-export function InfoUser({ data }: InfoUserProps) {
+export function User({ data }: InfoUserProps) {
   return (
     <HStack spacing="20" w={1160} mt={20} mx="auto">
       <Image
-        ml="10px"
-        boxSize="250px"
+        boxSize="270px"
         objectFit="cover"
-        borderRadius="10"
+        borderRadius="full"
         src={data?.avatar_url ? data?.avatar_url : "/images/user.svg"}
         alt={data?.name}
       />
+
       <Stack>
         <Text fontSize="5xl">{data?.name} </Text>{" "}
         {data.is_volunteer ? (
@@ -46,11 +45,12 @@ export function InfoUser({ data }: InfoUserProps) {
             />
           </Stack>
         )}
-        <Text fontSize="lg">{data?.description}</Text>
         <Text fontSize="md">E-mail: {data?.email}</Text>
-        <Text>
-          {data?.address?.city}/{data?.address?.uf}
-        </Text>
+        {data?.address?.city && (
+          <Text>
+            {data?.address?.city}/{data?.address?.uf}
+          </Text>
+        )}
       </Stack>
     </HStack>
   );

@@ -20,6 +20,7 @@ type AuthProviderProps = {
 };
 
 type User = {
+  id: string;
   email: string;
   name: string;
   permissions: string[];
@@ -63,8 +64,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       api
         .get("/me")
         .then((response) => {
-          const { email, permissions, roles, name } = response.data;
-          setUser({ email, permissions, roles, name });
+          const { id, email, permissions, roles, name } = response.data;
+          setUser({ id, email, permissions, roles, name });
         })
         .catch(() => {
           signOut();
@@ -76,7 +77,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       const response = await api.post("sessions", { email, password });
 
-      const { token, refresh_token, permissions, roles, name } = response.data;
+      const { token, refresh_token, permissions, roles, name, id } =
+        response.data;
 
       setCookie(undefined, "beeheroes.token", token, {
         maxAge: 60 * 60 * 25 * 30, // 30 days
@@ -88,6 +90,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       });
 
       setUser({
+        id,
         email,
         permissions,
         roles,
@@ -96,7 +99,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       api.defaults.headers["Authorization"] = `Barear ${token}`;
 
-      Router.push("/profile");
+      Router.push(`/profile`);
 
       // authChannel.postMessage("signIn");
     } catch (error) {

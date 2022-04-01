@@ -42,6 +42,10 @@ Execute o sistema
 ```
 
  3. Acesse http://localhost:3000 para ver o resultado.
+
+ ## Tarefas
+
+É possível ver as próximas atualizações no Trello [TRELLO](https://trello.com/b/8FhaD8XE/beeheroes)
     
 
 Criado por: [Camila Sbrussi](https://github.com/camisbrussi/)!

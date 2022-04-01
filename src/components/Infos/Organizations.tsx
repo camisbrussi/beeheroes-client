@@ -2,11 +2,11 @@ import { HStack, Stack, Text, Image, Tag, Link } from "@chakra-ui/react";
 
 interface InfoOrganizationProps {
   hasVisitButton?: boolean;
-  data: OrganizationInfo;
+  data: InfoOrganization;
 }
 
-export type OrganizationInfo = {
-  id: string;
+export type InfoOrganization = {
+  id?: string;
   name: string;
   description: string;
   email: string;
@@ -24,13 +24,10 @@ type organizationType = {
   description: string;
 };
 
-export function InfoOrganization({
-  hasVisitButton,
-  data,
-}: InfoOrganizationProps) {
+export function Organization({ hasVisitButton, data }: InfoOrganizationProps) {
   const slug = data?.id;
   return (
-    <HStack spacing="20" justify="space-between" w={1160} mt={20} mx="auto">
+    <HStack spacing="20" justify="space-between" w={1160} mt={5} mx="auto">
       <Stack>
         <Text fontSize="5xl">
           {data?.name}{" "}
@@ -46,7 +43,7 @@ export function InfoOrganization({
         <Text fontSize="lg">{data?.description}</Text>
 
         <Text fontSize="md">E-mail: {data?.email}</Text>
-        {hasVisitButton && (
+        {data?.address?.city && (
           <Text>
             {data?.address?.city}/{data?.address?.uf}
           </Text>
@@ -58,7 +55,7 @@ export function InfoOrganization({
         boxSize="250px"
         objectFit="cover"
         borderRadius="10"
-        src={data?.avatar_url}
+        src={data?.avatar_url ? data?.avatar_url : "/images/responsible.svg"}
         alt={data?.name}
       />
     </HStack>

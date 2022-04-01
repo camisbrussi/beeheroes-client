@@ -7,13 +7,16 @@ let isRefreshing = false;
 let failedRequestQueue = [];
 
 export function setupApiClient(ctx = undefined) {
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
+
   let cookies = parseCookies(ctx);
   const api = axios.create({
-    baseURL: "http://ec2-18-229-143-197.sa-east-1.compute.amazonaws.com",
+    baseURL,
     headers: {
       Authorization: `Bearer ${cookies["beeheroes.token"]}`,
     },
   });
+
   api.interceptors.response.use(
     (response) => {
       return response;

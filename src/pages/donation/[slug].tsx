@@ -1,6 +1,5 @@
 import {
   Box,
-  useBreakpointValue,
   Text,
   Image,
   HStack,
@@ -17,12 +16,12 @@ import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
 import { api } from "../../services/apiCLient";
 import { Button } from "../../components/Button";
-import { Address } from "../../components/Address";
+import { Address } from "../../components/Infos/Address";
 import { Loading } from "../../components/Loading";
 import {
   InfoOrganization,
   OrganizationInfo,
-} from "../../components/Infos/infoOrganizations";
+} from "../../components/Infos/Organizations";
 
 interface DonationProps {
   donation: Donation;

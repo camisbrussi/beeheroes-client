@@ -17,7 +17,7 @@ import { Header } from "../../components/Header";
 import { api } from "../../services/apiCLient";
 import { Button } from "../../components/Button";
 
-import { Address } from "../../components/Address";
+import { Address } from "../../components/Infos/Address";
 import {
   ProfileAvatar,
   ProfileAvatarInfo,
@@ -25,8 +25,8 @@ import {
 import { Loading } from "../../components/Loading";
 import {
   InfoOrganization,
-  OrganizationInfo,
-} from "../../components/Infos/infoOrganizations";
+  Organization,
+} from "../../components/Infos/Organizations";
 
 interface ProjectProps {
   project: Project;
@@ -43,7 +43,7 @@ type Project = {
   vacancies: number;
   total_subscription: number;
   address: Address;
-  organization: OrganizationInfo;
+  organization: InfoOrganization;
 };
 
 type Subscription = {
@@ -51,7 +51,7 @@ type Subscription = {
   volunteer: ProfileAvatarInfo;
 };
 
-export default function Search({ project, subscriptions }: ProjectProps) {
+export default function User({ project, subscriptions }: ProjectProps) {
   const startDate = moment(project?.start).format("DD/MM/YYYY, h:mm");
   const endDate = moment(project?.end).format("DD/MM/YYYY, h:mm");
 
@@ -144,7 +144,7 @@ export default function Search({ project, subscriptions }: ProjectProps) {
             <Divider mt="20px" />
             <Text mt={5}>Organização Responsável pelo evento</Text>
 
-            <InfoOrganization data={project?.organization} hasVisitButton />
+            <Organization data={project?.organization} hasVisitButton />
           </Box>
 
           <Box w={1160} mt={20} mx="auto" fontSize="lg">

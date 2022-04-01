@@ -10,6 +10,7 @@ import "swiper/scss";
 import "swiper/scss/navigation";
 import "swiper/scss/pagination";
 import "swiper/scss/scrollbar";
+import { Header } from "../components/Header";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

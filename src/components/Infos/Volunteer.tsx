@@ -1,10 +1,10 @@
-import { HStack, Stack, Text, Image } from "@chakra-ui/react";
+import { HStack, Stack, Text } from "@chakra-ui/react";
 
 interface InfoUserProps {
-  data: Volunteer;
+  data: InfoVolunteer;
 }
 
-export type Volunteer = {
+export type InfoVolunteer = {
   id: string;
   description: string;
   profession: string;
@@ -13,7 +13,7 @@ export type Volunteer = {
   };
 };
 
-export function InfoVolunteer({ data }: InfoUserProps) {
+export function Volunteer({ data }: InfoUserProps) {
   return (
     <HStack spacing="20" w={1160} mt={20} mx="auto">
       <Stack>
