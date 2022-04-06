@@ -1,18 +1,10 @@
 import { HStack, Text, Box, Divider } from "@chakra-ui/react";
+import { Project } from "../../@types/project";
 import { Card } from "./Card";
 
 interface ListProjectsProps {
-  data: ProjectProps[];
+  data: Project[];
 }
-
-export type ProjectProps = {
-  id: string;
-  name: string;
-  start: string;
-  end?: string;
-  vacancies?: number;
-  status?: boolean;
-};
 
 export function ListProjects({ data }: ListProjectsProps) {
   return (

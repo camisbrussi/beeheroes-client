@@ -2,6 +2,7 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 import Router from "next/router";
 import { setCookie, parseCookies, destroyCookie } from "nookies";
 import { api } from "../services/apiCLient";
+import { UserSignIn } from "../@types/user";
 
 type SignInCredentials = {
   email: string;
@@ -11,20 +12,12 @@ type SignInCredentials = {
 type AuthContextData = {
   signIn: (credentials: SignInCredentials) => Promise<void>;
   signOut: () => void;
-  user: User;
+  user: UserSignIn;
   isAuthenticated: boolean;
 };
 
 type AuthProviderProps = {
   children: ReactNode;
-};
-
-type User = {
-  id: string;
-  email: string;
-  name: string;
-  permissions: string[];
-  roles: string[];
 };
 
 export const AuthContext = createContext({} as AuthContextData);
@@ -41,7 +34,7 @@ export function signOut() {
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<UserSignIn>();
   const isAuthenticated = !!user;
 
   // useEffect(() => {
@@ -64,8 +57,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       api
         .get("/me")
         .then((response) => {
-          const { id, email, permissions, roles, name } = response.data;
-          setUser({ id, email, permissions, roles, name });
+          const { id, email, permissions, roles, name, avatar } = response.data;
+          setUser({ id, email, permissions, roles, name, avatar });
         })
         .catch(() => {
           signOut();
@@ -77,7 +70,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       const response = await api.post("sessions", { email, password });
 
-      const { token, refresh_token, permissions, roles, name, id } =
+      const { token, refresh_token, permissions, roles, name, id, avatar } =
         response.data;
 
       setCookie(undefined, "beeheroes.token", token, {
@@ -95,15 +88,18 @@ export function AuthProvider({ children }: AuthProviderProps) {
         permissions,
         roles,
         name,
+        avatar,
       });
 
       api.defaults.headers["Authorization"] = `Barear ${token}`;
 
       Router.push(`/profile`);
 
+      return;
+
       // authChannel.postMessage("signIn");
     } catch (error) {
-      console.log(error);
+      throw new Error(error?.response?.data?.message);
     }
   }
   return (

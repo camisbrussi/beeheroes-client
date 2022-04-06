@@ -12,44 +12,22 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { AiOutlineCalendar, AiOutlineExclamationCircle } from "react-icons/ai";
 import moment from "moment";
 
-import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
 import { api } from "../../services/apiCLient";
 import { Button } from "../../components/Button";
 
-import { Address } from "../../components/Infos/Address";
-import {
-  ProfileAvatar,
-  ProfileAvatarInfo,
-} from "../../components/ProfileAvatar";
 import { Loading } from "../../components/Loading";
-import {
-  InfoOrganization,
-  Organization,
-} from "../../components/Infos/Organizations";
+import { Project } from "../../@types/project";
+import { Subscription } from "../../@types/subscritptions";
+import { AddressData } from "../../components/Infos/Address";
+import OrganizationData from "../organization/view/[slug]";
+import { OrganizationInfos } from "../../components/Infos/Organizations";
+import { ProfileAvatar } from "../../components/ProfileAvatar";
 
 interface ProjectProps {
   project: Project;
   subscriptions: Subscription[];
 }
-
-type Project = {
-  id: string;
-  name: string;
-  description: string;
-  start: Date;
-  end: Date;
-  status: number;
-  vacancies: number;
-  total_subscription: number;
-  address: Address;
-  organization: InfoOrganization;
-};
-
-type Subscription = {
-  id: string;
-  volunteer: ProfileAvatarInfo;
-};
 
 export default function User({ project, subscriptions }: ProjectProps) {
   const startDate = moment(project?.start).format("DD/MM/YYYY, h:mm");
@@ -57,7 +35,7 @@ export default function User({ project, subscriptions }: ProjectProps) {
 
   return (
     <Box w="100%" minW={1440}>
-      <Header hasBackButton />
+      <Header />
       {project ? (
         <>
           <HStack
@@ -110,7 +88,6 @@ export default function User({ project, subscriptions }: ProjectProps) {
                   </Text>
                 ) : (
                   <Text fontSize="md">
-                    {" "}
                     <Icon
                       as={AiOutlineExclamationCircle}
                       mx="2"
@@ -136,7 +113,7 @@ export default function User({ project, subscriptions }: ProjectProps) {
               <Text mt={5} mb={5}>
                 Local Do evento
               </Text>
-              <Address data={project?.address} />
+              <AddressData data={project?.address} />
             </Box>
           )}
 
@@ -144,7 +121,7 @@ export default function User({ project, subscriptions }: ProjectProps) {
             <Divider mt="20px" />
             <Text mt={5}>Organização Responsável pelo evento</Text>
 
-            <Organization data={project?.organization} hasVisitButton />
+            <OrganizationInfos data={project?.organization} hasVisitButton />
           </Box>
 
           <Box w={1160} mt={20} mx="auto" fontSize="lg">
@@ -158,7 +135,6 @@ export default function User({ project, subscriptions }: ProjectProps) {
               />
             ))}
           </Box>
-          <Footer />
         </>
       ) : (
         <Loading />

@@ -11,6 +11,7 @@ export function Footer() {
       borderTopRadius="10"
       direction="column"
       align="center"
+      justify="end"
     >
       <Text color="gray.500" fontSize="md" fontWeight="500" mb="20px" mt="20px">
         contato@beeheroes.com.br

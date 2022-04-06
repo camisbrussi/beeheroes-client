@@ -4,27 +4,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import { Button } from "../../components/Button";
-import { Footer } from "../../components/Footer";
 import CreateUser from "../../components/forms/CreateUser";
 import { Header } from "../../components/Header";
 import { api } from "../../services/apiCLient";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import CreateVolunteer from "../../components/forms/CreateVolunteer";
-import CreateAddressVolunteer from "../../components/forms/CreateAddressVolunteer";
-
-type CreateUserInFormData = {
-  name: string;
-  email: string;
-  avatar: string;
-  password: string;
-  passwordConfirmation: string;
-  stateId: number;
-  cityId: number;
-  occupationAreaId: number;
-  description: string;
-  profession: string;
-};
+import CreateAddressUser from "../../components/forms/CreateAddressUser";
+import { CreateVolunteerFormData } from "../../@types/volunteer";
 
 const createUserFormSchema = yup.object().shape({
   name: yup.string().required("Nome obrigatório"),
@@ -38,7 +25,7 @@ const createUserFormSchema = yup.object().shape({
     .oneOf([yup.ref("password"), null], "Senhas não conferem"),
 });
 
-export default function Register() {
+export default function RegisterVolunteer() {
   const { signIn } = useContext(AuthContext);
 
   const {
@@ -47,34 +34,35 @@ export default function Register() {
     formState,
     setError,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(createUserFormSchema),
   });
 
-  const handleCreateUser: SubmitHandler<CreateUserInFormData> = async (
+  const handleCreateUser: SubmitHandler<CreateVolunteerFormData> = async (
     values
   ) => {
     if (values.cityId) {
-      setError("city", {
+      setError("cityId", {
         type: "manual",
         message: "Escolha uma cidade",
       });
-    } else if (values.occupationAreaId) {
+    }
+
+    if (values.occupationAreaId) {
       setError("occupationAreaId", {
         type: "manual",
         message: "Escolha uma área de atuação",
       });
     }
-    console.log("values", values);
-    console.log("values.avatar", values.avatar);
     await api
       .post("/volunteers/user", {
         user: {
           name: values.name,
           email: values.email,
           password: values.password,
-          avatar: values.avatar,
+          avatar: values.avatarUser,
           address: {
             city_id: Number(values.cityId),
           },
@@ -103,7 +91,7 @@ export default function Register() {
 
   return (
     <Box w="100%" minW={1440}>
-      <Header hasBackButton />
+      <Header />
       <Flex as="form" onSubmit={handleSubmit(handleCreateUser)}>
         <Stack spacing="5" justify="space-between" w={1160} mt={5} mx="auto">
           <Text fontSize="3xl">Cadastro de Voluntário</Text>
@@ -114,7 +102,19 @@ export default function Register() {
             setError={setError}
           />
           <CreateVolunteer register={register} errors={errors} />
-          <CreateAddressVolunteer register={register} errors={errors} />
+          <CreateAddressUser
+            register={register}
+            errors={errors}
+            setValue={setValue}
+          />
+
+          <Flex justify="center">
+            {Object.keys(errors).length > 0 && (
+              <Text color="red">
+                Há Erros nos dados informados, revise e tente novamente
+              </Text>
+            )}
+          </Flex>
 
           <Flex p={4}>
             <Button
@@ -126,7 +126,6 @@ export default function Register() {
           </Flex>
         </Stack>
       </Flex>
-      <Footer />
     </Box>
   );
 }

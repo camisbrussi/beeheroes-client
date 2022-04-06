@@ -13,7 +13,8 @@ import {
   Avatar,
 } from "@chakra-ui/react";
 import { AxiosRequestConfig } from "axios";
-import { ChangeEvent, useCallback, useState } from "react";
+import { constants } from "buffer";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { FiAlertCircle, FiPlus } from "react-icons/fi";
 import { api } from "../../services/apiCLient";
 
@@ -23,11 +24,19 @@ export default function CreateUser({
   setValue,
   setError,
   name,
+  getValues = null,
 }) {
+  const avatarValue = getValues ? getValues("avatarUser") : null;
   const [progress, setProgress] = useState(0);
   const [isSending, setIsSending] = useState(false);
-  const [avatarUrl, setAvatarUrl] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState(null);
 
+  useEffect(() => {
+    avatarValue &&
+      setAvatarUrl(
+        `${process.env.NEXT_PUBLIC_AWS_BUCKET_URL}/avatar/${avatarValue}`
+      );
+  }, [getValues, avatarValue]);
   const handleImageUpload = useCallback(
     async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
       if (!event.target.files?.length) {
@@ -46,8 +55,8 @@ export default function CreateUser({
         } as AxiosRequestConfig;
 
         const response = await api.post("/avatar", formData, config);
-
         setValue(name, response.data);
+
         setAvatarUrl(
           `${process.env.NEXT_PUBLIC_AWS_BUCKET_URL}/avatar/${response.data}`
         );
@@ -63,7 +72,7 @@ export default function CreateUser({
         setProgress(0);
       }
     },
-    [name, setError, setValue]
+    [getValues, name, setError, setValue]
   );
   return (
     <Stack>

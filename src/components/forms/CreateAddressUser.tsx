@@ -1,16 +1,33 @@
-import { SimpleGrid, Stack, HStack, Image, Text } from "@chakra-ui/react";
+import {
+  SimpleGrid,
+  Stack,
+  HStack,
+  Image,
+  Text,
+  Spinner,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import InputMask from "react-input-mask";
 import { api } from "../../services/apiCLient";
 
-import { Address, searchCep } from "../../utils/searchCep";
-import { Input } from "../FormsComponents/Input";
 import { Select } from "../FormsComponents/Select";
 
-export default function CreateUser({ register, errors }) {
+export default function CreateUser({
+  register,
+  errors,
+  getValues = null,
+  setValue,
+}) {
+  const cityValue = getValues ? getValues("cityId") : null;
+  const stateValue = getValues ? getValues("stateId") : null;
   const [cities, setCities] = useState(null);
   const [states, setState] = useState(null);
   const [stateId, setStateId] = useState(null);
+  const [cityId, setCityId] = useState(null);
+
+  useEffect(() => {
+    cityValue && setCityId(getValues("cityId"));
+    stateValue && setStateId(getValues("stateId"));
+  }, [cityValue, getValues, stateValue]);
 
   useEffect(() => {
     async function getData() {
@@ -23,6 +40,7 @@ export default function CreateUser({ register, errors }) {
   }, []);
 
   useEffect(() => {
+    setCities(null);
     async function getData() {
       await api.get(`/cities?id=${stateId}`).then((response) => {
         setCities(response.data);
@@ -57,19 +75,32 @@ export default function CreateUser({ register, errors }) {
             error={errors.stateId}
             {...(register("stateId"),
             {
-              onChange: (e) => setStateId(e.target.value),
+              onChange: (e) => {
+                setStateId(e.target.value);
+                setValue("stateId", e.target.value);
+              },
             })}
           />
-          <Select
-            name="city"
-            id="city"
-            placeholder="Escolha uma cidade"
-            label="Cidade"
-            data={cities ? cities : []}
-            disabled={!cities && true}
-            error={errors.cityId}
-            {...register("cityId")}
-          />
+          {cities ? (
+            <Select
+              name="city"
+              id="city"
+              placeholder="Escolha uma cidade"
+              label="Cidade"
+              data={cities ? cities : []}
+              value={cityId}
+              error={errors.cityId}
+              {...(register("cityId"),
+              {
+                onChange: (e) => {
+                  setCityId(e.target.value);
+                  setValue("cityId", e.target.value);
+                },
+              })}
+            />
+          ) : (
+            <Spinner />
+          )}
         </SimpleGrid>
       </Stack>
     </Stack>

@@ -6,13 +6,25 @@ import { Input } from "../FormsComponents/Input";
 import { Select } from "../FormsComponents/Select";
 import { Textarea } from "../FormsComponents/TextArea";
 
-export default function CreateUser({ register, errors }) {
-  const [occupationAreaId, setOccupationAreaId] = useState();
+export default function CreateVolunteer({
+  register,
+  errors,
+  isEdit = null,
+  setValue,
+  getValues = null,
+}) {
+  const occupationValue = getValues ? getValues("occupationAreaId") : null;
+  const [occupationAreaId, setOccupationAreaId] = useState(null);
+  const [occupationArea, setOccupationArea] = useState(null);
+
+  useEffect(() => {
+    occupationValue && setOccupationAreaId(getValues("occupationAreaId"));
+  }, [getValues, occupationValue]);
 
   useEffect(() => {
     async function getData() {
       await api.get(`/occupationarea`).then((response) => {
-        setOccupationAreaId(response.data);
+        setOccupationArea(response.data);
       });
     }
 
@@ -22,9 +34,14 @@ export default function CreateUser({ register, errors }) {
     <Box>
       <HStack>
         <Image src="/images/user.svg" alt="logo" boxSize="60px" />
-        <Text fontSize="lg">
-          Agora, vamos cadastrar dados importantes em seu perfil de voluntário!
-        </Text>
+        {isEdit ? (
+          <Text fontSize="lg">Edite seus dados!</Text>
+        ) : (
+          <Text fontSize="lg">
+            Agora, vamos cadastrar dados importantes em seu perfil de
+            voluntário!
+          </Text>
+        )}
         <Text fontSize="sm">(Todos os dados são obrigatórios)</Text>
       </HStack>
       <Stack
@@ -42,10 +59,16 @@ export default function CreateUser({ register, errors }) {
             id="occupation_area_id"
             placeholder="Escolha uma área de atuação"
             label="Área de ocupação"
-            data={occupationAreaId}
-            required={true}
+            data={occupationArea}
+            value={occupationAreaId}
             error={errors.occupationAreaId}
-            {...register("occupationAreaId")}
+            {...(register("occupationAreaId"),
+            {
+              onChange: (e) => {
+                setOccupationAreaId(e.target.value);
+                setValue("occupationAreaId", e.target.value);
+              },
+            })}
           />
           <Input
             name="profession"

@@ -6,16 +6,18 @@ import {
   useBreakpointValue,
   Text,
   Button,
+  IconButton,
+  HStack,
 } from "@chakra-ui/react";
 import { FiChevronLeft } from "react-icons/fi";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { useSidebarDrawer } from "../contexts/SidebarDrawerContexts";
+import { RiMenuLine } from "react-icons/ri";
+import { Sidebar } from "./Sidebar";
 
-interface HeaderProps {
-  hasBackButton?: boolean;
-}
-
-export function Header({ hasBackButton }: HeaderProps) {
+export function Header() {
+  const { onOpen } = useSidebarDrawer();
   const router = useRouter();
   const isWideVersion = useBreakpointValue({
     base: false,
@@ -23,28 +25,31 @@ export function Header({ hasBackButton }: HeaderProps) {
   });
 
   return (
-    <Flex
+    <HStack
       as="header"
       w="100%"
       maxW={1440}
       h={isWideVersion ? "100" : "50"}
       mx="auto"
-      align="center"
+      justify="space-between"
       mt="1"
     >
-      {hasBackButton && (
-        <Button onClick={() => router.back()} color="brown.600" variant="link">
-          <ChakraLink position="absolute" left={["16px", "40px"]}>
-            <Icon as={FiChevronLeft} fontSize={["1rem", "2rem"]} />
-          </ChakraLink>
-        </Button>
+      {!isWideVersion && (
+        <IconButton
+          aria-label="Open Navigation"
+          icon={<Icon as={RiMenuLine} />}
+          fontSize="24"
+          variant="unstyled"
+          onClick={onOpen}
+          mr="2"
+        ></IconButton>
       )}
       <Link href="/" passHref={true}>
         <Flex
           w="100%"
           maxW={isWideVersion ? "200" : "100"}
           align="center"
-          mx="auto"
+          // mx="auto"
         >
           <Image src="/images/logo.svg" alt="logo" m="auto" boxSize="60px" />
 
@@ -58,6 +63,7 @@ export function Header({ hasBackButton }: HeaderProps) {
           </Text>
         </Flex>
       </Link>
-    </Flex>
+      <Sidebar />
+    </HStack>
   );
 }

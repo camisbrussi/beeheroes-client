@@ -12,33 +12,18 @@ import {
 import { GetStaticPaths, GetStaticProps } from "next";
 import { RiHandCoinLine } from "react-icons/ri";
 
-import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
 import { api } from "../../services/apiCLient";
 import { Button } from "../../components/Button";
-import { Address } from "../../components/Infos/Address";
+import { AddressData } from "../../components/Infos/Address";
 import { Loading } from "../../components/Loading";
-import {
-  InfoOrganization,
-  OrganizationInfo,
-} from "../../components/Infos/Organizations";
-
+import { Donation } from "../../@types/donation";
+import { OrganizationInfos } from "../../components/Infos/Organizations";
 interface DonationProps {
   donation: Donation;
 }
 
-type Donation = {
-  id: string;
-  name: string;
-  description: string;
-  total_value: number;
-  total_collected: number;
-  status: number;
-  address: Address;
-  organization: OrganizationInfo;
-};
-
-export default function Search({ donation }: DonationProps) {
+export default function DonationData({ donation }: DonationProps) {
   const value = donation?.total_value?.toLocaleString("pt-br", {
     style: "currency",
     currency: "BRL",
@@ -51,7 +36,7 @@ export default function Search({ donation }: DonationProps) {
 
   return (
     <Box w="100%" minW={1440}>
-      <Header hasBackButton />
+      <Header />
       {donation ? (
         <>
           <HStack
@@ -102,7 +87,7 @@ export default function Search({ donation }: DonationProps) {
               <Text mt={5} mb={5}>
                 Local Da coleta
               </Text>
-              <Address data={donation?.address} />
+              <AddressData data={donation?.address} />
             </Box>
           )}
 
@@ -110,9 +95,8 @@ export default function Search({ donation }: DonationProps) {
             <Divider mt="20px" />
             <Text mt={5}>Organização Responsável pela solicitação</Text>
 
-            <InfoOrganization data={donation?.organization} hasVisitButton />
+            <OrganizationInfos data={donation?.organization} hasVisitButton />
           </Box>
-          <Footer />
         </>
       ) : (
         <Loading />

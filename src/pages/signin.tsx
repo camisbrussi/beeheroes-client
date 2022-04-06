@@ -2,7 +2,6 @@ import {
   Flex,
   Stack,
   Text,
-  Link,
   Checkbox,
   Spacer,
   useBreakpointValue,
@@ -10,6 +9,7 @@ import {
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
+import Link from "next/link";
 
 import { Logo } from "../components/Logo";
 import { Input } from "../components/FormsComponents/Input";
@@ -18,11 +18,8 @@ import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { GetServerSideProps } from "next";
 import { withSSRGuest } from "../utils/withSSRGuest";
-
-type SignInFormData = {
-  email: string;
-  password: string;
-};
+import { Header } from "../components/Header";
+import { SignInFormData } from "../@types/signIn";
 
 const signInFormSchema = yup.object().shape({
   email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
@@ -34,6 +31,7 @@ export default function SigIn() {
     register,
     handleSubmit,
     formState,
+    setError,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(signInFormSchema),
@@ -42,7 +40,14 @@ export default function SigIn() {
   const { signIn } = useContext(AuthContext);
 
   const handleSignIn: SubmitHandler<SignInFormData> = async (values) => {
-    await signIn(values);
+    try {
+      await signIn(values);
+    } catch (err) {
+      setError("email", {
+        type: "manual",
+        message: "Senha ou e-mail incorreto",
+      });
+    }
   };
 
   const isWideVersion = useBreakpointValue({
@@ -88,9 +93,9 @@ export default function SigIn() {
             {...register("password")}
           />
           <Stack direction={["column", "row"]}>
-            <Checkbox colorScheme="yellow">Lembrar-me</Checkbox>
+            <Link href="/">Esqueci minha Senha</Link>
             <Spacer />
-            <Link>Esqueci minha Senha</Link>
+            <Link href="/"> Continuar sem login</Link>
           </Stack>
         </Stack>
 

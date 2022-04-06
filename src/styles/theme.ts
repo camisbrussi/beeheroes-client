@@ -1,10 +1,11 @@
-import { extendTheme } from "@chakra-ui/react";
+import { extendTheme, useBreakpointValue } from "@chakra-ui/react";
 
 export const theme = extendTheme({
   colors: {
     blue: {
       "600": "#4D6F80",
-      "50": "#F5F8FA",
+      "40": "#F5F8FA",
+      "100": "#ADC8D9",
     },
     yellow: {
       "400": "#F0C118",
@@ -21,9 +22,15 @@ export const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bg: "blue.50",
+        bgGradient: "linear(to-b, blue.100, blue.40)",
         color: "blue.600",
       },
+    },
+  },
+  components: {
+    Divider: {
+      borderColor: "blue.600",
+      size: "50",
     },
   },
 });

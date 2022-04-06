@@ -21,8 +21,18 @@ export default function CreateOrganization({
   errors,
   setValue,
   setError,
+  isEdit = null,
+  getValues = null,
 }) {
+  const organizationValue = getValues ? getValues("organizationTypeId") : null;
   const [organizationTypes, setOrganizationTypes] = useState();
+  const [organizationTypeId, setOrganizationTypeId] = useState(null);
+
+  console.log(getValues("organizationTypeId"));
+
+  useEffect(() => {
+    organizationValue && setOrganizationTypeId(getValues("organizationTypeId"));
+  }, [getValues, organizationValue]);
 
   useEffect(() => {
     async function getData() {
@@ -38,9 +48,13 @@ export default function CreateOrganization({
     <Stack>
       <HStack>
         <Image src="/images/user.svg" alt="logo" boxSize="60px" />
-        <Text fontSize="lg">
-          Agora, vamos cadastrar os dados da organização
-        </Text>
+        {isEdit ? (
+          <Text fontSize="lg">Edite os dados da organização</Text>
+        ) : (
+          <Text fontSize="lg">
+            Agora, vamos cadastrar os dados da organização
+          </Text>
+        )}
         <Text fontSize="sm">(Todos os dados são obrigatórios)</Text>
       </HStack>
       <VStack
@@ -83,9 +97,15 @@ export default function CreateOrganization({
             placeholder="Escolha um Tipo de Organização"
             label="Tipo de Organização"
             data={organizationTypes}
-            required={true}
-            error={errors.organizationType}
-            {...register("organizationType")}
+            value={organizationTypeId}
+            error={errors.organizationTypeId}
+            {...(register("organizationTypeId"),
+            {
+              onChange: (e) => {
+                setOrganizationTypeId(e.target.value);
+                setValue("organizationTypeId", e.target.value);
+              },
+            })}
           />
         </SimpleGrid>
         <Textarea
@@ -94,33 +114,6 @@ export default function CreateOrganization({
           error={errors.description}
           {...register("description")}
         />
-        <SimpleGrid minChildWidth="240px" spacing="8" w="100%">
-          <Input
-            name="phone"
-            as={InputMask}
-            mask="(99) 9999-9999"
-            label="Telefone"
-            error={errors.phone}
-            {...register("phone")}
-          />
-          <Stack direction="row" align="end">
-            <Input
-              name="cellphone"
-              as={InputMask}
-              mask="(99) 99999-9999"
-              label="Celular"
-              error={errors.cellphone}
-              {...register("cellphone")}
-            />
-            <Checkbox
-              colorScheme="yellow"
-              error={errors.isWhatsapp}
-              {...register("isWhatsapp")}
-            >
-              Whatsapp
-            </Checkbox>
-          </Stack>
-        </SimpleGrid>
         <CreateAvatar
           register={register}
           errors={errors}

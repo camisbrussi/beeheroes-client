@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
 import debounce from "lodash/debounce";
 import { Button } from "../../components/Button";
-import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
 import { Item, ItemInfo } from "../../components/ItemInfo";
 import { api } from "../../services/apiCLient";
@@ -34,8 +33,9 @@ export default function Search({ slug }: SearchProps) {
 
   return (
     <Box w="100%" minW={1440} align="center">
-      <Header hasBackButton />
+      <Header />
       <Stack
+        maxW={1150}
         direction="row"
         justify="space-between"
         mt="10"
@@ -53,6 +53,8 @@ export default function Search({ slug }: SearchProps) {
           position="relative"
           bg="white"
           borderRadius="4"
+          boxShadow="md"
+          p="6"
         >
           <Input
             color="brown.600"
@@ -80,7 +82,6 @@ export default function Search({ slug }: SearchProps) {
           ))}
         </SimpleGrid>
       </Box>
-      <Footer />
     </Box>
   );
 }

@@ -1,20 +1,11 @@
 import { Stack, Text, Image, HStack, Divider, Box } from "@chakra-ui/react";
+import { Address } from "../../@types/address";
 
 interface InfoAddress {
   data: Address;
 }
 
-export type Address = {
-  street: string;
-  number: string;
-  complement: string;
-  district: string;
-  city: string;
-  uf: string;
-  cep: string;
-};
-
-export function Address({ data }: InfoAddress) {
+export function AddressData({ data }: InfoAddress) {
   return (
     <Stack>
       {data && (
@@ -35,9 +26,9 @@ export function Address({ data }: InfoAddress) {
               {data?.district},
             </Text>
 
-            {data?.city && (
+            {data?.city.name && (
               <Text>
-                {data?.city}/{data?.uf}
+                {data?.city.name}/{data?.city.state.uf}
               </Text>
             )}
           </HStack>

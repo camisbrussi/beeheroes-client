@@ -4,7 +4,6 @@ import Router from "next/router";
 import { Banner } from "../components/Banner";
 import { Button } from "../components/Button";
 import { SearchTypes } from "../components/SearchTypes";
-import { Footer } from "../components/Footer";
 import { RegisterSelect } from "../components/modais/RegisterSelect";
 
 export default function Home() {
@@ -23,7 +22,6 @@ export default function Home() {
       </Stack>
       <Banner />
       <SearchTypes />
-      <Footer />
       <Modal isOpen={isOpen} onClose={onClose}>
         <RegisterSelect />
       </Modal>

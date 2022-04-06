@@ -1,34 +1,27 @@
 import { Box, Flex, Heading, Image, Text, Link } from "@chakra-ui/react";
 
-export type Item = {
+export interface Item {
   id: number;
   name: string;
   image_url: string;
   city: string;
   uf: string;
-};
+}
 
-export type ItemInfoProps = {
+export interface ItemInfoProps {
   item: Item;
-};
+}
 
 export function ItemInfo({ item }: ItemInfoProps) {
   const slug = item.id;
   return (
     <Link href={`/organization/${slug}`}>
-      <Box
-        maxW="250px"
-        mx={["auto", "0"]}
-        bg="white"
-        borderRadius="10"
-        borderColor="yellow.100"
-        align="left"
-      >
+      <Box maxW="250px" bg="white" borderRadius="10" align="left">
         <Image
           boxSize="250px"
           objectFit="cover"
           borderTopRadius="10"
-          src={item.image_url}
+          src={item?.image_url ? item?.image_url : "/images/responsible.svg"}
           alt={item.name}
         />
         <Flex
@@ -36,9 +29,9 @@ export function ItemInfo({ item }: ItemInfoProps) {
           align="center"
           p={6}
           border="2px"
-          borderColor="yellow.400"
           borderTop="0"
           borderBottomRadius="10"
+          boxShadow="md"
         >
           <Flex direction="column">
             <Heading as="h3" fontSize="xl" fontWeight="600" mb={3}>

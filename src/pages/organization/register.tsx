@@ -4,7 +4,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import { Button } from "../../components/Button";
-import { Footer } from "../../components/Footer";
 import CreateAddress from "../../components/forms/CreateAddress";
 import CreateOrganization from "../../components/forms/CreateOrganization";
 import CreateUser from "../../components/forms/CreateUser";
@@ -12,30 +11,7 @@ import { Header } from "../../components/Header";
 import { api } from "../../services/apiCLient";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
-
-type CreateUserInFormData = {
-  name: string;
-  email: string;
-  password: string;
-  avatarUser: string;
-  passwordConfirmation: string;
-  nameOrganization: string;
-  cnpj: string;
-  emailOrganization: string;
-  phone: string;
-  cellphone: string;
-  avatarOrganization: string;
-  isWhatsapp: boolean;
-  cep: string;
-  stateId: number;
-  cityId: number;
-  district: string;
-  street: string;
-  number: string;
-  complement: string;
-  organizationType: number;
-  description: string;
-};
+import { CreateOrganizationFormData } from "../../@types/organization";
 
 const createUserFormSchema = yup.object().shape({
   name: yup.string().required("Nome obrigatório"),
@@ -53,7 +29,6 @@ const createUserFormSchema = yup.object().shape({
     .required("E-mail obrigatório")
     .email("E-mail inválido"),
   cnpj: yup.string().required("CNPJ obrigatório"),
-  cellphone: yup.string().required("Celular obrigatório"),
   description: yup.string().required("Descrição da organização obrigatória"),
 });
 
@@ -71,20 +46,16 @@ export default function Register() {
     resolver: yupResolver(createUserFormSchema),
   });
 
-  const handleCreateUser: SubmitHandler<CreateUserInFormData> = async (
+  const handleCreateUser: SubmitHandler<CreateOrganizationFormData> = async (
     values
   ) => {
-    if (values.cityId) {
-      setError("city", {
-        type: "manual",
-        message: "Escolha uma cidade",
-      });
-    } else if (values.organizationType) {
+    if (values.organizationType === "") {
       setError("organizationType", {
         type: "manual",
         message: "Escolha um tipo",
       });
     }
+
     await api
       .post("/organizations/user", {
         user: {
@@ -94,6 +65,7 @@ export default function Register() {
           is_volunteer: false,
           avatar: values.avatarUser,
         },
+
         organization: {
           name: values.nameOrganization,
           email: values.emailOrganization,
@@ -108,16 +80,6 @@ export default function Register() {
             district: values.district,
             city_id: Number(values.cityId),
           },
-          phones: [
-            {
-              number: values.phone,
-              is_whatsapp: false,
-            },
-            {
-              number: values.cellphone,
-              is_whatsapp: values.isWhatsapp,
-            },
-          ],
         },
       })
       .then(async () => {
@@ -148,11 +110,9 @@ export default function Register() {
       });
   };
 
-  console.log(!!errors);
-
   return (
     <Box w="100%" minW={1440}>
-      <Header hasBackButton />
+      <Header />
       <Flex as="form" onSubmit={handleSubmit(handleCreateUser)}>
         <Stack spacing="5" justify="space-between" w={1160} mt={5} mx="auto">
           <Text fontSize="3xl">Cadastro de Organização</Text>
@@ -175,7 +135,7 @@ export default function Register() {
             setValue={setValue}
           />
           <Flex justify="center">
-            {!!errors && (
+            {Object.keys(errors).length > 0 && (
               <Text color="red">
                 Há Erros nos dados informados, revise e tente novamente
               </Text>
@@ -191,7 +151,6 @@ export default function Register() {
           </Flex>
         </Stack>
       </Flex>
-      <Footer />
     </Box>
   );
 }

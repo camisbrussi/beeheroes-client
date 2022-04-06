@@ -1,36 +1,35 @@
-import { HStack, Stack, Text, Image } from "@chakra-ui/react";
-
+import { HStack, Stack, Text, Image, Link, Tag, Flex } from "@chakra-ui/react";
+import { useContext } from "react";
+import { BooleanLocale } from "yup/lib/locale";
+import { User } from "../../@types/user";
+import { AuthContext } from "../../contexts/AuthContext";
 interface InfoUserProps {
-  data: InfoUser;
+  data: User;
+  isProfile?: boolean;
 }
 
-export type InfoUser = {
-  id?: string;
-  name: string;
-  email: string;
-  avatar_url: string;
-  is_volunteer: boolean;
-  address?: {
-    city: string;
-    uf: string;
-  };
-};
-
-export function User({ data }: InfoUserProps) {
+export function UserData({ data, isProfile }: InfoUserProps) {
+  const { user } = useContext(AuthContext);
   return (
     <HStack spacing="20" w={1160} mt={20} mx="auto">
       <Image
         boxSize="270px"
         objectFit="cover"
         borderRadius="full"
-        src={data?.avatar_url ? data?.avatar_url : "/images/user.svg"}
+        src={
+          data?.avatar
+            ? `${process.env.NEXT_PUBLIC_AWS_BUCKET_URL}/avatar/${data?.avatar}`
+            : "/images/user.svg"
+        }
         alt={data?.name}
       />
 
       <Stack>
-        <Text fontSize="5xl">{data?.name} </Text>{" "}
+        <Flex>
+          <Text fontSize="5xl">{data?.name} </Text>
+        </Flex>
         {data.is_volunteer ? (
-          <Stack direction="row" justify="center" align="center">
+          <Stack direction="row" justify="start" align="center">
             <Text fontSize="xl">Eu sou Voluntário</Text>
             <Image src="/images/logo.svg" alt="logo" m="auto" boxSize="50px" />
           </Stack>
@@ -48,9 +47,18 @@ export function User({ data }: InfoUserProps) {
         <Text fontSize="md">E-mail: {data?.email}</Text>
         {data?.address?.city && (
           <Text>
-            {data?.address?.city}/{data?.address?.uf}
+            {data?.address?.city?.name}/{data?.address?.city?.state?.uf}
           </Text>
         )}
+        <Flex justify="center">
+          {isProfile && (
+            <Link href={`/user/edit/${user?.id}`}>
+              <Tag mt={8} ml={3} colorScheme="yellow">
+                Editar dados
+              </Tag>
+            </Link>
+          )}
+        </Flex>
       </Stack>
     </HStack>
   );

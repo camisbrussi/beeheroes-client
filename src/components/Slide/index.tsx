@@ -15,9 +15,9 @@ export const Slide = ({ imagesUrl }: SlideInfoProps) => {
   return (
     <Flex
       w="100%"
-      maxW={1240}
+      maxW={1220}
       minW={1220}
-      h={["250px", "450px"]}
+      h={["200px", "300px"]}
       mx="auto"
       mb={["5", "10"]}
     >

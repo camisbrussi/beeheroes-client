@@ -1,18 +1,17 @@
 import { Box, Divider, Flex, Text } from "@chakra-ui/react";
+import { GetStaticPaths, GetStaticProps } from "next";
 
-import { Header } from "../components/Header";
-import { Loading } from "../components/Loading";
-import { api } from "../services/apiCLient";
-import { withSSRAuth } from "../utils/withSSRAuth";
-import { setupApiClient } from "../services/api";
-import { User } from "../@types/user";
-import { Volunteer } from "../@types/volunteer";
-import { Project } from "../@types/project";
-import { Organization } from "../@types/organization";
-import { UserData } from "../components/Infos/User";
-import { VolunteerData } from "../components/Infos/Volunteer";
-import { ListProjects } from "../components/ListProjects";
-import { OrganizationInfos } from "../components/Infos/Organizations";
+import { Organization } from "../../../@types/organization";
+import { Project } from "../../../@types/project";
+import { User } from "../../../@types/user";
+import { Volunteer } from "../../../@types/volunteer";
+import { Header } from "../../../components/Header";
+import { OrganizationInfos } from "../../../components/Infos/Organizations";
+import { UserData } from "../../../components/Infos/User";
+import { VolunteerData } from "../../../components/Infos/Volunteer";
+import { ListProjects } from "../../../components/ListProjects";
+import { Loading } from "../../../components/Loading";
+import { api } from "../../../services/apiCLient";
 
 interface ProfileProps {
   user: User;
@@ -36,22 +35,17 @@ export default function Profile({ profile }: Profile) {
           <>
             <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
               <Flex direction="column">
-                <UserData data={user} isProfile />
-                {volunteer && <VolunteerData data={volunteer} isProfile />}
+                <UserData data={user} />
+                {volunteer && <VolunteerData data={volunteer} />}
                 {project && <ListProjects data={project} />}
 
                 {organization && (
-                  <Box w={1160} mt={20} mx="auto" fontSize="lg">
-                    <Divider mt="20px" />
+                  <Box w={1160} mt={5} mx="auto" fontSize="lg">
                     <Text mt={5}>
                       Conheça a organização que sou responsavél
                     </Text>
 
-                    <OrganizationInfos
-                      data={organization}
-                      hasVisitButton
-                      isProfile
-                    />
+                    <OrganizationInfos data={organization} hasVisitButton />
                   </Box>
                 )}
               </Flex>
@@ -67,19 +61,24 @@ export default function Profile({ profile }: Profile) {
   }
 }
 
-export const getServerSideProps = withSSRAuth(async (ctx) => {
-  const apiCLient = setupApiClient(ctx);
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: true,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { slug } = params;
 
   let user: User;
   let volunteer: Volunteer;
   let project: Project[];
   let organization: Organization;
 
-  await apiCLient.get<User>(`/users/profile`).then((response) => {
+  await api.get<User>(`/users/find?id=${slug}`).then((response) => {
     user = response.data;
   });
-
-  console.log(user);
 
   if (user?.is_volunteer) {
     await api
@@ -99,8 +98,6 @@ export const getServerSideProps = withSSRAuth(async (ctx) => {
       .then((response) => {
         organization = response.data;
       });
-
-    console.log(organization);
   }
 
   const profile = [
@@ -111,7 +108,9 @@ export const getServerSideProps = withSSRAuth(async (ctx) => {
       organization: organization || null,
     },
   ];
+
   return {
-    props: { profile },
+    props: { profile: profile || [] },
+    revalidate: 60 * 60, // 1 hour,
   };
-});
+};

@@ -13,14 +13,14 @@ export function withSSRGuest<P>(fn: GetServerSideProps<P>) {
   ): Promise<GetServerSidePropsResult<P>> => {
     const cookies = parseCookies(ctx);
 
-    if (cookies["beeheroes.token"]) {
-      return {
-        redirect: {
-          destination: `/profile`,
-          permanent: false,
-        },
-      };
-    }
+    // if (cookies["beeheroes.token"]) {
+    //   return {
+    //     redirect: {
+    //       destination: `/profile`,
+    //       permanent: false,
+    //     },
+    //   };
+    // }
 
     return await fn(ctx);
   };

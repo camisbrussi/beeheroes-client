@@ -1,40 +1,31 @@
-import { HStack, Stack, Text, Image, Tag, Link } from "@chakra-ui/react";
+import { HStack, Stack, Text, Image, Tag, Link, Flex } from "@chakra-ui/react";
+import { useContext } from "react";
+import { OrganizationProps } from "../../@types/organization";
+import { Sidebar } from "../Sidebar";
 
 interface InfoOrganizationProps {
   hasVisitButton?: boolean;
-  data: InfoOrganization;
+  data: OrganizationProps;
+  isProfile?: boolean;
 }
 
-export type InfoOrganization = {
-  id?: string;
-  name: string;
-  description: string;
-  email: string;
-  cnpj: string;
-  avatar_url: string;
-  organization_type: organizationType;
-  address: {
-    city: string;
-    uf: string;
-  };
-};
-
-type organizationType = {
-  name: string;
-  description: string;
-};
-
-export function Organization({ hasVisitButton, data }: InfoOrganizationProps) {
+export function OrganizationInfos({
+  hasVisitButton = null,
+  data,
+  isProfile = null,
+}: InfoOrganizationProps) {
+  console.log(data);
   const slug = data?.id;
   return (
     <HStack spacing="20" justify="space-between" w={1160} mt={5} mx="auto">
       <Stack>
         <Text fontSize="5xl">
-          {data?.name}{" "}
+          {data?.name}
           {hasVisitButton && (
-            <Link href={`/organization/${slug}`}>
-              {" "}
-              <Tag mt={8}> Visitar Perfil </Tag>{" "}
+            <Link href={`/organization/view/${slug}`}>
+              <Tag mt={8} ml={3} colorScheme="yellow">
+                Visitar Perfil
+              </Tag>
             </Link>
           )}
           <Text fontSize="md">({data?.organization_type?.name}) </Text>
@@ -45,9 +36,18 @@ export function Organization({ hasVisitButton, data }: InfoOrganizationProps) {
         <Text fontSize="md">E-mail: {data?.email}</Text>
         {data?.address?.city && (
           <Text>
-            {data?.address?.city}/{data?.address?.uf}
+            {data?.address?.city.name}/{data?.address?.city?.state?.uf}
           </Text>
         )}
+        <Flex justify="center">
+          {isProfile && (
+            <Link href={`/organization/edit/${data?.id}`}>
+              <Tag mt={8} ml={3} colorScheme="yellow">
+                Editar dados
+              </Tag>
+            </Link>
+          )}
+        </Flex>
       </Stack>
 
       <Image
@@ -55,7 +55,11 @@ export function Organization({ hasVisitButton, data }: InfoOrganizationProps) {
         boxSize="250px"
         objectFit="cover"
         borderRadius="10"
-        src={data?.avatar_url ? data?.avatar_url : "/images/responsible.svg"}
+        src={
+          data?.avatar
+            ? `${process.env.NEXT_PUBLIC_AWS_BUCKET_URL}/avatar/${data?.avatar}`
+            : "/images/responsible.svg"
+        }
         alt={data?.name}
       />
     </HStack>
