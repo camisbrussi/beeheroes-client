@@ -1,8 +1,5 @@
 import { HStack, Stack, Text, Image, Tag, Link, Flex } from "@chakra-ui/react";
-import { useContext } from "react";
 import { OrganizationProps } from "../../@types/organization";
-import { Sidebar } from "../Sidebar";
-
 interface InfoOrganizationProps {
   hasVisitButton?: boolean;
   data: OrganizationProps;
@@ -14,7 +11,6 @@ export function OrganizationInfos({
   data,
   isProfile = null,
 }: InfoOrganizationProps) {
-  console.log(data);
   const slug = data?.id;
   return (
     <HStack spacing="20" justify="space-between" w={1160} mt={5} mx="auto">
@@ -22,7 +18,7 @@ export function OrganizationInfos({
         <Text fontSize="5xl">
           {data?.name}
           {hasVisitButton && (
-            <Link href={`/organization/view/${slug}`}>
+            <Link href={`/organization/${slug}`}>
               <Tag mt={8} ml={3} colorScheme="yellow">
                 Visitar Perfil
               </Tag>

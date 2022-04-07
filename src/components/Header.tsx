@@ -8,6 +8,7 @@ import {
   Button,
   IconButton,
   HStack,
+  Divider,
 } from "@chakra-ui/react";
 import { FiChevronLeft } from "react-icons/fi";
 import { useRouter } from "next/router";
@@ -17,8 +18,6 @@ import { RiMenuLine } from "react-icons/ri";
 import { Sidebar } from "./Sidebar";
 
 export function Header() {
-  const { onOpen } = useSidebarDrawer();
-  const router = useRouter();
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,
@@ -28,22 +27,15 @@ export function Header() {
     <HStack
       as="header"
       w="100%"
-      maxW={1440}
-      h={isWideVersion ? "100" : "50"}
+      h={isWideVersion ? "62" : "30"}
       mx="auto"
+      align="center"
+      px="6"
       justify="space-between"
-      mt="1"
+      borderBottom="1px"
+      borderColor="blue.600"
+      bg="blue.100"
     >
-      {!isWideVersion && (
-        <IconButton
-          aria-label="Open Navigation"
-          icon={<Icon as={RiMenuLine} />}
-          fontSize="24"
-          variant="unstyled"
-          onClick={onOpen}
-          mr="2"
-        ></IconButton>
-      )}
       <Link href="/" passHref={true}>
         <Flex
           w="100%"
@@ -51,11 +43,17 @@ export function Header() {
           align="center"
           // mx="auto"
         >
-          <Image src="/images/logo.svg" alt="logo" m="auto" boxSize="60px" />
+          <Image
+            src="/images/logo.svg"
+            alt="logo"
+            ml="auto"
+            mr={2}
+            boxSize={isWideVersion ? "40px" : "25px"}
+          />
 
           <Text
             as="b"
-            fontSize="2xl"
+            fontSize={isWideVersion ? "xl" : "xs"}
             color="brown.600"
             textShadow="2px 2px #D9A404"
           >

@@ -70,7 +70,7 @@ export default function SigIn() {
         bg="white"
         p="8"
         borderRadius={8}
-        m="100"
+        m={isWideVersion ? "60px" : "20px"}
         flexDir="column"
         onSubmit={handleSubmit(handleSignIn)}
       >

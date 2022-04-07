@@ -28,8 +28,6 @@ export default function CreateOrganization({
   const [organizationTypes, setOrganizationTypes] = useState();
   const [organizationTypeId, setOrganizationTypeId] = useState(null);
 
-  console.log(getValues("organizationTypeId"));
-
   useEffect(() => {
     organizationValue && setOrganizationTypeId(getValues("organizationTypeId"));
   }, [getValues, organizationValue]);

@@ -1,4 +1,4 @@
-import { Flex, Box, Text, Avatar, Link } from "@chakra-ui/react";
+import { Flex, Box, Text, Avatar, Link, Spacer } from "@chakra-ui/react";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 
@@ -27,9 +27,15 @@ export function ProfileMenu() {
             />
           </>
         ) : (
-          <Link href="/signin" fontWeight="bold">
-            Fazer Login
-          </Link>
+          <Flex>
+            <Link href="/signin" fontWeight="bold" p="4">
+              Fazer Login
+            </Link>
+            <Spacer />
+            <Link href="/signin" fontWeight="bold" p="4">
+              Fazer Cadastro
+            </Link>
+          </Flex>
         )}
       </Flex>
     </Link>

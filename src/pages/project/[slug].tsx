@@ -7,10 +7,14 @@ import {
   Divider,
   Flex,
   Icon,
+  Modal,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { AiOutlineCalendar, AiOutlineExclamationCircle } from "react-icons/ai";
 import moment from "moment";
+import { useContext } from "react";
+import Router from "next/router";
 
 import { Header } from "../../components/Header";
 import { api } from "../../services/apiCLient";
@@ -18,11 +22,12 @@ import { Button } from "../../components/Button";
 
 import { Loading } from "../../components/Loading";
 import { Project } from "../../@types/project";
-import { Subscription } from "../../@types/subscritptions";
+import { Subscription } from "../../@types/subscriptions";
 import { AddressData } from "../../components/Infos/Address";
-import OrganizationData from "../organization/view/[slug]";
 import { OrganizationInfos } from "../../components/Infos/Organizations";
 import { ProfileAvatar } from "../../components/ProfileAvatar";
+import { SubscriptionModal } from "../../components/modais/SubscriptionModal";
+import { AuthContext } from "../../contexts/AuthContext";
 
 interface ProjectProps {
   project: Project;
@@ -30,6 +35,9 @@ interface ProjectProps {
 }
 
 export default function User({ project, subscriptions }: ProjectProps) {
+  const { user } = useContext(AuthContext);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const startDate = moment(project?.start).format("DD/MM/YYYY, h:mm");
   const endDate = moment(project?.end).format("DD/MM/YYYY, h:mm");
 
@@ -97,7 +105,12 @@ export default function User({ project, subscriptions }: ProjectProps) {
                   </Text>
                 )}
               </Flex>
-              <Button title="Fazer Inscrição" />
+              {project?.total_subscription < project?.vacancies && (
+                <Button
+                  title="Fazer Inscrição"
+                  onClick={user ? onOpen : () => Router.push("/signin")}
+                />
+              )}
             </Stack>
             <Image
               ml="10px"
@@ -139,6 +152,9 @@ export default function User({ project, subscriptions }: ProjectProps) {
       ) : (
         <Loading />
       )}
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <SubscriptionModal projectId={project?.id} userId={user?.id} />
+      </Modal>
     </Box>
   );
 }

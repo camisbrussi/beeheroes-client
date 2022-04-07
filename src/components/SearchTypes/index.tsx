@@ -1,29 +1,35 @@
-import { HStack, Image } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Flex,
+  HStack,
+  Image,
+  SimpleGrid,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { Card } from "./Card";
 
 export function SearchTypes() {
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    lg: true,
+  });
   return (
-    <HStack spacing="20" align="left" w={1160} mt={20} mx="auto">
+    <SimpleGrid
+      minChildWidth={isWideVersion ? "100px" : "100px"}
+      spacingY={isWideVersion ? "40px" : "30px"}
+      spacingX={isWideVersion ? "40px" : "110px"}
+      ml={isWideVersion ? "40" : "75"}
+      mt={isWideVersion ? "10" : "60"}
+    >
       <Card
-        title="Busca por organização"
+        title="Organizações"
         image="/images/organization.svg"
         slug="organizations"
       />
-      <Card
-        title="Busca por projetos"
-        image="/images/project.svg"
-        slug="projects"
-      />
-      <Card
-        title="Busca por doações"
-        image="/images/donation.svg"
-        slug="donations"
-      />
-      <Card
-        title="Busca por voluntários"
-        image="/images/logo.svg"
-        slug="volunteers"
-      />
-    </HStack>
+      <Card title="Projetos" image="/images/project.svg" slug="projects" />
+      <Card title="Doações" image="/images/donation.svg" slug="donations" />
+      <Card title="Voluntários" image="/images/logo.svg" slug="volunteers" />
+    </SimpleGrid>
   );
 }

@@ -1,10 +1,10 @@
 import { Divider, Flex, Icon, Link, Text, Center } from "@chakra-ui/react";
 import { AiOutlineCalendar } from "react-icons/ai";
 import moment from "moment";
-import { ProjectProps } from ".";
+import { Project } from "../../@types/project";
 
 interface CardInfoProps {
-  data: ProjectProps;
+  data: Project;
 }
 
 export function Card({ data }: CardInfoProps) {
@@ -18,6 +18,7 @@ export function Card({ data }: CardInfoProps) {
       borderRadius="10"
       align="center"
       justify="center"
+      boxShadow="md"
     >
       <Link href={`/project/${data?.id}`}>
         <Center w="200px" h="100px">
@@ -51,9 +52,9 @@ export function Card({ data }: CardInfoProps) {
         <Divider mt="3" />
         <Flex align="center" justify="center" mt="2" mb="5">
           {data?.vacancies ? (
-            <Text fontSize="md">{data?.vacancies}</Text>
+            <Text fontSize="md">Vagas: {data?.vacancies}</Text>
           ) : (
-            <Text fontSize="md">Livre</Text>
+            <Text fontSize="md">Vagas: Livre</Text>
           )}
         </Flex>
       </Link>

@@ -9,13 +9,14 @@ export function Logo() {
   return (
     <Flex
       w="100%"
-      maxW={isWideVersion ? "500" : "200"}
+      maxW={isWideVersion ? "500" : "300"}
       mx="auto"
-      mt="60px"
+      mt={isWideVersion ? "60px" : "30px"}
       align="center"
       flexDir="column"
     >
       <Image
+        boxSize={isWideVersion ? "200" : "150"}
         src="/images/logo.svg"
         alt="logo"
         m="auto"

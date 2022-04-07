@@ -88,8 +88,6 @@ export default function EditOrganization({ organizationData }) {
       });
     }
 
-    console.log(organizationData?.name, values.name);
-
     let data: EditOrganizationFormData = {};
     organizationData?.name !== values.nameOrganization &&
       (data.name = values.nameOrganization);
@@ -114,8 +112,6 @@ export default function EditOrganization({ organizationData }) {
     organizationData?.cnpj !== values.cnpj && (data.cnpj = values.cnpj);
     organizationData?.description !== values.description &&
       (data.description = values.description);
-
-    console.log(data);
 
     await api
       .put(`/organizations?id=${organizationData.id}`, {

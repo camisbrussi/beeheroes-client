@@ -7,6 +7,7 @@ export type OrganizationProps = {
   id?: string;
   name: string;
   description: string;
+  status: number;
   email: string;
   cnpj: string;
   avatar: string;

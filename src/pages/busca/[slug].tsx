@@ -38,12 +38,11 @@ export default function Search({ slug }: SearchProps) {
         maxW={1150}
         direction="row"
         justify="space-between"
-        mt="10"
         mx="230px"
         left={["16px", "40px"]}
+        mt={10}
       >
         <Flex
-          as="label"
           flex="1"
           py="3"
           px="8"
@@ -68,7 +67,9 @@ export default function Search({ slug }: SearchProps) {
           />
           <Icon as={RiSearchLine} fontSize="20"></Icon>
         </Flex>
-        <Button title="Aplicar Filtro" />
+        <Flex mt={10}>
+          <Button title="Aplicar Filtro" />
+        </Flex>
       </Stack>
       <Box maxW="1240" h="100%" px={["4", "10"]}>
         <SimpleGrid

@@ -9,23 +9,20 @@ interface CardInfoProps {
 export function Card({ title, image, slug }: CardInfoProps) {
   return (
     <Flex
-      w="250px"
+      w="210px"
       h="220px"
-      mx={["auto", "0"]}
       bg="white"
       borderRadius="10"
       direction="column"
       align="center"
       justify="center"
       boxShadow="md"
-      p="6"
     >
       <Link href={`/busca/${slug}`}>
         <Image
+          boxSize="120px"
           src={image}
           alt={title}
-          w="120"
-          h="100"
           objectFit="cover"
           mx="auto"
           mt="20px"
@@ -38,6 +35,7 @@ export function Card({ title, image, slug }: CardInfoProps) {
           fontWeight="500"
           mb="20px"
           mt="20px"
+          align="center"
         >
           {title}
         </Text>

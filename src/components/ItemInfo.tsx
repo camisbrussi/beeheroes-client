@@ -3,7 +3,7 @@ import { Box, Flex, Heading, Image, Text, Link } from "@chakra-ui/react";
 export interface Item {
   id: number;
   name: string;
-  image_url: string;
+  avatar: string;
   city: string;
   uf: string;
 }
@@ -16,13 +16,17 @@ export function ItemInfo({ item }: ItemInfoProps) {
   const slug = item.id;
   return (
     <Link href={`/organization/${slug}`}>
-      <Box maxW="250px" bg="white" borderRadius="10" align="left">
+      <Box maxW="250px" bg="white" borderRadius="10" textAlign="left">
         <Image
           boxSize="250px"
           objectFit="cover"
           borderTopRadius="10"
-          src={item?.image_url ? item?.image_url : "/images/responsible.svg"}
-          alt={item.name}
+          src={
+            item?.avatar
+              ? `${process.env.NEXT_PUBLIC_AWS_BUCKET_URL}/avatar/${item?.avatar}`
+              : "/images/responsible.svg"
+          }
+          alt={item?.name}
         />
         <Flex
           justify="space-between"

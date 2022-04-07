@@ -2,7 +2,7 @@ import { Box, Spinner } from "@chakra-ui/react";
 
 export function Loading() {
   return (
-    <Box align="center" justify="center" mt={20}>
+    <Box alignItems="center" mt={20}>
       <Spinner
         thickness="4px"
         speed="0.65s"

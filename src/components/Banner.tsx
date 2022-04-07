@@ -4,7 +4,7 @@ import {
   Image,
   Text,
   useBreakpointValue,
-  HStack,
+  Stack,
 } from "@chakra-ui/react";
 import { LogoHorizontal } from "./LogoHorizontal";
 
@@ -15,8 +15,14 @@ export function Banner() {
   });
 
   return (
-    <HStack spacing="130" align="left" w={1160} mt={10} mx="auto">
-      <VStack spacing={4} align="left" px={["4", "10"]}>
+    <Flex
+      w="100%"
+      height={isWideVersion ? "335" : "170"}
+      align="center"
+      bg="url('/images/background.svg')"
+      p={isWideVersion ? "200" : "10"}
+    >
+      <VStack spacing={4} px={["4", "10"]} mt={isWideVersion ? "10" : "40"}>
         <LogoHorizontal />
         <Text
           fontSize="2xl"
@@ -38,13 +44,15 @@ export function Banner() {
           Seja voluntário e mude o mundo
         </Text>
       </VStack>
-      <Image
-        src="/images/workbee.svg"
-        alt="logo"
-        mt="10"
-        ml="60"
-        boxSize="300px"
-      />
-    </HStack>
+      {isWideVersion && (
+        <Image
+          src="/images/workbee.svg"
+          alt="logo"
+          mt={isWideVersion ? "38" : "40"}
+          ml="60"
+          boxSize="300px"
+        />
+      )}
+    </Flex>
   );
 }

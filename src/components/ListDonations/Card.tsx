@@ -21,9 +21,9 @@ export function Card({ data }: CardDonationInfoProps) {
       h="210px"
       bg="white"
       borderRadius="10"
-      borderColor="yellow.100"
       align="center"
       justify="center"
+      boxShadow="md"
     >
       <Link href={`/donation/${data?.id}`}>
         <Center w="200px" h="80px">

@@ -7,6 +7,8 @@ import { User } from "../../../@types/user";
 import { Volunteer } from "../../../@types/volunteer";
 import { Header } from "../../../components/Header";
 import { OrganizationInfos } from "../../../components/Infos/Organizations";
+import { OrganizationStatusInactive } from "../../../components/Infos/OrganizationStatusInactive";
+import { OrganizationStatusWait } from "../../../components/Infos/OrganizationStatusWait";
 import { UserData } from "../../../components/Infos/User";
 import { VolunteerData } from "../../../components/Infos/Volunteer";
 import { ListProjects } from "../../../components/ListProjects";
@@ -27,6 +29,18 @@ interface Profile {
 export default function Profile({ profile }: Profile) {
   if (profile) {
     const { user, volunteer, project, organization } = profile[0];
+
+    const organizationProps = () => {
+      if (organization.status === 1) {
+        return (
+          <OrganizationInfos data={organization} hasVisitButton isProfile />
+        );
+      } else if (organization.status === 2) {
+        <OrganizationStatusInactive />;
+      } else if (organization.status === 3) {
+        return <OrganizationStatusWait />;
+      }
+    };
     return (
       <Box w="100%" minW={1440}>
         <Header />
@@ -45,7 +59,7 @@ export default function Profile({ profile }: Profile) {
                       Conheça a organização que sou responsavél
                     </Text>
 
-                    <OrganizationInfos data={organization} hasVisitButton />
+                    {organizationProps()}
                   </Box>
                 )}
               </Flex>
