@@ -1,5 +1,4 @@
 import { Address } from "./address";
-import { OrganizationProps } from "./organization";
 
 export type Project = {
   id: string;
@@ -11,5 +10,22 @@ export type Project = {
   vacancies: number;
   total_subscription: number;
   address: Address;
-  organization: OrganizationProps;
+  organization_id: string;
+};
+
+export type CreateProjectFormData = {
+  name: string;
+  description: string;
+  start: Date;
+  end: Date;
+  vacancies: number;
+  organizationId: string;
+};
+
+export type EditProjectFormData = {
+  name?: string;
+  description?: string;
+  start?: Date;
+  end?: Date;
+  vacancies?: number;
 };

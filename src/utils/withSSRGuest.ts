@@ -4,8 +4,6 @@ import {
   GetServerSidePropsResult,
 } from "next";
 import { parseCookies } from "nookies";
-import { useContext } from "react";
-import { AuthContext } from "../contexts/AuthContext";
 
 export function withSSRGuest<P>(fn: GetServerSideProps<P>) {
   return async (

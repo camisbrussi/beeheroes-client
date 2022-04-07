@@ -8,19 +8,37 @@ import { OrganizationProps } from "../../@types/organization";
 import OrganizationStatusActive from "../../components/Infos/OrganizationStatusActive";
 import { OrganizationStatusInactive } from "../../components/Infos/OrganizationStatusInactive";
 import { OrganizationStatusWait } from "../../components/Infos/OrganizationStatusWait";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export interface Organizations {
   organization: OrganizationProps;
 }
 
 export default function OrganizationData({ organization }: Organizations) {
+  const { user } = useContext(AuthContext);
+
+  const isResponsible = organization?.responsibles?.map(
+    (responsible) => responsible.user_id === user?.id
+  );
+
   const organizationProps = () => {
     if (organization?.status === 1) {
-      return <OrganizationStatusActive organization={organization} />;
+      return (
+        <OrganizationStatusActive
+          organization={organization}
+          isResponsible={isResponsible}
+        />
+      );
     } else if (organization?.status === 2) {
       <OrganizationStatusInactive />;
     } else if (organization?.status === 3) {
-      return <OrganizationStatusWait />;
+      return (
+        <OrganizationStatusWait
+          organization={organization}
+          isResponsible={isResponsible}
+        />
+      );
     }
   };
 

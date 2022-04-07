@@ -9,6 +9,8 @@ import {
   Icon,
   Modal,
   useDisclosure,
+  Link,
+  Tag,
 } from "@chakra-ui/react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { AiOutlineCalendar, AiOutlineExclamationCircle } from "react-icons/ai";
@@ -28,14 +30,24 @@ import { OrganizationInfos } from "../../components/Infos/Organizations";
 import { ProfileAvatar } from "../../components/ProfileAvatar";
 import { SubscriptionModal } from "../../components/modais/SubscriptionModal";
 import { AuthContext } from "../../contexts/AuthContext";
+import { OrganizationProps } from "../../@types/organization";
 
 interface ProjectProps {
   project: Project;
   subscriptions: Subscription[];
+  organization: OrganizationProps;
 }
 
-export default function User({ project, subscriptions }: ProjectProps) {
+export default function User({
+  project,
+  subscriptions,
+  organization,
+}: ProjectProps) {
   const { user } = useContext(AuthContext);
+
+  const isResponsible = organization?.responsibles?.map(
+    (responsible) => responsible.user_id === user?.id
+  );
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const startDate = moment(project?.start).format("DD/MM/YYYY, h:mm");
@@ -105,11 +117,22 @@ export default function User({ project, subscriptions }: ProjectProps) {
                   </Text>
                 )}
               </Flex>
-              {project?.total_subscription < project?.vacancies && (
-                <Button
-                  title="Fazer Inscrição"
-                  onClick={user ? onOpen : () => Router.push("/signin")}
-                />
+
+              {isResponsible ? (
+                <Flex justify="center">
+                  <Link href={`/project/edit/${project?.id}`}>
+                    <Tag mt={8} ml={3} colorScheme="yellow">
+                      Editar dados
+                    </Tag>
+                  </Link>
+                </Flex>
+              ) : (
+                project?.total_subscription < project?.vacancies && (
+                  <Button
+                    title="Fazer Inscrição"
+                    onClick={user ? onOpen : () => Router.push("/signin")}
+                  />
+                )
               )}
             </Stack>
             <Image
@@ -134,7 +157,7 @@ export default function User({ project, subscriptions }: ProjectProps) {
             <Divider mt="20px" />
             <Text mt={5}>Organização Responsável pelo evento</Text>
 
-            <OrganizationInfos data={project?.organization} hasVisitButton />
+            <OrganizationInfos data={organization} hasVisitButton />
           </Box>
 
           <Box w={1160} mt={20} mx="auto" fontSize="lg">
@@ -169,12 +192,21 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   let project: Project;
   let subscriptions: Subscription[];
+  let organization: OrganizationProps;
 
   const { slug } = params;
 
   await api.get<Project>(`/projects/find/?id=${slug}`).then((response) => {
     project = response.data;
   });
+
+  await api
+    .get<OrganizationProps>(
+      `/organizations/find/?id=${project.organization_id}`
+    )
+    .then((response) => {
+      organization = response.data;
+    });
 
   await api
     .get<Subscription[]>(`/subscriptions/project/?id=${project.id}`)
@@ -186,6 +218,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       project,
       subscriptions,
+      organization,
     },
     revalidate: 60 * 60, // 1 hour,
   };

@@ -1,4 +1,4 @@
-import { Box, Divider, Flex, Text } from "@chakra-ui/react";
+import { Box, Divider, Flex, Link, Tag, Text } from "@chakra-ui/react";
 import { GetStaticPaths, GetStaticProps } from "next";
 
 import { Header } from "../../components/Header";
@@ -13,7 +13,10 @@ import { AddressData } from "../../components/Infos/Address";
 import { OrganizationInfos } from "../../components/Infos/Organizations";
 import { Organizations } from "../../pages/organization/[slug]";
 
-export default function OrganizationData({ organization }: Organizations) {
+export default function OrganizationData({
+  organization,
+  isResponsible = null,
+}) {
   return (
     <>
       {organization ? (
@@ -27,9 +30,16 @@ export default function OrganizationData({ organization }: Organizations) {
             direction="column"
           >
             <Slide imagesUrl={organization?.images_url} />
-            <OrganizationInfos data={organization} />
+            <OrganizationInfos
+              data={organization}
+              isResponsible={isResponsible}
+            />
             <AddressData data={organization?.address} />
-            <ListProjects data={organization?.projects} />
+            <ListProjects
+              data={organization?.projects}
+              organizationId={organization.id}
+              isResponsible={isResponsible}
+            />
             <ListDonations data={organization?.donations} />
             <Box w={1160} mt={20} mx="auto" fontSize="lg">
               <Divider mt="20px" />

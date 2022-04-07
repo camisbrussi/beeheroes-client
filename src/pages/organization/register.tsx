@@ -49,7 +49,7 @@ export default function Register() {
   const handleCreateUser: SubmitHandler<CreateOrganizationFormData> = async (
     values
   ) => {
-    if (values.organizationType === "") {
+    if (values.organizationTypeId === "") {
       setError("organizationType", {
         type: "manual",
         message: "Escolha um tipo",
@@ -71,7 +71,7 @@ export default function Register() {
           email: values.emailOrganization,
           description: values.description,
           cnpj: values.cnpj.replace(/[^0-9]/g, ""),
-          organization_type_id: values.organizationType,
+          organization_type_id: values.organizationTypeId,
           avatar: values.avatarOrganization,
           address: {
             street: values.street,

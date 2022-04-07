@@ -1,11 +1,10 @@
 import { HStack, Stack, Text, Image } from "@chakra-ui/react";
 
-export function OrganizationStatusInactive({ isProfile = null }) {
-  console.log(isProfile);
+export function OrganizationStatusInactive({ isResponsible = null }) {
   return (
     <HStack spacing="20" justify="space-between" w={1160} mx="auto">
       <Stack>
-        {isProfile ? (
+        {isResponsible ? (
           <>
             <Text fontSize="6xl">Até logo!</Text>
             <Text>Sua organização foi inativada!</Text>

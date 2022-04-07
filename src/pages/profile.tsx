@@ -35,15 +35,23 @@ export default function Profile({ profile }: Profile) {
   if (profile) {
     const { user, volunteer, project, organization } = profile[0];
 
+    const isResponsible = organization?.responsibles?.map(
+      (responsible) => responsible.user_id === user?.id
+    );
+
     const organizationProps = () => {
       if (organization?.status === 1) {
-        return (
-          <OrganizationInfos data={organization} hasVisitButton isProfile />
-        );
+        console.log("acessou");
+        return <OrganizationInfos data={organization} hasVisitButton />;
       } else if (organization?.status === 2) {
-        <OrganizationStatusInactive isProfile />;
+        <OrganizationStatusInactive isResponsible={isResponsible} />;
       } else if (organization?.status === 3) {
-        return <OrganizationStatusWait isProfile />;
+        return (
+          <OrganizationStatusWait
+            organization={organization}
+            isResponsible={isResponsible}
+          />
+        );
       }
     };
     return (
@@ -63,7 +71,7 @@ export default function Profile({ profile }: Profile) {
                     <Text mt={5}>
                       Conheça a organização que sou responsavél
                     </Text>
-                    {organizationProps}
+                    {organizationProps()}
                   </Box>
                 )}
               </Flex>
@@ -98,15 +106,11 @@ export const getServerSideProps = withSSRAuth(async (ctx) => {
         volunteer = response.data;
       });
 
-    console.log(volunteer);
-
     await api
       .get<Project[]>(`/subscriptions/user/?id=${volunteer.id}`)
       .then((response) => {
         project = response.data;
       });
-
-    console.log(project);
   } else {
     await api
       .get<Organization>(`/organizations/user/?id=${user.id}`)

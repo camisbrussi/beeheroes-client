@@ -3,13 +3,13 @@ import { OrganizationProps } from "../../@types/organization";
 interface InfoOrganizationProps {
   hasVisitButton?: boolean;
   data: OrganizationProps;
-  isProfile?: boolean;
+  isResponsible?: boolean;
 }
 
 export function OrganizationInfos({
   hasVisitButton = null,
   data,
-  isProfile = null,
+  isResponsible = null,
 }: InfoOrganizationProps) {
   const slug = data?.id;
   return (
@@ -36,7 +36,7 @@ export function OrganizationInfos({
           </Text>
         )}
         <Flex justify="center">
-          {isProfile && (
+          {isResponsible && (
             <Link href={`/organization/edit/${data?.id}`}>
               <Tag mt={8} ml={3} colorScheme="yellow">
                 Editar dados

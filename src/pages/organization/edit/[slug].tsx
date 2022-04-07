@@ -92,7 +92,7 @@ export default function EditOrganization({ organizationData }) {
     organizationData?.name !== values.nameOrganization &&
       (data.name = values.nameOrganization);
     organizationData?.email !== values.emailOrganization &&
-      (data.avatar = values.emailOrganization);
+      (data.email = values.emailOrganization);
     organizationData?.avatar !== values.avatarOrganization &&
       (data.avatar = values.avatarOrganization);
     organizationData?.organization_type?.id !== values.organizationTypeId &&
@@ -118,7 +118,7 @@ export default function EditOrganization({ organizationData }) {
         data,
       })
       .then(async () => {
-        Router.push(`/profile`);
+        Router.push(`/project/${organizationData.id}`);
       })
       .catch((error) => {
         if (error?.response?.data?.message) {
