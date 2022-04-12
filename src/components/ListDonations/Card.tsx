@@ -1,4 +1,4 @@
-import { Divider, Flex, Icon, Link, Text, Center } from "@chakra-ui/react";
+import { Divider, Flex, Icon, Link, Text, Center, Box } from "@chakra-ui/react";
 import { MdOutlineRealEstateAgent } from "react-icons/md";
 import { DonationProps } from ".";
 
@@ -16,43 +16,47 @@ export function Card({ data }: CardDonationInfoProps) {
     currency: "BRL",
   });
   return (
-    <Flex
-      w="250px"
-      h="210px"
+    <Box
+      w="xl"
+      borderWidth="1px"
+      borderRadius="lg"
+      overflow="hidden"
       bg="white"
-      borderRadius="10"
-      align="center"
-      justify="center"
       boxShadow="md"
+      p="6"
     >
-      <Link href={`/donation/${data?.id}`}>
-        <Center w="200px" h="80px">
-          <Text
-            align="center"
-            color="gray.500"
-            fontSize="lg"
-            fontWeight="500"
-            mb="20px"
-            mt="20px"
-          >
-            {data?.name}
-          </Text>
-        </Center>
+      <Box h="80px">
+        <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight">
+          <Link href={`/donation/${data?.id}`}>
+            <Text
+              align="center"
+              color="gray.500"
+              fontSize="lg"
+              fontWeight="500"
+              mb="20px"
+              mt="20px"
+            >
+              {data?.name}
+            </Text>
+          </Link>
+        </Box>
+      </Box>
+      <Box h="50px">
         {data?.total_value && (
           <Flex align="center" mt="2">
             <Icon as={MdOutlineRealEstateAgent} mx="2" color="green" />
             <Text fontSize="md">{value}</Text>
           </Flex>
         )}
-        <Divider mt="3" />
-        <Flex align="center" justify="center" mt="2" mb="5">
-          {data?.total_collected ? (
-            <Text fontSize="md">{collected} (Total Coletado)</Text>
-          ) : (
-            <Text fontSize="md">Em aberto</Text>
-          )}
-        </Flex>
-      </Link>
-    </Flex>
+      </Box>
+      <Divider mt="3" borderColor="blue.600" />
+      <Flex align="center" justify="center" mt="2" mb="5">
+        {data?.total_value ? (
+          <Text fontSize="sm">{collected} (Total Coletado)</Text>
+        ) : (
+          <Text fontSize="sm">Em Aberto</Text>
+        )}
+      </Flex>
+    </Box>
   );
 }

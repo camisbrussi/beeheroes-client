@@ -16,7 +16,6 @@ import { useRef } from "react";
 
 import { SideBarNav } from "./SidebarNav";
 import { CgMenuGridR } from "react-icons/cg";
-import { ProfileMenu } from "./ProfileMenu";
 import { RiMenuLine } from "react-icons/ri";
 
 export function Sidebar() {
@@ -29,22 +28,20 @@ export function Sidebar() {
 
   return (
     <>
-      <Flex justify="end" mt="10" mx="230px" left={["16px", "40px"]}>
-        {isWideVersion && <ProfileMenu />}
-        <IconButton
-          mx={5}
-          aria-label="Menu"
-          ref={btnRef}
+      <Flex mx="20px" left={["16px", "40px"]}>
+        <Button
+          aria-label="Open Navigation"
+          leftIcon={<Icon as={RiMenuLine} />}
+          fontSize="18px"
+          variant="unstyled"
           onClick={onOpen}
-          colorScheme={isWideVersion ? "yellow" : ""}
-          size="lg"
-          color="brown.600"
-          border-radius="full"
-          icon={<Icon as={RiMenuLine} mx={2} />}
-        />
+          mt="2"
+        >
+          {isWideVersion && "Menu"}
+        </Button>
       </Flex>
 
-      <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
+      <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
         <DrawerOverlay>
           <DrawerContent p="4">
             <DrawerCloseButton mt="6" />

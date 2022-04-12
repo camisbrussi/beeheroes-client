@@ -15,7 +15,7 @@ import { Logo } from "../components/Logo";
 import { Input } from "../components/FormsComponents/Input";
 import { Button } from "../components/Button";
 import { useContext } from "react";
-import { AuthContext } from "../contexts/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 import { GetServerSideProps } from "next";
 import { withSSRGuest } from "../utils/withSSRGuest";
 import { Header } from "../components/Header";

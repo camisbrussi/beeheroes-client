@@ -1,4 +1,3 @@
-import { Address } from "./address";
 import { OrganizationProps } from "./organization";
 
 export type Donation = {
@@ -8,6 +7,24 @@ export type Donation = {
   total_value: number;
   total_collected: number;
   status: number;
-  address: Address;
-  organization: OrganizationProps;
+  organization_id: string;
+};
+
+export type CreateDonationFormData = {
+  id: string;
+  name: string;
+  description: string;
+  totalValue: number;
+  totalCollected?: number;
+  status: number;
+  organizationId: string;
+};
+
+export type EditDonationFormData = {
+  id?: string;
+  name?: string;
+  description?: string;
+  total_value?: number;
+  total_collected?: number;
+  status?: number;
 };

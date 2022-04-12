@@ -92,6 +92,7 @@ export default function CreateProject({
         <Textarea
           name="description"
           label="Descrição"
+          info="Adicione na descrição a orientação necessária para o voluntário que quer participar do projeto"
           error={errors.description}
           {...register("description")}
         />

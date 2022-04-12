@@ -11,7 +11,7 @@ import {
   RiLogoutCircleLine,
   RiHeart3Line,
 } from "react-icons/ri";
-import { AuthContext } from "../../contexts/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import { NavLink } from "./NavLink";
 import { NavSection } from "./NavSection";
 
@@ -50,16 +50,16 @@ export function SideBarNav() {
       </NavSection>
 
       <NavSection title="BUSCAS">
-        <NavLink icon={RiOpenArmLine} href="/busca/organizations">
+        <NavLink icon={RiOpenArmLine} href="/busca/organizations?status=1">
           Organizações
         </NavLink>
-        <NavLink icon={RiFundsLine} href="/busca/projects">
+        <NavLink icon={RiFundsLine} href="/busca/projects?status=1">
           Projetos
         </NavLink>
-        <NavLink icon={RiHandHeartLine} href="/busca/donations">
+        <NavLink icon={RiHandHeartLine} href="/busca/donations?status=1">
           Doações
         </NavLink>
-        <NavLink icon={RiParentLine} href="/busca/volunteers">
+        <NavLink icon={RiParentLine} href="/busca/volunteers?status=1">
           Voluntários
         </NavLink>
       </NavSection>

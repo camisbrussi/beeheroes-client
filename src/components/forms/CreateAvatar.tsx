@@ -72,7 +72,7 @@ export default function CreateUser({
         setProgress(0);
       }
     },
-    [getValues, name, setError, setValue]
+    [name, setError, setValue]
   );
   return (
     <Stack>

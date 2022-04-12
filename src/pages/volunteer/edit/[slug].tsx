@@ -20,7 +20,7 @@ interface EditVolunteerProps {
   volunteerData: Volunteer;
 }
 
-const createUserFormSchema = yup.object().shape({
+const createVolunteerFormSchema = yup.object().shape({
   occupationAreaId: yup.string(),
 });
 
@@ -34,7 +34,7 @@ export default function EditVolunteer({ volunteerData }: EditVolunteerProps) {
     getValues,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(createUserFormSchema),
+    resolver: yupResolver(createVolunteerFormSchema),
   });
 
   useEffect(() => {

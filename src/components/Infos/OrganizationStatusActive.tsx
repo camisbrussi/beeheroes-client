@@ -11,7 +11,6 @@ import { ProfileAvatar } from "../../components/ProfileAvatar";
 import { Slide } from "../../components/Slide";
 import { AddressData } from "../../components/Infos/Address";
 import { OrganizationInfos } from "../../components/Infos/Organizations";
-import { Organizations } from "../../pages/organization/[slug]";
 
 export default function OrganizationData({
   organization,
@@ -40,9 +39,13 @@ export default function OrganizationData({
               organizationId={organization.id}
               isResponsible={isResponsible}
             />
-            <ListDonations data={organization?.donations} />
+            <ListDonations
+              data={organization?.donations}
+              organizationId={organization.id}
+              isResponsible={isResponsible}
+            />
             <Box w={1160} mt={20} mx="auto" fontSize="lg">
-              <Divider mt="20px" />
+              <Divider mt="20px" borderColor="blue.600" />
               <Text mt={5}>Responsáveis pela organização</Text>
 
               {organization?.responsibles?.map((responsible) => (

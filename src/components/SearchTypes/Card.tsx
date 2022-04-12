@@ -18,7 +18,7 @@ export function Card({ title, image, slug }: CardInfoProps) {
       justify="center"
       boxShadow="md"
     >
-      <Link href={`/busca/${slug}`}>
+      <Link href={`/busca/${slug}?status=1`}>
         <Image
           boxSize="120px"
           src={image}
@@ -28,7 +28,7 @@ export function Card({ title, image, slug }: CardInfoProps) {
           mt="20px"
           mb="20px"
         />
-        <Divider />
+        <Divider borderColor="blue.600" />
         <Text
           color="gray.500"
           fontSize="md"

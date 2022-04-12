@@ -11,25 +11,18 @@ import { api } from "../../../services/apiCLient";
 
 import { Organization } from "../../../@types/organization";
 import { withSSRAuth } from "../../../utils/withSSRAuth";
-import { EditProjectFormData } from "../../../@types/project";
-import CreateProject from "../../../components/forms/CreateProject";
+import {
+  CreateDonationFormData,
+  EditDonationFormData,
+} from "../../../@types/donation";
+import CreateDonation from "../../../components/forms/CreateDonation";
 
-const createProjectFormSchema = yup.object().shape({
+const createDonationFormSchema = yup.object().shape({
   name: yup.string().required("Nome obrigatório"),
-  description: yup.string().required("Descrição do projeto obrigatória"),
-  start: yup.date().required("Data de início obrigatória"),
-  end: yup
-    .date()
-    .min(
-      yup.ref("start"),
-      "Data de término deve ser maior que a data de início"
-    ),
-  vacancies: yup
-    .number()
-    .required("Caso não houver limite de vagas preencha com 0"),
+  description: yup.string().required("Descrição da Doação é obrigatória"),
 });
 
-export default function EditProject({ projectData }) {
+export default function EditDonation({ donationData }) {
   const {
     register,
     handleSubmit,
@@ -38,47 +31,50 @@ export default function EditProject({ projectData }) {
     getValues,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(createProjectFormSchema),
+    resolver: yupResolver(createDonationFormSchema),
   });
-
-  console.log(projectData);
-
   useEffect(() => {
-    setValue("name", projectData?.name, {
+    setValue("name", donationData?.name, {
       shouldValidate: true,
     });
-    setValue("description", projectData?.description, {
-      shouldValidate: true,
-    });
-    setValue("start", projectData?.start || "", {
-      shouldValidate: true,
-    });
-    setValue("end", projectData?.end || "", {
-      shouldValidate: true,
-    });
-    setValue("vacancies", projectData?.vacancies || "", {
-      shouldValidate: true,
-    });
-  }, [projectData, setValue]);
 
-  const handleEditVolunteer: SubmitHandler<EditProjectFormData> = async (
+    setValue("description", donationData?.description, {
+      shouldValidate: true,
+    });
+    setValue("totalValue", donationData?.total_value, {
+      shouldValidate: true,
+    });
+    setValue("totalCollected", donationData?.total_collected, {
+      shouldValidate: true,
+    });
+    setValue("status", donationData?.status, {
+      shouldValidate: true,
+    });
+  }, [donationData, setValue]);
+
+  const handleEditVolunteer: SubmitHandler<CreateDonationFormData> = async (
     values
   ) => {
-    let data: EditProjectFormData = {};
-    projectData?.name !== values.name && (data.name = values.name);
-    projectData?.description !== values.description &&
+    console.log(donationData.total_collected);
+    console.log(values);
+    let data: EditDonationFormData = {};
+    donationData?.name !== values.name && (data.name = values.name);
+    donationData?.description !== values.description &&
       (data.description = values.description);
-    projectData?.start !== values.start && (data.start = values.start);
-    projectData?.end !== values.end && (data.end = values.end);
-    projectData?.vacancies !== values.vacancies &&
-      (data.vacancies = values.vacancies);
+    donationData?.total_value !== values.totalValue &&
+      (data.total_value = values.totalValue);
+    donationData?.total_collected !== values.totalCollected &&
+      (data.total_collected = values.totalCollected);
+    donationData?.status !== values.status && (data.status = values.status);
+
+    console.log("data", data);
 
     await api
-      .put(`/projects?id=${projectData.id}`, {
+      .put(`/donations?id=${donationData.id}`, {
         data,
       })
       .then(async () => {
-        Router.push(`/project/${projectData.id}`);
+        Router.push(`/donation/${donationData.id}`);
       })
       .catch((error) => {
         console.log(error);
@@ -90,12 +86,13 @@ export default function EditProject({ projectData }) {
       <Header />
       <Flex as="form" onSubmit={handleSubmit(handleEditVolunteer)}>
         <Stack spacing="5" justify="space-between" w={1160} mt={5} mx="auto">
-          <Text fontSize="3xl">Edição dos dados do Projeto</Text>
-          <CreateProject
+          <Text fontSize="3xl">Edição dos dados da Solicitação de Doação</Text>
+          <CreateDonation
             register={register}
             errors={errors}
             getValues={getValues}
             setValue={setValue}
+            isEdit
           />
           <Flex justify="center">
             {Object.keys(errors).length > 0 && (
@@ -119,14 +116,14 @@ export default function EditProject({ projectData }) {
 }
 
 export const getServerSideProps = withSSRAuth(async (ctx) => {
-  let projectData = null;
+  let donationData = null;
   const { slug } = ctx.params;
 
-  await api.get<Organization>(`/projects/find?id=${slug}`).then((response) => {
-    projectData = response.data;
+  await api.get<Organization>(`/donations/find?id=${slug}`).then((response) => {
+    donationData = response.data;
   });
 
   return {
-    props: { projectData },
+    props: { donationData },
   };
 }, {});

@@ -15,9 +15,15 @@ export function ListProjects({
 }: ListProjectsProps) {
   return (
     <Box w={1160} mt={20} mx="auto" fontSize="lg">
-      <Divider />
+      <Divider borderColor="blue.600" />
       <Flex>
         <Text mt={8}>Projetos em andamento</Text>
+        <Link href={`/project/list/${organizationId}`}>
+          <Tag mt={8} ml={3} colorScheme="yellow">
+            Ver Todos
+          </Tag>
+        </Link>
+
         {isResponsible && (
           <Link href={`/project/register/${organizationId}`}>
             <Tag mt={8} ml={3} colorScheme="yellow">

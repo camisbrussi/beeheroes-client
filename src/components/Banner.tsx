@@ -16,11 +16,12 @@ export function Banner() {
 
   return (
     <Flex
-      w="100%"
-      height={isWideVersion ? "335" : "170"}
+      w="100vw"
+      height={isWideVersion ? "300" : "170"}
       align="center"
       bg="url('/images/background.svg')"
-      p={isWideVersion ? "200" : "10"}
+      justify="center"
+      ml={!isWideVersion && "100"}
     >
       <VStack spacing={4} px={["4", "10"]} mt={isWideVersion ? "10" : "40"}>
         <LogoHorizontal />

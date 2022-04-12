@@ -8,6 +8,8 @@ import {
   Flex,
   Icon,
   Spinner,
+  Link,
+  Tag,
 } from "@chakra-ui/react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { RiHandCoinLine } from "react-icons/ri";
@@ -15,15 +17,23 @@ import { RiHandCoinLine } from "react-icons/ri";
 import { Header } from "../../components/Header";
 import { api } from "../../services/apiCLient";
 import { Button } from "../../components/Button";
-import { AddressData } from "../../components/Infos/Address";
 import { Loading } from "../../components/Loading";
 import { Donation } from "../../@types/donation";
 import { OrganizationInfos } from "../../components/Infos/Organizations";
+import { OrganizationProps } from "../../@types/organization";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 interface DonationProps {
   donation: Donation;
+  organization: OrganizationProps;
 }
 
-export default function DonationData({ donation }: DonationProps) {
+export default function DonationData({
+  donation,
+  organization,
+}: DonationProps) {
+  const { user } = useContext(AuthContext);
+
   const value = donation?.total_value?.toLocaleString("pt-br", {
     style: "currency",
     currency: "BRL",
@@ -33,6 +43,21 @@ export default function DonationData({ donation }: DonationProps) {
     style: "currency",
     currency: "BRL",
   });
+
+  const isResponsible = organization?.responsibles?.map(
+    (responsible) => responsible.user_id === user?.id
+  );
+
+  const statusDonation = (status) => {
+    switch (status) {
+      case 1:
+        return "Ativa";
+      case 2:
+        return "Finalizada";
+      case 3:
+        return "Suspensa";
+    }
+  };
 
   return (
     <Box w="100%" minW={1440}>
@@ -52,6 +77,9 @@ export default function DonationData({ donation }: DonationProps) {
               </Text>
 
               <Text fontSize="lg">{donation?.description}</Text>
+              <Text as="h1" fontSize="md" m={3}>
+                status: {statusDonation(donation?.status)}
+              </Text>
               <Flex align="center">
                 <Icon as={RiHandCoinLine} mx="2" />
                 <Text fontSize="md">{value}</Text>
@@ -70,7 +98,15 @@ export default function DonationData({ donation }: DonationProps) {
                   (Valor arrecadado)
                 </Text>
               </Flex>
-              <Button title="Fazer Doação" />
+              {isResponsible && (
+                <Flex justify="center">
+                  <Link href={`/donation/edit/${donation?.id}`}>
+                    <Tag mt={8} ml={3} colorScheme="yellow">
+                      Editar dados
+                    </Tag>
+                  </Link>
+                </Flex>
+              )}
             </Stack>
             <Image
               ml="10px"
@@ -78,24 +114,15 @@ export default function DonationData({ donation }: DonationProps) {
               borderRadius="10"
               src="/images/donationlogo.svg"
               alt="Favo de mel com um desenho de coração no meio e flores"
+              boxSize="300px"
             />
           </HStack>
 
-          {donation?.address && (
-            <Box w={1160} mt={20} mx="auto" fontSize="lg">
-              <Divider mt="20px" />
-              <Text mt={5} mb={5}>
-                Local Da coleta
-              </Text>
-              <AddressData data={donation?.address} />
-            </Box>
-          )}
-
           <Box w={1160} mt={20} mx="auto" fontSize="lg">
-            <Divider mt="20px" />
+            <Divider mt="20px" borderColor="blue.600" />
             <Text mt={5}>Organização Responsável pela solicitação</Text>
 
-            <OrganizationInfos data={donation?.organization} hasVisitButton />
+            <OrganizationInfos data={organization} hasVisitButton />
           </Box>
         </>
       ) : (
@@ -114,6 +141,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   let donation: Donation;
+  let organization: OrganizationProps;
 
   const { slug } = params;
 
@@ -121,9 +149,18 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     donation = response.data;
   });
 
+  await api
+    .get<OrganizationProps>(
+      `/organizations/find/?id=${donation.organization_id}`
+    )
+    .then((response) => {
+      organization = response.data;
+    });
+
   return {
     props: {
       donation,
+      organization,
     },
     revalidate: 60 * 60, // 1 hour,
   };

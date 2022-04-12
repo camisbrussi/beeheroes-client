@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { Can } from "../components/Can";
-import { AuthContext } from "../contexts/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 import { useCan } from "../hooks/useCan";
 import { setupApiClient } from "../services/api";
 

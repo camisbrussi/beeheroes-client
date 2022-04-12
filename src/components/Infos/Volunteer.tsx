@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { useContext } from "react";
 import { Volunteer } from "../../@types/volunteer";
-import { AuthContext } from "../../contexts/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 
 interface InfoUserProps {
   data: Volunteer;

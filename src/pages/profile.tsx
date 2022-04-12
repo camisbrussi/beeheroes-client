@@ -67,7 +67,7 @@ export default function Profile({ profile }: Profile) {
 
                 {organization && (
                   <Box w={1160} mt={20} mx="auto" fontSize="lg">
-                    <Divider mt="20px" />
+                    <Divider mt="20px" borderColor="blue.600" />
                     <Text mt={5}>
                       Conheça a organização que sou responsavél
                     </Text>

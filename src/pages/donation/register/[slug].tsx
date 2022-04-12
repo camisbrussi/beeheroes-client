@@ -9,21 +9,12 @@ import { api } from "../../../services/apiCLient";
 import { CreateProjectFormData } from "../../../@types/project";
 import Router from "next/router";
 import { withSSRAuth } from "../../../utils/withSSRAuth";
-import CreateProject from "../../../components/forms/CreateProject";
+import CreateDonation from "../../../components/forms/CreateDonation";
+import { CreateDonationFormData } from "../../../@types/donation";
 
-const createProjectFormSchema = yup.object().shape({
+const createDonationFormSchema = yup.object().shape({
   name: yup.string().required("Nome obrigatório"),
-  description: yup.string().required("Descrição do projeto obrigatória"),
-  start: yup.date().required("Data de início obrigatória"),
-  end: yup
-    .date()
-    .min(
-      yup.ref("start"),
-      "Data de término deve ser maior que a data de início"
-    ),
-  vacancies: yup
-    .number()
-    .required("Caso não houver limite de vagas preencha com 0"),
+  description: yup.string().required("Descrição da Doação é obrigatória"),
 });
 
 export default function Register({ slug }) {
@@ -33,26 +24,24 @@ export default function Register({ slug }) {
     formState,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(createProjectFormSchema),
+    resolver: yupResolver(createDonationFormSchema),
   });
 
-  const handleCreateProject: SubmitHandler<CreateProjectFormData> = async (
-    values
-  ) => {
-    let project;
+  const handleCreateOrganization: SubmitHandler<
+    CreateDonationFormData
+  > = async (values) => {
+    let donation;
 
     await api
-      .post("/projects", {
+      .post("/donations", {
         name: values.name,
         description: values.description,
-        start: values.start,
-        end: values.end,
-        vacancies: values.vacancies,
+        total_value: values.totalValue,
         organization_id: slug,
       })
       .then(async (response) => {
-        project = response.data;
-        Router.push(`/project/${project.id}`);
+        donation = response.data;
+        Router.push(`/donation/${donation.id}`);
       })
       .catch((error) => {
         console.log(error);
@@ -62,11 +51,11 @@ export default function Register({ slug }) {
   return (
     <Box w="100%" minW={1440}>
       <Header />
-      <Flex as="form" onSubmit={handleSubmit(handleCreateProject)}>
+      <Flex as="form" onSubmit={handleSubmit(handleCreateOrganization)}>
         <Stack spacing="5" justify="space-between" w={1160} mt={5} mx="auto">
-          <Text fontSize="3xl">Cadastro de Projeto</Text>
+          <Text fontSize="3xl">Cadastro de Doação</Text>
 
-          <CreateProject register={register} errors={errors} />
+          <CreateDonation register={register} errors={errors} />
           <Flex justify="center">
             {Object.keys(errors).length > 0 && (
               <Text color="red">

@@ -1,4 +1,14 @@
-import { Box, SimpleGrid, Stack, Icon, Flex, Input } from "@chakra-ui/react";
+import {
+  Box,
+  SimpleGrid,
+  Stack,
+  Icon,
+  Flex,
+  Input,
+  useDisclosure,
+  Modal,
+  Link,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
 import debounce from "lodash/debounce";
@@ -7,29 +17,34 @@ import { Header } from "../../components/Header";
 import { Item, ItemInfo } from "../../components/ItemInfo";
 import { api } from "../../services/apiCLient";
 import { withSSRGuest } from "../../utils/withSSRGuest";
+import { FilterModal } from "../../components/modais/FilterModal";
 
 interface SearchProps {
   slug: string;
+  query: any;
 }
 
 // TODO: aplicar lodash da forma correta para não fazer requisição para o back a cada letra digitada
 
-export default function Search({ slug }: SearchProps) {
+export default function Search({ slug, query }: SearchProps) {
   const [search, setSearch] = useState("");
   const [items, setItems] = useState([]);
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   useEffect(() => {
     async function fetchData() {
+      query.name = search;
       await api
         .post<Item[]>(`/${slug}/filter`, {
-          name: search,
+          query,
         })
         .then((response) => {
           setItems(response.data);
         });
     }
     fetchData();
-  }, [search, slug]);
+  }, [query, search, slug]);
 
   return (
     <Box w="100%" minW={1440} align="center">
@@ -42,6 +57,12 @@ export default function Search({ slug }: SearchProps) {
         left={["16px", "40px"]}
         mt={10}
       >
+        <Flex mt={10}>
+          <Button title="Criar Filtro" onClick={onOpen} />
+          <Link href={`/busca/${slug}?status=1`} fontWeight="bold" p="4">
+            Limpar Filtro
+          </Link>
+        </Flex>
         <Flex
           flex="1"
           py="3"
@@ -67,9 +88,6 @@ export default function Search({ slug }: SearchProps) {
           />
           <Icon as={RiSearchLine} fontSize="20"></Icon>
         </Flex>
-        <Flex mt={10}>
-          <Button title="Aplicar Filtro" />
-        </Flex>
       </Stack>
       <Box maxW="1240" h="100%" px={["4", "10"]}>
         <SimpleGrid
@@ -83,16 +101,21 @@ export default function Search({ slug }: SearchProps) {
           ))}
         </SimpleGrid>
       </Box>
+      <Modal isOpen={isOpen} onClose={onClose} size="xl">
+        <FilterModal onClose={onClose} slug={slug} />
+      </Modal>
     </Box>
   );
 }
 
 export const getServerSideProps = withSSRGuest(async (ctx) => {
+  const { query } = ctx;
   const { slug } = ctx.params;
 
   return {
     props: {
       slug,
+      query,
     },
   };
 });

@@ -10,10 +10,10 @@ import CreateUser from "../../components/forms/CreateUser";
 import { Header } from "../../components/Header";
 import { api } from "../../services/apiCLient";
 import { useContext } from "react";
-import { AuthContext } from "../../contexts/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import { CreateOrganizationFormData } from "../../@types/organization";
 
-const createUserFormSchema = yup.object().shape({
+const createOrganizationFormSchema = yup.object().shape({
   name: yup.string().required("Nome obrigatório"),
   email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
   password: yup
@@ -43,12 +43,12 @@ export default function Register() {
     setValue,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(createUserFormSchema),
+    resolver: yupResolver(createOrganizationFormSchema),
   });
 
-  const handleCreateUser: SubmitHandler<CreateOrganizationFormData> = async (
-    values
-  ) => {
+  const handleCreateOrganization: SubmitHandler<
+    CreateOrganizationFormData
+  > = async (values) => {
     if (values.organizationTypeId === "") {
       setError("organizationType", {
         type: "manual",
@@ -113,7 +113,7 @@ export default function Register() {
   return (
     <Box w="100%" minW={1440}>
       <Header />
-      <Flex as="form" onSubmit={handleSubmit(handleCreateUser)}>
+      <Flex as="form" onSubmit={handleSubmit(handleCreateOrganization)}>
         <Stack spacing="5" justify="space-between" w={1160} mt={5} mx="auto">
           <Text fontSize="3xl">Cadastro de Organização</Text>
 

@@ -25,11 +25,10 @@ import { Button } from "../../components/Button";
 import { Loading } from "../../components/Loading";
 import { Project } from "../../@types/project";
 import { Subscription } from "../../@types/subscriptions";
-import { AddressData } from "../../components/Infos/Address";
 import { OrganizationInfos } from "../../components/Infos/Organizations";
 import { ProfileAvatar } from "../../components/ProfileAvatar";
 import { SubscriptionModal } from "../../components/modais/SubscriptionModal";
-import { AuthContext } from "../../contexts/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import { OrganizationProps } from "../../@types/organization";
 
 interface ProjectProps {
@@ -143,25 +142,16 @@ export default function User({
               alt="Desenho de uma abelha carregando mel em seu carrinho"
             />
           </HStack>
-          {project?.address && (
-            <Box w={1160} mt={20} mx="auto" fontSize="lg">
-              <Divider mt="20px" />
-              <Text mt={5} mb={5}>
-                Local Do evento
-              </Text>
-              <AddressData data={project?.address} />
-            </Box>
-          )}
 
           <Box w={1160} mt={20} mx="auto" fontSize="lg">
-            <Divider mt="20px" />
+            <Divider mt="20px" borderColor="blue.600" />
             <Text mt={5}>Organização Responsável pelo evento</Text>
 
             <OrganizationInfos data={organization} hasVisitButton />
           </Box>
 
           <Box w={1160} mt={20} mx="auto" fontSize="lg">
-            <Divider mt="20px" />
+            <Divider mt="20px" borderColor="blue.600" />
             <Text mt={5}>Voluntários aceitos no projeto</Text>
 
             {subscriptions?.map((subscription) => (

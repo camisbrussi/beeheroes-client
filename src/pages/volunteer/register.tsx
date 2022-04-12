@@ -8,12 +8,12 @@ import CreateUser from "../../components/forms/CreateUser";
 import { Header } from "../../components/Header";
 import { api } from "../../services/apiCLient";
 import { useContext } from "react";
-import { AuthContext } from "../../contexts/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import CreateVolunteer from "../../components/forms/CreateVolunteer";
 import CreateAddressUser from "../../components/forms/CreateAddressUser";
 import { CreateVolunteerFormData } from "../../@types/volunteer";
 
-const createUserFormSchema = yup.object().shape({
+const createVolunteerFormSchema = yup.object().shape({
   name: yup.string().required("Nome obrigatório"),
   email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
   password: yup
@@ -37,10 +37,10 @@ export default function RegisterVolunteer() {
     getValues,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(createUserFormSchema),
+    resolver: yupResolver(createVolunteerFormSchema),
   });
 
-  const handleCreateUser: SubmitHandler<CreateVolunteerFormData> = async (
+  const handleCreateVolunteer: SubmitHandler<CreateVolunteerFormData> = async (
     values
   ) => {
     if (values.cityId) {
@@ -92,7 +92,7 @@ export default function RegisterVolunteer() {
   return (
     <Box w="100%" minW={1440}>
       <Header />
-      <Flex as="form" onSubmit={handleSubmit(handleCreateUser)}>
+      <Flex as="form" onSubmit={handleSubmit(handleCreateVolunteer)}>
         <Stack spacing="5" justify="space-between" w={1160} mt={5} mx="auto">
           <Text fontSize="3xl">Cadastro de Voluntário</Text>
           <CreateUser
@@ -101,7 +101,11 @@ export default function RegisterVolunteer() {
             setValue={setValue}
             setError={setError}
           />
-          <CreateVolunteer register={register} errors={errors} />
+          <CreateVolunteer
+            register={register}
+            errors={errors}
+            setValue={setValue}
+          />
           <CreateAddressUser
             register={register}
             errors={errors}

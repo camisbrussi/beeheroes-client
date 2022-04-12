@@ -18,7 +18,7 @@ import {
 import { withSSRAuth } from "../../../utils/withSSRAuth";
 import CreateOrganization from "../../../components/forms/CreateOrganization";
 
-const createUserFormSchema = yup.object().shape({
+const createOrganizationFormSchema = yup.object().shape({
   nameOrganization: yup.string().required("Nome obrigatório"),
   emailOrganization: yup
     .string()
@@ -38,7 +38,7 @@ export default function EditOrganization({ organizationData }) {
     getValues,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(createUserFormSchema),
+    resolver: yupResolver(createOrganizationFormSchema),
   });
 
   useEffect(() => {

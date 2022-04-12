@@ -1,12 +1,4 @@
-import {
-  Box,
-  Center,
-  Flex,
-  HStack,
-  Image,
-  SimpleGrid,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import { SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
 import { Card } from "./Card";
 
 export function SearchTypes() {
@@ -16,11 +8,11 @@ export function SearchTypes() {
   });
   return (
     <SimpleGrid
-      minChildWidth={isWideVersion ? "100px" : "100px"}
+      minChildWidth="100px"
       spacingY={isWideVersion ? "40px" : "30px"}
       spacingX={isWideVersion ? "40px" : "110px"}
-      ml={isWideVersion ? "40" : "75"}
-      mt={isWideVersion ? "10" : "60"}
+      mt={isWideVersion ? "20" : "60"}
+      ml={100}
     >
       <Card
         title="Organizações"

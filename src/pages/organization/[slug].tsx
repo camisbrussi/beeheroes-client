@@ -9,7 +9,7 @@ import OrganizationStatusActive from "../../components/Infos/OrganizationStatusA
 import { OrganizationStatusInactive } from "../../components/Infos/OrganizationStatusInactive";
 import { OrganizationStatusWait } from "../../components/Infos/OrganizationStatusWait";
 import { useContext } from "react";
-import { AuthContext } from "../../contexts/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 
 export interface Organizations {
   organization: OrganizationProps;

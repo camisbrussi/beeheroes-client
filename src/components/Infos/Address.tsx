@@ -10,7 +10,7 @@ export function AddressData({ data }: InfoAddress) {
     <Stack>
       {data && (
         <Box w={1160} mt={20} mx="auto" fontSize="lg">
-          <Divider />
+          <Divider borderColor="blue.600" />
           <Text mt={5}>Endereço</Text>
 
           <HStack justify="left" w={1160} mt={5} mx="auto">

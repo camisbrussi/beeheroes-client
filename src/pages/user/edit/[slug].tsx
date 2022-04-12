@@ -14,7 +14,7 @@ import { withSSRAuth } from "../../../utils/withSSRAuth";
 import CreateUser from "../../../components/forms/CreateUser";
 import { Button } from "../../../components/Button";
 import CreateAddressUser from "../../../components/forms/CreateAddressUser";
-import { AuthContext } from "../../../contexts/AuthContext";
+import { AuthContext } from "../../../context/AuthContext";
 
 interface EditUserProps {
   userData: User;
