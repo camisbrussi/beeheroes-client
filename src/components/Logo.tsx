@@ -9,7 +9,7 @@ export function Logo() {
   return (
     <Flex
       w="100%"
-      maxW={isWideVersion ? "500" : "300"}
+      maxW={isWideVersion ? "400" : "300"}
       mx="auto"
       mt={isWideVersion ? "60px" : "30px"}
       align="center"

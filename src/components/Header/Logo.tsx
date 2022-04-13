@@ -8,7 +8,7 @@ export function Logo() {
   });
   return (
     <Link href="/" passHref={true}>
-      <Flex w="100%" maxW={isWideVersion ? "50%" : "100%"} align="center">
+      <Flex w="100%" maxW={isWideVersion ? "20%" : "100%"} align="center">
         <Image
           src="/images/logo.svg"
           alt="logo"

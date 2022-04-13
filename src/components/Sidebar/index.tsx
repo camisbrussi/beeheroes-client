@@ -28,7 +28,7 @@ export function Sidebar() {
 
   return (
     <>
-      <Flex mx="20px" left={["16px", "40px"]}>
+      <Flex left={["16px", "40px"]}>
         <Button
           aria-label="Open Navigation"
           leftIcon={<Icon as={RiMenuLine} />}

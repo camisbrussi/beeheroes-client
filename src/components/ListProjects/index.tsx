@@ -18,7 +18,7 @@ export function ListProjects({
       <Divider borderColor="blue.600" />
       <Flex>
         <Text mt={8}>Projetos em andamento</Text>
-        <Link href={`/project/list/${organizationId}`}>
+        <Link href={`/projects/list/${organizationId}`}>
           <Tag mt={8} ml={3} colorScheme="yellow">
             Ver Todos
           </Tag>

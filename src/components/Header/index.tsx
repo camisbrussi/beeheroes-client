@@ -13,11 +13,11 @@ export function Header() {
     <Flex
       as="header"
       w={isWideVersion ? "100%" : "150%"}
-      maxWidth={1480}
+      //maxWidth={1480}
       h={isWideVersion ? "65" : "30"}
-      mx="auto"
+      //mx="auto"
       align="center"
-      px="6"
+      px="20"
       justify="space-between"
       borderBottom="1px"
       borderColor="blue.600"
@@ -25,11 +25,7 @@ export function Header() {
     >
       <Sidebar />
       <Logo />
-      {isWideVersion && (
-        <Flex align="center" ml="auto">
-          <Profile />
-        </Flex>
-      )}
+      {isWideVersion && <Profile />}
     </Flex>
   );
 }

@@ -8,6 +8,7 @@ import {
   useDisclosure,
   Modal,
   Link,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
@@ -27,6 +28,10 @@ interface SearchProps {
 // TODO: aplicar lodash da forma correta para não fazer requisição para o back a cada letra digitada
 
 export default function Search({ slug, query }: SearchProps) {
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    lg: true,
+  });
   const [search, setSearch] = useState("");
   const [items, setItems] = useState([]);
 
@@ -47,13 +52,12 @@ export default function Search({ slug, query }: SearchProps) {
   }, [query, search, slug]);
 
   return (
-    <Box w="100%" minW={1440} align="center">
+    <Box w="100%" align="center">
       <Header />
       <Stack
         maxW={1150}
         direction="row"
         justify="space-between"
-        mx="230px"
         left={["16px", "40px"]}
         mt={10}
       >
@@ -91,18 +95,18 @@ export default function Search({ slug, query }: SearchProps) {
       </Stack>
       <Box maxW="1240" h="100%" px={["4", "10"]}>
         <SimpleGrid
-          columns={[1, 4]}
+          columns={[2, 4]}
           spacing={[5, 10]}
-          my={["5", "45px"]}
-          minChildWidth="256px"
+          my={["5", "5"]}
+          minChildWidth={isWideVersion ? "250px" : "150px"}
         >
           {items?.map((item) => (
-            <ItemInfo key={item.id} item={item} />
+            <ItemInfo key={item.id} item={item} slug={slug} />
           ))}
         </SimpleGrid>
       </Box>
       <Modal isOpen={isOpen} onClose={onClose} size="xl">
-        <FilterModal onClose={onClose} slug={slug} />
+        <FilterModal onClose={onClose} slug={slug} query={query} />
       </Modal>
     </Box>
   );

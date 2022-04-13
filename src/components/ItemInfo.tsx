@@ -10,12 +10,12 @@ export interface Item {
 
 export interface ItemInfoProps {
   item: Item;
+  slug: string;
 }
 
-export function ItemInfo({ item }: ItemInfoProps) {
-  const slug = item.id;
+export function ItemInfo({ item, slug }: ItemInfoProps) {
   return (
-    <Link href={`/organization/${slug}`}>
+    <Link href={`/${slug}/${item.id}`}>
       <Box maxW="250px" bg="white" borderRadius="10" textAlign="left">
         <Image
           boxSize="250px"

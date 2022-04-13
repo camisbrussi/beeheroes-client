@@ -11,11 +11,12 @@ import {
   useDisclosure,
   Link,
   Tag,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { AiOutlineCalendar, AiOutlineExclamationCircle } from "react-icons/ai";
 import moment from "moment";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import Router from "next/router";
 
 import { Header } from "../../components/Header";
@@ -42,15 +43,20 @@ export default function User({
   subscriptions,
   organization,
 }: ProjectProps) {
+  const [isResponsible, setIsResponsible] = useState(false);
   const { user } = useContext(AuthContext);
 
-  const isResponsible = organization?.responsibles?.map(
-    (responsible) => responsible.user_id === user?.id
-  );
+  useEffect(() => {
+    organization?.responsibles?.map((responsible) => {
+      responsible?.user_id === user?.id && setIsResponsible(true);
+    });
+  }, [organization, user]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const startDate = moment(project?.start).format("DD/MM/YYYY, h:mm");
   const endDate = moment(project?.end).format("DD/MM/YYYY, h:mm");
+
+  const projectFree = project?.vacancies === 0 && true;
 
   return (
     <Box w="100%" minW={1440}>
@@ -126,7 +132,8 @@ export default function User({
                   </Link>
                 </Flex>
               ) : (
-                project?.total_subscription < project?.vacancies && (
+                (project?.total_subscription !== project?.vacancies ||
+                  projectFree) && (
                   <Button
                     title="Fazer Inscrição"
                     onClick={user ? onOpen : () => Router.push("/signin")}
@@ -152,21 +159,51 @@ export default function User({
 
           <Box w={1160} mt={20} mx="auto" fontSize="lg">
             <Divider mt="20px" borderColor="blue.600" />
-            <Text mt={5}>Voluntários aceitos no projeto</Text>
-
-            {subscriptions?.map((subscription) => (
-              <ProfileAvatar
-                key={subscription.id}
-                data={subscription.volunteer}
-              />
-            ))}
+            <Text mt={5}>Voluntários inscritos no projeto</Text>
+            <SimpleGrid minChildWidth="180px">
+              {subscriptions?.map((subscription) => (
+                <ProfileAvatar
+                  key={subscription.id}
+                  data={subscription.volunteer}
+                  isProject
+                  statusSubscriptions={subscription.status}
+                />
+              ))}
+            </SimpleGrid>
+            <Flex mt={5} mb={5}>
+              <Text>Legenda:</Text>
+              <Flex ml={2}>
+                <Box borderRadius="full" bg="green" px={2} h={4} m={1} />
+                <Text>Ativa</Text>
+              </Flex>
+              <Flex ml={2}>
+                <Box borderRadius="full" bg="blue" px={2} h={4} m={1} />
+                <Text>Finalizada</Text>
+              </Flex>
+              <Flex ml={2}>
+                <Box borderRadius="full" bg="orange" px={2} h={4} m={1} />
+                <Text>Suspensa</Text>
+              </Flex>
+              <Flex ml={2}>
+                <Box borderRadius="full" bg="tomato" px={2} h={4} m={1} />
+                <Text>Não Compareceu</Text>
+              </Flex>
+              <Flex ml={2}>
+                <Box borderRadius="full" bg="yellow" px={2} h={4} m={1} />
+                <Text>Aguardando Autorização</Text>
+              </Flex>
+            </Flex>
           </Box>
         </>
       ) : (
         <Loading />
       )}
       <Modal isOpen={isOpen} onClose={onClose}>
-        <SubscriptionModal projectId={project?.id} userId={user?.id} />
+        <SubscriptionModal
+          projectId={project?.id}
+          userId={user?.id}
+          onCloseModal={onClose}
+        />
       </Modal>
     </Box>
   );
@@ -183,6 +220,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   let project: Project;
   let subscriptions: Subscription[];
   let organization: OrganizationProps;
+
+  console.log(params);
 
   const { slug } = params;
 

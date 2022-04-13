@@ -12,13 +12,17 @@ import { api } from "../../services/apiCLient";
 import { Button } from "../Button";
 import Router from "next/router";
 
-export function FilterModal({ onClose, slug }) {
-  const [stateId, setStateId] = useState(null);
-  const [cityId, setCityId] = useState(null);
+export function FilterModal({ onClose, slug, query }) {
+  console.log(query.state_id);
+  const [stateId, setStateId] = useState(query.state_id || null);
+  const [cityId, setCityId] = useState(query.city_id || null);
+  const [organizationTypeId, setOrganizationTypeId] = useState(
+    query.organizationTypeId || null
+  );
+
   const [cities, setCities] = useState(null);
   const [states, setState] = useState(null);
   const [organizationTypes, setOrganizationTypes] = useState();
-  const [organizationTypeId, setOrganizationTypeId] = useState(null);
 
   const isWideVersion = useBreakpointValue({
     base: false,

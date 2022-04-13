@@ -1,7 +1,4 @@
-import { Box, Divider, Flex, Link, Tag, Text } from "@chakra-ui/react";
-import { GetStaticPaths, GetStaticProps } from "next";
-
-import { Header } from "../../components/Header";
+import { Box, Divider, Flex, Text } from "@chakra-ui/react";
 
 import { ListDonations } from "../../components/ListDonations";
 import { ListProjects } from "../../components/ListProjects";

@@ -21,7 +21,7 @@ import { Loading } from "../../components/Loading";
 import { Donation } from "../../@types/donation";
 import { OrganizationInfos } from "../../components/Infos/Organizations";
 import { OrganizationProps } from "../../@types/organization";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 interface DonationProps {
   donation: Donation;
@@ -32,7 +32,14 @@ export default function DonationData({
   donation,
   organization,
 }: DonationProps) {
+  const [isResponsible, setIsResponsible] = useState(false);
   const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    organization?.responsibles?.map((responsible) => {
+      responsible?.user_id === user?.id && setIsResponsible(true);
+    });
+  }, [organization, user]);
 
   const value = donation?.total_value?.toLocaleString("pt-br", {
     style: "currency",
@@ -43,10 +50,6 @@ export default function DonationData({
     style: "currency",
     currency: "BRL",
   });
-
-  const isResponsible = organization?.responsibles?.map(
-    (responsible) => responsible.user_id === user?.id
-  );
 
   const statusDonation = (status) => {
     switch (status) {

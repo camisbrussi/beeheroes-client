@@ -32,13 +32,11 @@ export default function Profile({ profile }: Profile) {
 
     const organizationProps = () => {
       if (organization.status === 1) {
-        return (
-          <OrganizationInfos data={organization} hasVisitButton isProfile />
-        );
+        return <OrganizationInfos data={organization} hasVisitButton />;
       } else if (organization.status === 2) {
         <OrganizationStatusInactive />;
       } else if (organization.status === 3) {
-        return <OrganizationStatusWait />;
+        return <OrganizationStatusWait organization={organization} />;
       }
     };
     return (

@@ -25,12 +25,12 @@ export const AuthContext = createContext({} as AuthContextData);
 // let authChannel: BroadcastChannel;
 
 export function signOut() {
-  destroyCookie(undefined, "beeheroes.token");
-  destroyCookie(undefined, "beeheroes.refreshToken");
+  destroyCookie(undefined, "beeheroes.token", { path: "/" });
+  destroyCookie(undefined, "beeheroes.refreshToken", { path: "/" });
 
   // authChannel.postMessage("signOut");
 
-  typeof window !== "undefined" && Router.push("/");
+  Router.push("/signin");
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
@@ -93,7 +93,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
       });
 
       api.defaults.headers["Authorization"] = `Barear ${token}`;
-
       Router.back();
 
       return;

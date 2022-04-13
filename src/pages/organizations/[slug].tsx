@@ -1,4 +1,4 @@
-import { Box, Divider, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { GetStaticPaths, GetStaticProps } from "next";
 
 import { Header } from "../../components/Header";
@@ -8,7 +8,7 @@ import { OrganizationProps } from "../../@types/organization";
 import OrganizationStatusActive from "../../components/Infos/OrganizationStatusActive";
 import { OrganizationStatusInactive } from "../../components/Infos/OrganizationStatusInactive";
 import { OrganizationStatusWait } from "../../components/Infos/OrganizationStatusWait";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 export interface Organizations {
@@ -16,11 +16,14 @@ export interface Organizations {
 }
 
 export default function OrganizationData({ organization }: Organizations) {
+  const [isResponsible, setIsResponsible] = useState(false);
   const { user } = useContext(AuthContext);
 
-  const isResponsible = organization?.responsibles?.map(
-    (responsible) => responsible.user_id === user?.id
-  );
+  useEffect(() => {
+    organization?.responsibles?.map((responsible) => {
+      responsible?.user_id === user?.id && setIsResponsible(true);
+    });
+  }, [organization, user]);
 
   const organizationProps = () => {
     if (organization?.status === 1) {
@@ -43,7 +46,7 @@ export default function OrganizationData({ organization }: Organizations) {
   };
 
   return (
-    <Box w="100%" minW={1440}>
+    <Box w="100%">
       <Header />
       <Flex mt={20}>{organizationProps()}</Flex>
     </Box>
