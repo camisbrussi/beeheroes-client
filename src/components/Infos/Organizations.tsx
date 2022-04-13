@@ -18,7 +18,7 @@ export function OrganizationInfos({
         <Text fontSize="5xl">
           {data?.name}
           {hasVisitButton && (
-            <Link href={`/organization/${slug}`}>
+            <Link href={`/organizations/${slug}`}>
               <Tag mt={8} ml={3} colorScheme="yellow">
                 Visitar Perfil
               </Tag>

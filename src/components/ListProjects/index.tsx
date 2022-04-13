@@ -1,11 +1,22 @@
-import { HStack, Text, Box, Divider, Link, Tag, Flex } from "@chakra-ui/react";
-import { Project } from "../../@types/project";
-import { Card } from "./Card";
+import {
+  Text,
+  Box,
+  Divider,
+  Link,
+  Tag,
+  Flex,
+  SimpleGrid,
+} from "@chakra-ui/react";
+import { ProjectList } from "../../@types/project";
+
+import customDataStatus from "../../utils/status.json";
+import { CardProject } from "../Cards/CardProject";
 
 interface ListProjectsProps {
-  data: Project[];
+  data: ProjectList[];
   isResponsible?: boolean;
   organizationId?: string;
+  isProfile?: boolean;
 }
 
 export function ListProjects({
@@ -17,8 +28,9 @@ export function ListProjects({
     <Box w={1160} mt={20} mx="auto" fontSize="lg">
       <Divider borderColor="blue.600" />
       <Flex>
-        <Text mt={8}>Projetos em andamento</Text>
-        <Link href={`/projects/list/${organizationId}`}>
+        <Text mt={8}>Lista de projetos</Text>
+
+        <Link href={`/projects/busca?&organization_id=${organizationId}`}>
           <Tag mt={8} ml={3} colorScheme="yellow">
             Ver Todos
           </Tag>
@@ -32,11 +44,21 @@ export function ListProjects({
           </Link>
         )}
       </Flex>
-      <HStack spacing="20" align="left" w={1160} mt={10} mx="auto">
+      <SimpleGrid
+        p={6}
+        columns={[2, 3]}
+        spacing={[5, 10]}
+        my={["5", "5"]}
+        minChildWidth="150px"
+      >
         {data?.map((project) => (
-          <Card key={project.id} data={project} />
+          <CardProject
+            key={project.id}
+            data={project}
+            status={customDataStatus.project[project.status]}
+          />
         ))}
-      </HStack>
+      </SimpleGrid>
     </Box>
   );
 }

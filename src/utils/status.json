@@ -1,0 +1,46 @@
+{
+  "subscription": {
+    "1":{
+      "id": 1,
+      "color": "green",
+      "name": "Ativa"
+    },
+    "2": {
+      "id": 2,
+      "color": "blue",
+      "name": "Realizada"
+    },
+    "3": {
+      "id": 3,
+      "color": "orange",
+      "name": "Suspensa"
+    },
+    "4": {
+      "id": 4,
+      "color": "tomato",
+      "name": "Não Compareceu"
+    },
+    "5": {
+      "id": 5,
+      "color": "yellow",
+      "name": "Aguardando Autorização"
+    }
+  },
+  "project": {
+    "1": {
+      "id": 1,
+      "color": "green",
+      "name": "Em Andamento"
+    },
+    "2": {
+      "id": 2,
+      "color": "tomato",
+      "name": "Finalizado"
+    },
+    "3": {
+      "id": 3,
+      "color": "orange",
+      "name": "Suspenso"
+    }
+  }
+}

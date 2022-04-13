@@ -6,8 +6,9 @@ import {
   VStack,
   AvatarBadge,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+
 import { ProfileAvatarInfo } from "../@types/user";
+import customDataStatus from "../utils/status.json";
 
 interface ProfileAvatarProps {
   data: ProfileAvatarInfo;
@@ -20,24 +21,7 @@ export function ProfileAvatar({
   isProject = null,
   statusSubscriptions = null,
 }: ProfileAvatarProps) {
-  const [colorStatus, setColorStatus] = useState("");
-
-  console.log(statusSubscriptions);
-
-  useEffect(() => {
-    switch (statusSubscriptions) {
-      case 1:
-        setColorStatus("green");
-      case 2:
-        setColorStatus("blue");
-      case 3:
-        setColorStatus("orange");
-      case 4:
-        setColorStatus("tomato");
-      case 5:
-        setColorStatus("yellow");
-    }
-  }, [statusSubscriptions]);
+  const status = customDataStatus.subscription[statusSubscriptions];
 
   return (
     <Stack w={40} mt={10} direction="column" align="left">
@@ -56,7 +40,7 @@ export function ProfileAvatar({
               {isProject && (
                 <AvatarBadge
                   borderColor="papayawhip"
-                  bg={colorStatus}
+                  bg={status?.color}
                   boxSize="1.25em"
                 />
               )}

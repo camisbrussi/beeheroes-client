@@ -26,6 +26,11 @@ export const theme = extendTheme({
         bg: "blue.100",
         color: "blue.600",
       },
+      a: {
+        _hover: {
+          textDecoration: "none",
+        },
+      },
     },
   },
   components: {

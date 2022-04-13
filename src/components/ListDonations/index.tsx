@@ -24,7 +24,7 @@ export const ListDonations = ({
       <Divider borderColor="blue.600" />
       <Flex>
         <Text mt={8}>Doações em andamento</Text>
-        <Link href={`/project/list/${organizationId}`}>
+        <Link href={`/project/busca/${organizationId}`}>
           <Tag mt={8} ml={3} colorScheme="yellow">
             Ver Todos
           </Tag>

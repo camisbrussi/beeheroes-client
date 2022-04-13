@@ -11,7 +11,7 @@ import { Project } from "../@types/project";
 import { Organization } from "../@types/organization";
 import { UserData } from "../components/Infos/User";
 import { VolunteerData } from "../components/Infos/Volunteer";
-import { ListProjects } from "../components/ListProjects";
+import { ListProjectsProfile } from "../components/ListProjectsProfile";
 import { OrganizationInfos } from "../components/Infos/Organizations";
 import { OrganizationStatusWait } from "../components/Infos/OrganizationStatusWait";
 import { OrganizationStatusInactive } from "../components/Infos/OrganizationStatusInactive";
@@ -55,15 +55,15 @@ export default function Profile({ profile }: Profile) {
       }
     };
     return (
-      <Box w="100%" minW={1440}>
+      <Box w="100%">
         <Header />
         {user ? (
           <>
-            <Flex w="100%" maxWidth={1480} ml="auto" px="6">
+            <Flex maxWidth={1480} m="auto" justify="center">
               <Flex direction="column">
                 <UserData data={user} isProfile />
                 {volunteer && <VolunteerData data={volunteer} isProfile />}
-                {project && <ListProjects data={project} />}
+                {project && <ListProjectsProfile data={project} isProfile />}
 
                 {organization && (
                   <Box w={1160} mt={20} mx="auto" fontSize="lg">

@@ -17,11 +17,23 @@ export function SearchTypes() {
       <Card
         title="Organizações"
         image="/images/organization.svg"
-        slug="organizations"
+        slug="/busca/organizations"
       />
-      <Card title="Projetos" image="/images/project.svg" slug="projects" />
-      <Card title="Doações" image="/images/donation.svg" slug="donations" />
-      <Card title="Voluntários" image="/images/logo.svg" slug="volunteers" />
+      <Card
+        title="Projetos"
+        image="/images/project.svg"
+        slug="/busca/projects"
+      />
+      <Card
+        title="Doações"
+        image="/images/donation.svg"
+        slug="/busca/donations"
+      />
+      <Card
+        title="Voluntários"
+        image="/images/logo.svg"
+        slug="/busca/volunteers"
+      />
     </SimpleGrid>
   );
 }

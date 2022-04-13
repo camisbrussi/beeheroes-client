@@ -160,7 +160,7 @@ export default function User({
           <Box w={1160} mt={20} mx="auto" fontSize="lg">
             <Divider mt="20px" borderColor="blue.600" />
             <Text mt={5}>Voluntários inscritos no projeto</Text>
-            <SimpleGrid minChildWidth="180px">
+            <SimpleGrid minChildWidth="180px" spacing="2px">
               {subscriptions?.map((subscription) => (
                 <ProfileAvatar
                   key={subscription.id}
@@ -178,7 +178,7 @@ export default function User({
               </Flex>
               <Flex ml={2}>
                 <Box borderRadius="full" bg="blue" px={2} h={4} m={1} />
-                <Text>Finalizada</Text>
+                <Text>Realizada</Text>
               </Flex>
               <Flex ml={2}>
                 <Box borderRadius="full" bg="orange" px={2} h={4} m={1} />

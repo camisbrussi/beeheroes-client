@@ -6,19 +6,20 @@ import {
   Stack,
   useBreakpointValue,
 } from "@chakra-ui/react";
+import Router from "next/router";
+
 import { useEffect, useState } from "react";
 import { Select } from "../FormsComponents/Select";
 import { api } from "../../services/apiCLient";
 import { Button } from "../Button";
-import Router from "next/router";
 
 export function FilterModal({ onClose, slug, query }) {
-  console.log(query.state_id);
   const [stateId, setStateId] = useState(query.state_id || null);
   const [cityId, setCityId] = useState(query.city_id || null);
   const [organizationTypeId, setOrganizationTypeId] = useState(
     query.organizationTypeId || null
   );
+  const [statusId, setStatusId] = useState(query.status || null);
 
   const [cities, setCities] = useState(null);
   const [states, setState] = useState(null);
@@ -40,7 +41,7 @@ export function FilterModal({ onClose, slug, query }) {
   }, []);
 
   const applyFilter = async () => {
-    let statusExpression = "";
+    let statusExpression = `status=${statusId}`;
 
     let cityExpression = "";
     if (cityId) {
@@ -83,6 +84,21 @@ export function FilterModal({ onClose, slug, query }) {
     stateId && getData();
   }, [stateId]);
 
+  const statusData = [
+    {
+      id: "1",
+      name: "Ativo",
+    },
+    {
+      id: "2",
+      name: "Finalizado",
+    },
+    {
+      id: "3",
+      name: "Suspenso",
+    },
+  ];
+
   return (
     <ModalContent>
       <ModalHeader>Criar Filtro</ModalHeader>
@@ -124,6 +140,17 @@ export function FilterModal({ onClose, slug, query }) {
               data={organizationTypes}
               value={organizationTypeId}
               onChange={(e) => setOrganizationTypeId(e.target.value)}
+            />
+          )}
+          {(slug === "projects" || slug === "donations") && (
+            <Select
+              name="status"
+              id="status"
+              placeholder="Escolha um Tipo de status"
+              label="Status"
+              data={statusData}
+              value={statusId}
+              onChange={(e) => setStatusId(e.target.value)}
             />
           )}
           <Button title="Aplicar Filtro" onClick={applyFilter} />

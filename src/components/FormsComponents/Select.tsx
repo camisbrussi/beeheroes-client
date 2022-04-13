@@ -12,6 +12,7 @@ import {
 interface dataOptions {
   id: string;
   name: string;
+  color?: string;
 }
 
 interface SelectProps extends ChakraSelectProps {

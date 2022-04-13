@@ -15,10 +15,14 @@ import { RiSearchLine } from "react-icons/ri";
 import debounce from "lodash/debounce";
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
-import { Item, ItemInfo } from "../../components/ItemInfo";
+import { ItemCard } from "../../components/Cards/CardOrganization";
 import { api } from "../../services/apiCLient";
 import { withSSRGuest } from "../../utils/withSSRGuest";
 import { FilterModal } from "../../components/modais/FilterModal";
+import { OrganizationList } from "../../components/Lists/OrganizationList";
+import { ProjectList } from "../../components/Lists/ProjectsList";
+import { VolunteerList } from "../../components/Lists/VolunteerList";
+import { DonationList } from "../../components/Lists/DonationList";
 
 interface SearchProps {
   slug: string;
@@ -41,7 +45,7 @@ export default function Search({ slug, query }: SearchProps) {
     async function fetchData() {
       query.name = search;
       await api
-        .post<Item[]>(`/${slug}/filter`, {
+        .post<ItemCard[]>(`/${slug}/filter`, {
           query,
         })
         .then((response) => {
@@ -93,18 +97,11 @@ export default function Search({ slug, query }: SearchProps) {
           <Icon as={RiSearchLine} fontSize="20"></Icon>
         </Flex>
       </Stack>
-      <Box maxW="1240" h="100%" px={["4", "10"]}>
-        <SimpleGrid
-          columns={[2, 4]}
-          spacing={[5, 10]}
-          my={["5", "5"]}
-          minChildWidth={isWideVersion ? "250px" : "150px"}
-        >
-          {items?.map((item) => (
-            <ItemInfo key={item.id} item={item} slug={slug} />
-          ))}
-        </SimpleGrid>
-      </Box>
+      {slug === "organizations" && <OrganizationList items={items} />}
+      {slug === "projects" && <ProjectList items={items} />}
+      {slug === "volunteers" && <VolunteerList items={items} />}
+      {slug === "donations" && <DonationList items={items} />}
+
       <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <FilterModal onClose={onClose} slug={slug} query={query} />
       </Modal>

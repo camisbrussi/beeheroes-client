@@ -29,3 +29,15 @@ export type EditProjectFormData = {
   end?: Date;
   vacancies?: number;
 };
+
+export type ProjectList = {
+  id?: string;
+  name?: string;
+  start?: Date;
+  end?: Date;
+  status?: number;
+  status_subscription?: number;
+  vacancies?: number;
+  total_subscription?: number;
+  status_project?: number;
+};

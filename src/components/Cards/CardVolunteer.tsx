@@ -13,7 +13,7 @@ export interface ItemInfoProps {
   slug: string;
 }
 
-export function ItemInfo({ item, slug }: ItemInfoProps) {
+export function CardOrganization({ item, slug }: ItemInfoProps) {
   return (
     <Link href={`/${slug}/${item.id}`}>
       <Box maxW="250px" bg="white" borderRadius="10" textAlign="left">
