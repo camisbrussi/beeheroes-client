@@ -7,7 +7,6 @@ import {
   Divider,
   Flex,
   Icon,
-  Spinner,
   Link,
   Tag,
 } from "@chakra-ui/react";
@@ -16,7 +15,6 @@ import { RiHandCoinLine } from "react-icons/ri";
 
 import { Header } from "../../components/Header";
 import { api } from "../../services/apiCLient";
-import { Button } from "../../components/Button";
 import { Loading } from "../../components/Loading";
 import { Donation } from "../../@types/donation";
 import { OrganizationInfos } from "../../components/Infos/Organizations";

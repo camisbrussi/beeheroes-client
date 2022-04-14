@@ -1,6 +1,6 @@
 import { Address } from "./address";
 import { Donation } from "./donation";
-import { Project } from "./project";
+import { ProjectListProps } from "./project";
 import { Responsibles } from "./user";
 
 export type OrganizationProps = {
@@ -14,7 +14,7 @@ export type OrganizationProps = {
   organization_type: organizationType;
   address: Address;
   images_url: string[];
-  projects: Project[];
+  projects: ProjectListProps[];
   donations: Donation[];
   responsibles: Responsibles[];
 };

@@ -1,10 +1,4 @@
-import {
-  Flex,
-  Image,
-  Spacer,
-  Text,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import { Flex, Image, Text, useBreakpointValue } from "@chakra-ui/react";
 
 export function LogoHorizontal() {
   const isWideVersion = useBreakpointValue({

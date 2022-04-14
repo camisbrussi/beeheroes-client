@@ -1,4 +1,4 @@
-import { Button, Flex, Icon, Stack } from "@chakra-ui/react";
+import { Button, Icon, Stack } from "@chakra-ui/react";
 import { useContext } from "react";
 
 import {

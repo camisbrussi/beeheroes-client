@@ -2,7 +2,6 @@ import {
   Flex,
   Stack,
   Text,
-  Checkbox,
   Spacer,
   useBreakpointValue,
 } from "@chakra-ui/react";
@@ -18,7 +17,6 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { GetServerSideProps } from "next";
 import { withSSRGuest } from "../utils/withSSRGuest";
-import { Header } from "../components/Header";
 import { SignInFormData } from "../@types/signIn";
 
 const signInFormSchema = yup.object().shape({

@@ -1,6 +1,5 @@
 import {
   Box,
-  SimpleGrid,
   Stack,
   Icon,
   Flex,

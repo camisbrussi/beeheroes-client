@@ -11,7 +11,7 @@ import { Project } from "../@types/project";
 import { Organization } from "../@types/organization";
 import { UserData } from "../components/Infos/User";
 import { VolunteerData } from "../components/Infos/Volunteer";
-import { ListProjectsProfile } from "../components/ListProjectsProfile";
+import { ListProjectsProfile } from "../components/Lists/ProjectsProfileList";
 import { OrganizationInfos } from "../components/Infos/Organizations";
 import { OrganizationStatusWait } from "../components/Infos/OrganizationStatusWait";
 import { OrganizationStatusInactive } from "../components/Infos/OrganizationStatusInactive";

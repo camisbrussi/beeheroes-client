@@ -1,5 +1,3 @@
-import { OrganizationProps } from "./organization";
-
 export type Donation = {
   id: string;
   name: string;

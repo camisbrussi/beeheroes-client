@@ -1,7 +1,6 @@
 import { Flex, useBreakpointValue, IconButton, Icon } from "@chakra-ui/react";
 import { Profile } from "./Profile";
 import { Logo } from "./Logo";
-import { useSidebarDrawer } from "../../context/SidebarDrawerContexts";
 import { Sidebar } from "../Sidebar";
 
 export function Header() {

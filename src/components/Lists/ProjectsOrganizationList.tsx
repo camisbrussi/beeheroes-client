@@ -5,15 +5,14 @@ import {
   Link,
   Tag,
   Flex,
-  SimpleGrid,
+  useBreakpointValue,
 } from "@chakra-ui/react";
-import { ProjectList } from "../../@types/project";
+import { ProjectListProps } from "../../@types/project";
 
-import customDataStatus from "../../utils/status.json";
-import { CardProject } from "../Cards/CardProject";
+import { ProjectList } from "./ProjectsList";
 
 interface ListProjectsProps {
-  data: ProjectList[];
+  data: ProjectListProps[];
   isResponsible?: boolean;
   organizationId?: string;
   isProfile?: boolean;
@@ -24,6 +23,10 @@ export function ListProjects({
   isResponsible,
   organizationId,
 }: ListProjectsProps) {
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    lg: true,
+  });
   return (
     <Box w={1160} mt={20} mx="auto" fontSize="lg">
       <Divider borderColor="blue.600" />
@@ -44,21 +47,7 @@ export function ListProjects({
           </Link>
         )}
       </Flex>
-      <SimpleGrid
-        p={6}
-        columns={[2, 3]}
-        spacing={[5, 10]}
-        my={["5", "5"]}
-        minChildWidth="150px"
-      >
-        {data?.map((project) => (
-          <CardProject
-            key={project.id}
-            data={project}
-            status={customDataStatus.project[project.status]}
-          />
-        ))}
-      </SimpleGrid>
+      <ProjectList items={data} />
     </Box>
   );
 }

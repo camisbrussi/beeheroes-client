@@ -6,12 +6,12 @@ import {
   SimpleGrid,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { ProjectList } from "../../@types/project";
+import { ProjectListProps } from "../../@types/project";
 import customDataStatus from "../../utils/status.json";
 import { CardProject } from "../Cards/CardProject";
 
 interface ListProjectsProps {
-  data: ProjectList[];
+  data: ProjectListProps[];
   isResponsible?: boolean;
   organizationId?: string;
   isProfile?: boolean;

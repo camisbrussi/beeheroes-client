@@ -1,9 +1,9 @@
 import { Link, Text, Box, Badge, Divider, Flex } from "@chakra-ui/react";
 import moment from "moment";
-import { ProjectList } from "../../@types/project";
+import { ProjectListProps } from "../../@types/project";
 
 interface CardInfoProps {
-  data: ProjectList;
+  data: ProjectListProps;
   status?: {
     color: string;
     name: string;
@@ -25,7 +25,7 @@ export function CardProject({
     total_subscription <= vacancies || (vacancies === 0 && true);
 
   return (
-    <Flex
+    <Box
       maxW="xs"
       minW="xs"
       borderWidth="1px"
@@ -60,9 +60,9 @@ export function CardProject({
             textTransform="uppercase"
             mt={3}
           >
-            <Box>{startDate} Início</Box>
+            <Box>{startDate} (Início)</Box>
             <Box>&bull;</Box>
-            <Box>{endDate} Fim</Box>
+            <Box>{endDate} (Fim)</Box>
           </Box>
           <Divider borderColor="blue.600" mt={4} />
 
@@ -83,6 +83,6 @@ export function CardProject({
         </Box> */}
         </Box>
       </Link>
-    </Flex>
+    </Box>
   );
 }

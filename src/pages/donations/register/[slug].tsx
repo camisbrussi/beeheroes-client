@@ -6,7 +6,6 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Button } from "../../../components/Button";
 import { Header } from "../../../components/Header";
 import { api } from "../../../services/apiCLient";
-import { CreateProjectFormData } from "../../../@types/project";
 import Router from "next/router";
 import { withSSRAuth } from "../../../utils/withSSRAuth";
 import CreateDonation from "../../../components/forms/CreateDonation";

@@ -1,13 +1,13 @@
 import { Box, Divider, Flex, Text } from "@chakra-ui/react";
 
-import { ListDonations } from "../../components/ListDonations";
-import { ListProjects } from "../../components/ListProjects";
+import { ListDonations } from "../Lists/DonationsOrganizationsList";
 
 import { Loading } from "../../components/Loading";
 import { ProfileAvatar } from "../../components/ProfileAvatar";
 import { Slide } from "../../components/Slide";
 import { AddressData } from "../../components/Infos/Address";
 import { OrganizationInfos } from "../../components/Infos/Organizations";
+import { ListProjects } from "../Lists/ProjectsOrganizationList";
 
 export default function OrganizationData({
   organization,

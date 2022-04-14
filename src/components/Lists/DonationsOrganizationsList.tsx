@@ -1,24 +1,30 @@
-import { HStack, Text, Box, Divider, Link, Tag, Flex } from "@chakra-ui/react";
-import { Card } from "./Card";
+import {
+  Text,
+  Box,
+  Divider,
+  Link,
+  Tag,
+  Flex,
+  useBreakpointValue,
+} from "@chakra-ui/react";
+import { Donation } from "../../@types/donation";
+import { DonationList } from "./DonationList";
 
 interface ListDonationsProps {
-  data: DonationProps[];
+  data: Donation[];
   isResponsible?: boolean;
   organizationId?: boolean;
 }
-
-export type DonationProps = {
-  id: string;
-  name: string;
-  total_value?: number;
-  total_collected?: number;
-};
 
 export const ListDonations = ({
   data,
   isResponsible,
   organizationId,
 }: ListDonationsProps) => {
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    lg: true,
+  });
   return (
     <Box w={1160} mt={20} mx="auto" fontSize="lg">
       <Divider borderColor="blue.600" />
@@ -38,11 +44,7 @@ export const ListDonations = ({
           </Link>
         )}
       </Flex>
-      <HStack spacing="20" align="left" w={1160} mt={10} mx="auto">
-        {data?.map((donation) => (
-          <Card key={donation.id} data={donation} />
-        ))}
-      </HStack>
+      <DonationList items={data} />
     </Box>
   );
 };

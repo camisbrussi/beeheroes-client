@@ -1,4 +1,4 @@
-import { Box, Divider, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { GetStaticPaths, GetStaticProps } from "next";
 
 import { Organization } from "../../../@types/organization";
@@ -11,7 +11,7 @@ import { OrganizationStatusInactive } from "../../../components/Infos/Organizati
 import { OrganizationStatusWait } from "../../../components/Infos/OrganizationStatusWait";
 import { UserData } from "../../../components/Infos/User";
 import { VolunteerData } from "../../../components/Infos/Volunteer";
-import { ListProjects } from "../../../components/ListProjects";
+import { ListProjects } from "../../../components/Lists/ProjectsOrganizationList";
 import { Loading } from "../../../components/Loading";
 import { api } from "../../../services/apiCLient";
 

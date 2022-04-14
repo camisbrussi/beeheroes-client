@@ -30,7 +30,7 @@ export type EditProjectFormData = {
   vacancies?: number;
 };
 
-export type ProjectList = {
+export type ProjectListProps = {
   id?: string;
   name?: string;
   start?: Date;

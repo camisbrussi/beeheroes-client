@@ -1,4 +1,4 @@
-import { Box, Image, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
+import { Box, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
 import { CardProject } from "../Cards/CardProject";
 import customDataStatus from "../../utils/status.json";
 

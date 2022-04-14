@@ -12,8 +12,6 @@ import {
   FormLabel,
   Flex,
   Tooltip,
-  Input as ChakraInput,
-  InputProps as ChakraInputProps,
   FormErrorMessage,
 } from "@chakra-ui/react";
 import { FiAlertCircle, FiPlus } from "react-icons/fi";

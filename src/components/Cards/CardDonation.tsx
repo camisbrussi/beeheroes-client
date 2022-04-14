@@ -1,31 +1,27 @@
-import { Link, Text, Box, Badge, Divider, Flex } from "@chakra-ui/react";
-import moment from "moment";
-import { ProjectList } from "../../@types/project";
+import { Link, Box, Badge, Flex } from "@chakra-ui/react";
+import { Donation } from "../../@types/donation";
 
 interface CardInfoProps {
-  data: ProjectList;
+  data: Donation;
   status?: {
     color: string;
     name: string;
   };
-  vacancies?: number;
-  total_subscription?: number;
 }
 
-export function CardDonation({
-  data,
-  status = null,
-  vacancies = null,
-  total_subscription = null,
-}: CardInfoProps) {
-  const startDate = moment(data?.start).format("DD/MM/YYYY, h:mm");
-  const endDate = moment(data?.end).format("DD/MM/YYYY, h:mm");
+export function CardDonation({ data, status = null }: CardInfoProps) {
+  const value = data?.total_value?.toLocaleString("pt-br", {
+    style: "currency",
+    currency: "BRL",
+  });
 
-  const isThereSlots =
-    total_subscription <= vacancies || (vacancies === 0 && true);
+  const collected = data?.total_collected?.toLocaleString("pt-br", {
+    style: "currency",
+    currency: "BRL",
+  });
 
   return (
-    <Flex
+    <Box
       maxW="xs"
       minW="xs"
       borderWidth="1px"
@@ -52,37 +48,24 @@ export function CardDonation({
               {status?.name}
             </Badge>
           </Box>
-          <Box
-            color="gray.500"
-            fontWeight="semibold"
-            letterSpacing="wide"
-            fontSize="xs"
-            textTransform="uppercase"
-            mt={3}
-          >
-            <Box>{startDate} Início</Box>
-            <Box>&bull;</Box>
-            <Box>{endDate} Fim</Box>
-          </Box>
-          <Divider borderColor="blue.600" mt={4} />
-
-          <Box mt={5}>
-            {isThereSlots ? (
-              <Text> Vagas Disponíveis</Text>
-            ) : (
-              <Text> Vagas Preenchidas</Text>
-            )}
-          </Box>
-
-          {/* <Box display="flex" mt="2" alignItems="center">
-          {Array(5)
-            .fill("")
-            .map((_, i) => (
-              <StarIcon key={i} color={i < 4 ? "teal.500" : "gray.300"} />
-            ))}
-        </Box> */}
+          {value ? (
+            <Box
+              color="gray.500"
+              fontWeight="semibold"
+              letterSpacing="wide"
+              fontSize="xs"
+              textTransform="uppercase"
+              mt={3}
+            >
+              <Box>{value} (Valor Necessário)</Box>
+              <Box>&bull;</Box>
+              <Box>{collected} (Valor Arrecadado)</Box>
+            </Box>
+          ) : (
+            <Box>Local de coleta na descrição da doação</Box>
+          )}
         </Box>
       </Link>
-    </Flex>
+    </Box>
   );
 }
