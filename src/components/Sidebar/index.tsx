@@ -12,11 +12,9 @@ import {
   IconButton,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { useRef } from "react";
 
 import { SideBarNav } from "./SidebarNav";
-import { CgMenuGridR } from "react-icons/cg";
-import { RiMenuLine } from "react-icons/ri";
+import { RiMenuFill } from "react-icons/ri";
 
 export function Sidebar() {
   const isWideVersion = useBreakpointValue({
@@ -24,24 +22,21 @@ export function Sidebar() {
     lg: true,
   });
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = useRef();
 
   return (
     <>
-      <Flex left={["16px", "40px"]}>
-        <Button
+      <Flex mx={5}>
+        <IconButton
           aria-label="Open Navigation"
-          leftIcon={<Icon as={RiMenuLine} />}
-          fontSize="18px"
+          icon={<Icon as={RiMenuFill} />}
+          fontSize="24px"
           variant="unstyled"
           onClick={onOpen}
           mt="2"
-        >
-          {isWideVersion && "Menu"}
-        </Button>
+        />
       </Flex>
 
-      <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
+      <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerOverlay>
           <DrawerContent p="4">
             <DrawerCloseButton mt="6" />

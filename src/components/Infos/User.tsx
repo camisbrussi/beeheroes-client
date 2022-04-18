@@ -13,9 +13,10 @@ export function UserData({ data, isProfile }: InfoUserProps) {
   return (
     <HStack spacing="20" w={1160} mt={20} mx="auto">
       <Image
-        boxSize="270px"
+        ml="10px"
+        boxSize="250px"
         objectFit="cover"
-        borderRadius="full"
+        borderRadius="10"
         src={
           data?.avatar
             ? `${process.env.NEXT_PUBLIC_AWS_BUCKET_URL}/avatar/${data?.avatar}`
@@ -52,7 +53,7 @@ export function UserData({ data, isProfile }: InfoUserProps) {
         )}
         <Flex justify="center">
           {isProfile && (
-            <Link href={`/user/edit/${user?.id}`}>
+            <Link href={`/users/edit/${user?.id}`}>
               <Tag mt={8} ml={3} colorScheme="yellow">
                 Editar dados
               </Tag>
@@ -60,6 +61,20 @@ export function UserData({ data, isProfile }: InfoUserProps) {
           )}
         </Flex>
       </Stack>
+      {/* <Flex w={60}>
+        <Image
+          boxSize="100"
+          src="/images/beemusic.svg"
+          alt="logo"
+          m="auto"
+          w="184"
+        />
+
+        <Text>
+          Você tem 1.000 pontos para trocar por cupons de desconto. Clique AQUI
+          e troque
+        </Text>
+      </Flex> */}
     </HStack>
   );
 }

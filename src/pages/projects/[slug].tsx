@@ -125,7 +125,7 @@ export default function User({
 
               {isResponsible ? (
                 <Flex justify="center">
-                  <Link href={`/project/edit/${project?.id}`}>
+                  <Link href={`/projects/edit/${project?.id}`}>
                     <Tag mt={8} ml={3} colorScheme="yellow">
                       Editar dados
                     </Tag>

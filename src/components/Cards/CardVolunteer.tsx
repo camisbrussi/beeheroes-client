@@ -1,4 +1,5 @@
 import { Box, Flex, Heading, Image, Text, Link } from "@chakra-ui/react";
+import { Volunteer } from "../../@types/volunteer";
 
 export interface Item {
   id: number;
@@ -9,7 +10,7 @@ export interface Item {
 }
 
 export interface ItemInfoProps {
-  item: Item;
+  item: Volunteer;
   slug: string;
 }
 
@@ -22,11 +23,11 @@ export function CardOrganization({ item, slug }: ItemInfoProps) {
           objectFit="cover"
           borderTopRadius="10"
           src={
-            item?.avatar
-              ? `${process.env.NEXT_PUBLIC_AWS_BUCKET_URL}/avatar/${item?.avatar}`
+            item?.user.avatar
+              ? `${process.env.NEXT_PUBLIC_AWS_BUCKET_URL}/avatar/${item?.user.avatar}`
               : "/images/responsible.svg"
           }
-          alt={item?.name}
+          alt={item?.user.name}
         />
         <Flex
           justify="space-between"
@@ -39,10 +40,13 @@ export function CardOrganization({ item, slug }: ItemInfoProps) {
         >
           <Flex direction="column">
             <Heading as="h3" fontSize="xl" fontWeight="600" mb={3}>
-              {item.name}
+              {item.user.name}
             </Heading>
             <Text color="gray.400" fontSize="md" fontWeight="500">
-              {item.city} / {item.uf}
+              {item.user.address.city.name} / {item.user.address.city.state.uf}
+            </Text>
+            <Text color="gray.400" fontSize="md" fontWeight="500">
+              Ocupação: {item.occupationArea.name}
             </Text>
           </Flex>
         </Flex>

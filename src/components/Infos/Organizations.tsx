@@ -37,7 +37,7 @@ export function OrganizationInfos({
         )}
         <Flex justify="center">
           {isResponsible && (
-            <Link href={`/organization/edit/${data?.id}`}>
+            <Link href={`/organizations/edit/${data?.id}`}>
               <Tag mt={8} ml={3} colorScheme="yellow">
                 Editar dados
               </Tag>

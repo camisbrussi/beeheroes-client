@@ -1,5 +1,6 @@
 import { Address } from "./address";
 import { Donation } from "./donation";
+import { organizationType } from "./organizationType";
 import { ProjectListProps } from "./project";
 import { Responsibles } from "./user";
 
@@ -29,6 +30,8 @@ export type Organization = {
   organization_type: organizationType;
   address: Address;
   images_url: string[];
+  city?: string;
+  uf?: string;
 };
 
 export type CreateOrganizationFormData = {

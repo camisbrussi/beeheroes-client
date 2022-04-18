@@ -101,7 +101,7 @@ export default function DonationData({
               </Flex>
               {isResponsible && (
                 <Flex justify="center">
-                  <Link href={`/donation/edit/${donation?.id}`}>
+                  <Link href={`/donations/edit/${donation?.id}`}>
                     <Tag mt={8} ml={3} colorScheme="yellow">
                       Editar dados
                     </Tag>

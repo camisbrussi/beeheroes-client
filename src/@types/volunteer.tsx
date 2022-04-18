@@ -17,7 +17,20 @@ export type Volunteer = {
   id: string;
   description: string;
   profession: string;
-  occupation_area: OccupationArea;
+  occupationArea?: OccupationArea;
+  occupation_area?: OccupationArea;
+  user: {
+    avatar: string;
+    name: string;
+    address: {
+      city: {
+        name: string;
+        state: {
+          uf: string;
+        };
+      };
+    };
+  };
 };
 
 export type EditVolunteerFormData = {

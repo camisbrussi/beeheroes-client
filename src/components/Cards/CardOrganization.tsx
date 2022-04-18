@@ -1,19 +1,13 @@
 import { Box, Flex, Heading, Image, Text, Link } from "@chakra-ui/react";
-
-export interface ItemCard {
-  id: number;
-  name: string;
-  avatar: string;
-  city: string;
-  uf: string;
-}
+import { Organization } from "../../@types/organization";
 
 export interface ItemInfoProps {
-  item: ItemCard;
+  item: Organization;
   slug: string;
 }
 
 export function CardOrganization({ item, slug }: ItemInfoProps) {
+  console.log(item);
   return (
     <Link href={`/${slug}/${item.id}`}>
       <Box maxW="250px" bg="white" borderRadius="10" textAlign="left">
@@ -39,10 +33,10 @@ export function CardOrganization({ item, slug }: ItemInfoProps) {
         >
           <Flex direction="column">
             <Heading as="h3" fontSize="xl" fontWeight="600" mb={3}>
-              {item.name}
+              {item?.name}
             </Heading>
             <Text color="gray.400" fontSize="md" fontWeight="500">
-              {item.city} / {item.uf}
+              {item?.city} / {item?.uf}
             </Text>
           </Flex>
         </Flex>

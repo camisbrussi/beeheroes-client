@@ -6,7 +6,7 @@ export function OrganizationStatusWait({ organization, isResponsible = null }) {
       <Stack>
         {isResponsible ? (
           <>
-            <Link href={`/organization/edit/${organization?.id}`}>
+            <Link href={`/organizations/edit/${organization?.id}`}>
               <Tag mt={8} ml={3} colorScheme="yellow">
                 Editar dados
               </Tag>

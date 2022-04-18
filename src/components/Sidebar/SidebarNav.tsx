@@ -16,7 +16,7 @@ import { NavLink } from "./NavLink";
 import { NavSection } from "./NavSection";
 
 export function SideBarNav() {
-  const { user, signOut } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   return (
     <Stack spacing="10" align="flex-start">
@@ -26,16 +26,6 @@ export function SideBarNav() {
             <NavLink icon={RiArrowLeftLine} href="/">
               Voltar para o ínicio
             </NavLink>
-            <Button
-              onClick={signOut}
-              bg="transparent"
-              justifyContent="flex-start"
-              padding="0"
-              _hover={{ bg: "blue.50" }}
-            >
-              <Icon as={RiLogoutCircleLine} mx={2} />
-              Logout
-            </Button>
           </>
         ) : (
           <>
@@ -46,7 +36,7 @@ export function SideBarNav() {
               Fazer Cadastro
             </NavLink>
           </>
-        )}{" "}
+        )}
       </NavSection>
 
       <NavSection title="BUSCAS">

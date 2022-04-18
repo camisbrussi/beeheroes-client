@@ -22,9 +22,11 @@ export function Header() {
       borderColor="blue.600"
       bg="blue.100"
     >
-      <Sidebar />
       <Logo />
-      {isWideVersion && <Profile />}
+      <Flex>
+        <Profile />
+        <Sidebar />
+      </Flex>
     </Flex>
   );
 }
