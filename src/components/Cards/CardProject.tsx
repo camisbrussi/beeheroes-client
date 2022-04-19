@@ -66,14 +66,15 @@ export function CardProject({
           </Box>
           <Divider borderColor="blue.600" mt={4} />
 
-          <Box mt={5}>
-            {isThereSlots ? (
-              <Text> Vagas Disponíveis</Text>
-            ) : (
-              <Text> Vagas Preenchidas</Text>
-            )}
-          </Box>
-
+          {data.status === 1 && (
+            <Box mt={5}>
+              {isThereSlots ? (
+                <Text> Vagas Disponíveis</Text>
+              ) : (
+                <Text> Vagas Preenchidas</Text>
+              )}
+            </Box>
+          )}
           {/* <Box display="flex" mt="2" alignItems="center">
           {Array(5)
             .fill("")

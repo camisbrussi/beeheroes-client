@@ -10,15 +10,17 @@ import {
 } from "@chakra-ui/react";
 import { useContext } from "react";
 import { Volunteer } from "../../@types/volunteer";
+import { Evaluation } from "../../@types/evaluation";
 import { AuthContext } from "../../context/AuthContext";
-import { Evaluation } from "../Evaluation";
+import { EvaluationCard } from "../EvaluationCard";
 
 interface InfoUserProps {
   data: Volunteer;
   isProfile?: boolean;
+  evaluations: Evaluation[];
 }
 
-export function VolunteerData({ data, isProfile }: InfoUserProps) {
+export function VolunteerData({ data, isProfile, evaluations }: InfoUserProps) {
   const { user } = useContext(AuthContext);
 
   return (
@@ -58,7 +60,7 @@ export function VolunteerData({ data, isProfile }: InfoUserProps) {
             </Flex>
           </Stack>
         </HStack>
-        <Evaluation />
+        <EvaluationCard evaluations={evaluations} />
       </Flex>
     </>
   );

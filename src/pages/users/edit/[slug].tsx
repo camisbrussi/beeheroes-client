@@ -92,7 +92,7 @@ export default function EditVolunteer({ userData }: EditUserProps) {
           signOut();
           window.alert("Necessário realizar login com o novo e-mail");
         } else {
-          Router.push(`/profile`);
+          Router.push(`/users/profile/${userData.id}`);
         }
       })
       .catch((error) => {

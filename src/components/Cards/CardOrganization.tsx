@@ -7,7 +7,6 @@ export interface ItemInfoProps {
 }
 
 export function CardOrganization({ item, slug }: ItemInfoProps) {
-  console.log(item);
   return (
     <Link href={`/${slug}/${item.id}`}>
       <Box maxW="250px" bg="white" borderRadius="10" textAlign="left">

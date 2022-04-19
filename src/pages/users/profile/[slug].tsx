@@ -1,5 +1,7 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { GetStaticPaths, GetStaticProps } from "next";
+import { useContext, useEffect, useState } from "react";
+import { Evaluation } from "../../../@types/evaluation";
 
 import { Organization } from "../../../@types/organization";
 import { Project } from "../../../@types/project";
@@ -13,6 +15,7 @@ import { UserData } from "../../../components/Infos/User";
 import { VolunteerData } from "../../../components/Infos/Volunteer";
 import { ListProjects } from "../../../components/Lists/ProjectsOrganizationList";
 import { Loading } from "../../../components/Loading";
+import { AuthContext } from "../../../context/AuthContext";
 import { api } from "../../../services/apiCLient";
 
 interface ProfileProps {
@@ -20,15 +23,25 @@ interface ProfileProps {
   volunteer?: Volunteer;
   project?: Project[];
   organization?: Organization;
+  evaluations?: Evaluation[];
 }
 
 interface Profile {
   profile: ProfileProps;
+  slug: string;
 }
 
-export default function Profile({ profile }: Profile) {
+export default function Profile({ profile, slug }: Profile) {
+  const [isProfile, setIsProfile] = useState(false);
+  const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    slug && slug === user?.id && setIsProfile(true);
+  }, [slug, user]);
+
   if (profile) {
-    const { user, volunteer, project, organization } = profile[0];
+    const { userData, volunteer, project, organization, evaluations } =
+      profile[0];
 
     const organizationProps = () => {
       if (organization.status === 1) {
@@ -40,15 +53,21 @@ export default function Profile({ profile }: Profile) {
       }
     };
     return (
-      <Box w="100%" minW={1440}>
+      <Box w="100%">
         <Header />
 
         {user ? (
           <>
-            <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
+            <Flex maxWidth={1480} m="auto" justify="center">
               <Flex direction="column">
-                <UserData data={user} />
-                {volunteer && <VolunteerData data={volunteer} />}
+                <UserData data={userData} />
+                {volunteer && (
+                  <VolunteerData
+                    data={volunteer}
+                    evaluations={evaluations}
+                    isProfile={isProfile}
+                  />
+                )}
                 {project && <ListProjects data={project} />}
 
                 {organization && (
@@ -83,18 +102,19 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slug } = params;
 
-  let user: User;
+  let userData: User;
   let volunteer: Volunteer;
   let project: Project[];
   let organization: Organization;
+  let evaluations: Evaluation[];
 
   await api.get<User>(`/users/find?id=${slug}`).then((response) => {
-    user = response.data;
+    userData = response.data;
   });
 
-  if (user?.is_volunteer) {
+  if (userData?.is_volunteer) {
     await api
-      .get<Volunteer>(`/volunteers/find/?id=${user.id}`)
+      .get<Volunteer>(`/volunteers/find/?id=${userData.id}`)
       .then((response) => {
         volunteer = response.data;
       });
@@ -104,9 +124,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       .then((response) => {
         project = response.data;
       });
+
+    await api
+      .get<Evaluation[]>(`/evaluations/user/?id=${userData.id}`)
+      .then((response) => {
+        evaluations = response.data;
+      });
   } else {
     await api
-      .get<Organization>(`/organizations/user/?id=${user.id}`)
+      .get<Organization>(`/organizations/user/?id=${userData.id}`)
       .then((response) => {
         organization = response.data;
       });
@@ -114,15 +140,16 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const profile = [
     {
-      user,
+      userData,
       volunteer: volunteer || null,
       project: project || null,
       organization: organization || null,
+      evaluations: evaluations || null,
     },
   ];
 
   return {
-    props: { profile: profile || [] },
+    props: { profile: profile || [], slug },
     revalidate: 60 * 60, // 1 hour,
   };
 };

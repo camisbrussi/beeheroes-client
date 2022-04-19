@@ -69,7 +69,7 @@ export default function EditVolunteer({ volunteerData }: EditVolunteerProps) {
         data,
       })
       .then(async () => {
-        Router.push(`/profile`);
+        Router.push(`/users/profile/${volunteerData.user.id}`);
       })
       .catch(async (error) => {});
   };

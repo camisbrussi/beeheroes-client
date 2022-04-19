@@ -41,8 +41,6 @@ export default function EditProject({ projectData }) {
     resolver: yupResolver(createProjectFormSchema),
   });
 
-  console.log(projectData);
-
   useEffect(() => {
     setValue("name", projectData?.name, {
       shouldValidate: true,

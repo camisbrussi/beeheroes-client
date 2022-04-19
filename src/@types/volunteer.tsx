@@ -20,6 +20,7 @@ export type Volunteer = {
   occupationArea?: OccupationArea;
   occupation_area?: OccupationArea;
   user: {
+    id: string;
     avatar: string;
     name: string;
     address: {

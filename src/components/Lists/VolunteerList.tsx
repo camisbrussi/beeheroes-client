@@ -1,5 +1,5 @@
-import { Box, Image, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
-import { CardOrganization } from "../Cards/CardOrganization";
+import { Box, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
+import { CardVolunteer } from "../Cards/CardVolunteer";
 
 export function VolunteerList({ items }) {
   const isWideVersion = useBreakpointValue({
@@ -16,7 +16,7 @@ export function VolunteerList({ items }) {
         minChildWidth={isWideVersion ? "250px" : "150px"}
       >
         {items?.map((item) => (
-          <CardOrganization key={item.id} item={item} slug="volunteer" />
+          <CardVolunteer key={item.id} item={item} slug="volunteer" />
         ))}
       </SimpleGrid>
     </Box>

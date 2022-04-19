@@ -25,7 +25,10 @@ export default function OrganizationData({
             px="6"
             direction="column"
           >
-            <Slide imagesUrl={organization?.images_url} />
+            {organization?.images_url.length && (
+              <Slide imagesUrl={organization?.images_url} />
+            )}
+
             <OrganizationInfos
               data={organization}
               isResponsible={isResponsible}

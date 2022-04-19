@@ -33,12 +33,6 @@ export function ListProjects({
       <Flex>
         <Text mt={8}>Lista de projetos</Text>
 
-        <Link href={`/projects/busca?&organization_id=${organizationId}`}>
-          <Tag mt={8} ml={3} colorScheme="yellow">
-            Ver Todos
-          </Tag>
-        </Link>
-
         {isResponsible && (
           <Link href={`/project/register/${organizationId}`}>
             <Tag mt={8} ml={3} colorScheme="yellow">

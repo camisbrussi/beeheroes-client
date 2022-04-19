@@ -221,8 +221,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   let subscriptions: Subscription[];
   let organization: OrganizationProps;
 
-  console.log(params);
-
   const { slug } = params;
 
   await api.get<Project>(`/projects/find/?id=${slug}`).then((response) => {

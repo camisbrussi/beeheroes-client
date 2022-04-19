@@ -8,13 +8,12 @@ interface InfoUserProps {
   isProfile?: boolean;
 }
 
-export function UserData({ data, isProfile }: InfoUserProps) {
-  const { user } = useContext(AuthContext);
+export function UserData({ data }: InfoUserProps) {
   return (
-    <HStack spacing="20" w={1160} mt={20} mx="auto">
+    <HStack spacing="10" w={1160} mt={20} mx="auto">
       <Image
         ml="10px"
-        boxSize="250px"
+        boxSize="125px"
         objectFit="cover"
         borderRadius="10"
         src={
@@ -27,54 +26,20 @@ export function UserData({ data, isProfile }: InfoUserProps) {
 
       <Stack>
         <Flex>
-          <Text fontSize="5xl">{data?.name} </Text>
+          <Text fontSize="2xl">{data?.name} </Text>
         </Flex>
-        {data.is_volunteer ? (
-          <Stack direction="row" justify="start" align="center">
-            <Text fontSize="xl">Eu sou Voluntário</Text>
-            <Image src="/images/logo.svg" alt="logo" m="auto" boxSize="50px" />
-          </Stack>
-        ) : (
-          <Stack direction="row" justify="center" align="center">
-            <Text fontSize="xl">Eu sou Responsável por uma entidade</Text>
-            <Image
-              src="/images/responsible.svg"
-              alt="logo"
-              m="auto"
-              boxSize="50px"
-            />
-          </Stack>
-        )}
+
         <Text fontSize="md">E-mail: {data?.email}</Text>
         {data?.address?.city && (
           <Text>
             {data?.address?.city?.name}/{data?.address?.city?.state?.uf}
           </Text>
         )}
-        <Flex justify="center">
-          {isProfile && (
-            <Link href={`/users/edit/${user?.id}`}>
-              <Tag mt={8} ml={3} colorScheme="yellow">
-                Editar dados
-              </Tag>
-            </Link>
-          )}
-        </Flex>
+        <Flex justify="center"></Flex>
       </Stack>
-      {/* <Flex w={60}>
-        <Image
-          boxSize="100"
-          src="/images/beemusic.svg"
-          alt="logo"
-          m="auto"
-          w="184"
-        />
-
-        <Text>
-          Você tem 1.000 pontos para trocar por cupons de desconto. Clique AQUI
-          e troque
-        </Text>
-      </Flex> */}
+      {data?.is_volunteer && (
+        <Image src="/images/seal_vol.svg" alt="logo" m="auto" boxSize="125px" />
+      )}
     </HStack>
   );
 }

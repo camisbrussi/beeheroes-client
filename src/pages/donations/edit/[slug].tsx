@@ -55,8 +55,6 @@ export default function EditDonation({ donationData }) {
   const handleEditVolunteer: SubmitHandler<CreateDonationFormData> = async (
     values
   ) => {
-    console.log(donationData.total_collected);
-    console.log(values);
     let data: EditDonationFormData = {};
     donationData?.name !== values.name && (data.name = values.name);
     donationData?.description !== values.description &&
@@ -66,8 +64,6 @@ export default function EditDonation({ donationData }) {
     donationData?.total_collected !== values.totalCollected &&
       (data.total_collected = values.totalCollected);
     donationData?.status !== values.status && (data.status = values.status);
-
-    console.log("data", data);
 
     await api
       .put(`/donations?id=${donationData.id}`, {

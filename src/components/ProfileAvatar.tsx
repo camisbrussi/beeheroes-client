@@ -26,7 +26,7 @@ export function ProfileAvatar({
   return (
     <Stack w={40} mt={10} direction="column" align="left">
       {data && (
-        <Link href={`/user/profile/${data.user_id}`}>
+        <Link href={`/users/profile/${data.user_id}`}>
           <VStack>
             <Avatar
               size="lg"

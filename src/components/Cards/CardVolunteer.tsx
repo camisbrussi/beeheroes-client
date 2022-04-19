@@ -14,9 +14,9 @@ export interface ItemInfoProps {
   slug: string;
 }
 
-export function CardOrganization({ item, slug }: ItemInfoProps) {
+export function CardVolunteer({ item }: ItemInfoProps) {
   return (
-    <Link href={`/${slug}/${item.id}`}>
+    <Link href={`/users/profile/${item.user.id}`}>
       <Box maxW="250px" bg="white" borderRadius="10" textAlign="left">
         <Image
           boxSize="250px"
@@ -25,7 +25,7 @@ export function CardOrganization({ item, slug }: ItemInfoProps) {
           src={
             item?.user.avatar
               ? `${process.env.NEXT_PUBLIC_AWS_BUCKET_URL}/avatar/${item?.user.avatar}`
-              : "/images/responsible.svg"
+              : "/images/volunteer.svg"
           }
           alt={item?.user.name}
         />
@@ -46,7 +46,7 @@ export function CardOrganization({ item, slug }: ItemInfoProps) {
               {item.user.address.city.name} / {item.user.address.city.state.uf}
             </Text>
             <Text color="gray.400" fontSize="md" fontWeight="500">
-              Ocupação: {item.occupationArea.name}
+              Ocupação: {item.occupation_area}
             </Text>
           </Flex>
         </Flex>
