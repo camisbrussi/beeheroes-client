@@ -33,8 +33,6 @@ export function CardProject({
       overflow="hidden"
       bg="white"
       boxShadow="md"
-      align="center"
-      justify="center"
     >
       <Link href={`/projects//${data.id}`}>
         <Box p="6">

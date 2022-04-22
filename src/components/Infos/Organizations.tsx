@@ -59,7 +59,7 @@ export function OrganizationInfos({
             </Text>
           </Flex>
         )}
-        {data?.address?.street && (
+        {!hasVisitButton && data?.address?.street && (
           <Flex>
             <Text fontSize="md" fontWeight="bold">
               Endereço:
@@ -70,7 +70,9 @@ export function OrganizationInfos({
             </Text>
           </Flex>
         )}
-        {data?.phones &&
+
+        {!hasVisitButton &&
+          data?.phones &&
           data.phones.map((phone) =>
             phone.is_whatsapp ? (
               <Flex>
@@ -114,6 +116,7 @@ export function OrganizationInfos({
               </Flex>
             )
           )}
+
         <Flex justify="center">
           {isResponsible && (
             <Link href={`/organizations/edit/${data?.id}`}>

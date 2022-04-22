@@ -1,4 +1,4 @@
-import { Box, Image, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
+import { Box, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
 import { CardOrganization } from "../Cards/CardOrganization";
 
 export function OrganizationList({ items }) {

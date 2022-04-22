@@ -34,7 +34,6 @@ export default function RegisterVolunteer() {
     formState,
     setError,
     setValue,
-    getValues,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(createVolunteerFormSchema),

@@ -7,14 +7,12 @@ import {
   useDisclosure,
   Modal,
   Link,
-  useBreakpointValue,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
 import debounce from "lodash/debounce";
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
-import { ItemCard } from "../../components/Cards/CardOrganization";
 import { api } from "../../services/apiCLient";
 import { withSSRGuest } from "../../utils/withSSRGuest";
 import { FilterModal } from "../../components/modais/FilterModal";
@@ -31,10 +29,6 @@ interface SearchProps {
 // TODO: aplicar lodash da forma correta para não fazer requisição para o back a cada letra digitada
 
 export default function Search({ slug, query }: SearchProps) {
-  const isWideVersion = useBreakpointValue({
-    base: false,
-    lg: true,
-  });
   const [search, setSearch] = useState("");
   const [items, setItems] = useState([]);
 
@@ -44,7 +38,7 @@ export default function Search({ slug, query }: SearchProps) {
     async function fetchData() {
       query.name = search;
       await api
-        .post<ItemCard[]>(`/${slug}/filter`, {
+        .post(`/${slug}/filter`, {
           query,
         })
         .then((response) => {
@@ -55,11 +49,12 @@ export default function Search({ slug, query }: SearchProps) {
   }, [query, search, slug]);
 
   return (
-    <Box w="100%" align="center">
+    <Flex direction="column" w="100%" align="center">
       <Header />
       <Stack
         maxW={1150}
         direction="row"
+        spacing="500px"
         justify="space-between"
         left={["16px", "40px"]}
         mt={10}
@@ -104,7 +99,7 @@ export default function Search({ slug, query }: SearchProps) {
       <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <FilterModal onClose={onClose} slug={slug} query={query} />
       </Modal>
-    </Box>
+    </Flex>
   );
 }
 

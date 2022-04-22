@@ -29,8 +29,6 @@ export function CardDonation({ data, status = null }: CardInfoProps) {
       overflow="hidden"
       bg="white"
       boxShadow="md"
-      align="center"
-      justify="center"
     >
       <Link href={`/projects//${data.id}`}>
         <Box p="6">

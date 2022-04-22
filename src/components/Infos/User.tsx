@@ -1,8 +1,5 @@
-import { HStack, Stack, Text, Image, Link, Tag, Flex } from "@chakra-ui/react";
-import { useContext } from "react";
-import { BooleanLocale } from "yup/lib/locale";
+import { HStack, Stack, Text, Image, Flex } from "@chakra-ui/react";
 import { User } from "../../@types/user";
-import { AuthContext } from "../../context/AuthContext";
 interface InfoUserProps {
   data: User;
   isProfile?: boolean;

@@ -1,16 +1,13 @@
 import {
-  HStack,
   Text,
   Box,
   Divider,
   Link,
   Tag,
   Flex,
-  SimpleGrid,
   useBreakpointValue,
 } from "@chakra-ui/react";
 import { Donation } from "../../@types/donation";
-import { CardDonation } from "../Cards/CardDonation";
 import { DonationList } from "./DonationList";
 
 interface ListDonationsProps {

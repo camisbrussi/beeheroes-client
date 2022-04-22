@@ -1,8 +1,8 @@
-import { Box, Spinner } from "@chakra-ui/react";
+import { Box, Flex, Spinner } from "@chakra-ui/react";
 
 export function Loading() {
   return (
-    <Box align="center" justifyContent="center" mt={20}>
+    <Flex align="center" justifyContent="center" mt={20}>
       <Spinner
         thickness="4px"
         speed="0.65s"
@@ -10,6 +10,6 @@ export function Loading() {
         color="yellow.400"
         size="xl"
       />
-    </Box>
+    </Flex>
   );
 }

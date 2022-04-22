@@ -8,7 +8,6 @@ import {
   RiParentLine,
   RiOpenArmLine,
   RiLoginCircleLine,
-  RiLogoutCircleLine,
   RiHeart3Line,
 } from "react-icons/ri";
 import { AuthContext } from "../../context/AuthContext";

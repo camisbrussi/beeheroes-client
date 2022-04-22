@@ -126,8 +126,6 @@ export default function EditOrganization({ organizationData }) {
     data.description = values.description;
     data.phones = phones;
 
-    console.log(data);
-
     await api
       .put(`/organizations?id=${organizationData.id}`, {
         data,

@@ -2,7 +2,6 @@ import { Box, Divider, Flex, Text } from "@chakra-ui/react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { useContext, useEffect, useState } from "react";
 import { Evaluation } from "../../../@types/evaluation";
-
 import { Organization } from "../../../@types/organization";
 import { Project } from "../../../@types/project";
 import { User } from "../../../@types/user";

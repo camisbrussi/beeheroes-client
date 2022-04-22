@@ -1,4 +1,4 @@
-import { HStack, Stack, Text, Image, Tag, Link } from "@chakra-ui/react";
+import { HStack, Stack, Text, Image } from "@chakra-ui/react";
 
 export function OrganizationStatusWait({ organization, isResponsible = null }) {
   return (
