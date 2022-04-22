@@ -1,6 +1,7 @@
 import { Address } from "./address";
 import { Donation } from "./donation";
 import { organizationType } from "./organizationType";
+import { Phone } from "./phone";
 import { ProjectListProps } from "./project";
 import { Responsibles } from "./user";
 
@@ -18,6 +19,7 @@ export type OrganizationProps = {
   projects: ProjectListProps[];
   donations: Donation[];
   responsibles: Responsibles[];
+  phones: Phone[];
 };
 
 export type Organization = {
@@ -53,6 +55,8 @@ export type CreateOrganizationFormData = {
   complement: string;
   organizationTypeId: string;
   description: string;
+  phone: number;
+  cellphone: number;
 };
 
 export type EditOrganizationFormData = {
@@ -70,4 +74,5 @@ export type EditOrganizationFormData = {
   };
   organizationTypeId?: string;
   description?: string;
+  phones?: Phone[];
 };

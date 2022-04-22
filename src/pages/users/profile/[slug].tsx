@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Divider, Flex, Text } from "@chakra-ui/react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { useContext, useEffect, useState } from "react";
 import { Evaluation } from "../../../@types/evaluation";
@@ -45,11 +45,22 @@ export default function Profile({ profile, slug }: Profile) {
 
     const organizationProps = () => {
       if (organization.status === 1) {
-        return <OrganizationInfos data={organization} hasVisitButton />;
+        return (
+          <OrganizationInfos
+            data={organization}
+            hasVisitButton
+            isResponsible={isProfile}
+          />
+        );
       } else if (organization.status === 2) {
-        <OrganizationStatusInactive />;
+        return <OrganizationStatusInactive isResponsible={isProfile} />;
       } else if (organization.status === 3) {
-        return <OrganizationStatusWait organization={organization} />;
+        return (
+          <OrganizationStatusWait
+            organization={organization}
+            isResponsible={isProfile}
+          />
+        );
       }
     };
     return (
@@ -72,6 +83,7 @@ export default function Profile({ profile, slug }: Profile) {
 
                 {organization && (
                   <Box w={1160} mt={5} mx="auto" fontSize="lg">
+                    <Divider mt={9} borderColor="blue.600" />
                     <Text mt={5}>
                       Conheça a organização que sou responsavél
                     </Text>

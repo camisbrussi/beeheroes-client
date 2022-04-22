@@ -55,7 +55,7 @@ export default function EditVolunteer({ userData }: EditUserProps) {
     values
   ) => {
     if (!values.cityId) {
-      setError("city", {
+      setError("cityId", {
         type: "manual",
         message: "Escolha uma cidade",
       });

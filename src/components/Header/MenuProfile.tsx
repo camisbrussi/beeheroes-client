@@ -17,7 +17,7 @@ export function MenuProfile() {
 
   const userProfile = useMemo(
     () => (
-      <MenuList>
+      <MenuList minWidth={300}>
         <MenuGroup title="Perfil">
           <Stack align="center" spacing="2" mt={1} p={5}>
             <Avatar

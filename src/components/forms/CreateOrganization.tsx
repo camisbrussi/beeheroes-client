@@ -85,6 +85,7 @@ export default function CreateOrganization({
             as={InputMask}
             mask="99.999.999/9999-99"
             label="CNPJ"
+            disabled={isEdit}
             error={errors.cnpj}
             {...register("cnpj")}
           />
@@ -104,6 +105,27 @@ export default function CreateOrganization({
               },
             })}
           />
+        </SimpleGrid>
+        <SimpleGrid minChildWidth="240px" spacing="8" w="100%">
+          <Input
+            name="phone"
+            as={InputMask}
+            mask="(99) 9999-9999"
+            label="Telefone Fixo"
+            info="Opcional"
+            error={errors.phone}
+            {...register("phone")}
+          />
+          <Stack direction="row" align="end">
+            <Input
+              name="cellphone"
+              as={InputMask}
+              mask="(99) 99999-9999"
+              label="Whatsapp"
+              error={errors.cellphone}
+              {...register("cellphone")}
+            />
+          </Stack>
         </SimpleGrid>
         <Textarea
           name="description"

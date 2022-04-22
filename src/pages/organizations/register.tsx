@@ -12,6 +12,7 @@ import { api } from "../../services/apiCLient";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { CreateOrganizationFormData } from "../../@types/organization";
+import { useRouter } from "next/router";
 
 const createOrganizationFormSchema = yup.object().shape({
   name: yup.string().required("Nome obrigatório"),
@@ -34,6 +35,7 @@ const createOrganizationFormSchema = yup.object().shape({
 
 export default function Register() {
   const { signIn } = useContext(AuthContext);
+  const router = useRouter();
 
   const {
     register,
@@ -49,10 +51,32 @@ export default function Register() {
   const handleCreateOrganization: SubmitHandler<
     CreateOrganizationFormData
   > = async (values) => {
-    if (values.organizationTypeId === "") {
-      setError("organizationType", {
+    let phones = [];
+    if (!values.organizationTypeId) {
+      setError("organizationTypeId", {
         type: "manual",
-        message: "Escolha um tipo",
+        message: "Escolha um tipo de entidade",
+      });
+    }
+
+    if (!values.cityId) {
+      setError("cityId", {
+        type: "manual",
+        message: "Escolha um tipo de entidade",
+      });
+    }
+
+    if (values.phone) {
+      phones.push({
+        number: values.phone,
+        is_whatsapp: false,
+      });
+    }
+
+    if (values.cellphone) {
+      phones.push({
+        number: values.cellphone,
+        is_whatsapp: true,
       });
     }
 
@@ -80,9 +104,10 @@ export default function Register() {
             district: values.district,
             city_id: Number(values.cityId),
           },
+          phones,
         },
       })
-      .then(async () => {
+      .then(async (respnse) => {
         await signIn({ email: values.email, password: values.password });
       })
       .catch((error) => {

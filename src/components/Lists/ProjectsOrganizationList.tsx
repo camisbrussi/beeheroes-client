@@ -30,17 +30,21 @@ export function ListProjects({
   return (
     <Box w={1160} mt={20} mx="auto" fontSize="lg">
       <Divider borderColor="blue.600" />
-      <Flex>
-        <Text mt={8}>Lista de projetos</Text>
+      {data.length ? (
+        <Flex>
+          <Text mt={8}>Lista de projetos</Text>
 
-        {isResponsible && (
-          <Link href={`/project/register/${organizationId}`}>
-            <Tag mt={8} ml={3} colorScheme="yellow">
-              Adicionar Projeto
-            </Tag>
-          </Link>
-        )}
-      </Flex>
+          {isResponsible && (
+            <Link href={`/project/register/${organizationId}`}>
+              <Tag mt={8} ml={3} colorScheme="yellow">
+                Adicionar Projeto
+              </Tag>
+            </Link>
+          )}
+        </Flex>
+      ) : (
+        <Text mt={8}>A organização ainda não possui projetos cadastrados</Text>
+      )}
       <ProjectList items={data} />
     </Box>
   );

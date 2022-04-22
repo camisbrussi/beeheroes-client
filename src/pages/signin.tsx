@@ -4,6 +4,7 @@ import {
   Text,
   Spacer,
   useBreakpointValue,
+  Box,
 } from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -18,6 +19,7 @@ import { AuthContext } from "../context/AuthContext";
 import { GetServerSideProps } from "next";
 import { withSSRGuest } from "../utils/withSSRGuest";
 import { SignInFormData } from "../@types/signIn";
+import { Header } from "../components/Header";
 
 const signInFormSchema = yup.object().shape({
   email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
@@ -53,58 +55,61 @@ export default function SigIn() {
     lg: true,
   });
   return (
-    <Flex
-      w="100vw"
-      h="100vh"
-      align="center"
-      justify="center"
-      flexDir={!isWideVersion ? "column" : "row"}
-    >
-      <Logo />
+    <Box w="100%">
+      <Header />
       <Flex
-        as="form"
-        width="100%"
-        maxW={isWideVersion ? "500" : "300"}
-        bg="white"
-        p="8"
-        borderRadius={8}
-        m={isWideVersion ? "60px" : "20px"}
-        flexDir="column"
-        onSubmit={handleSubmit(handleSignIn)}
+        w="100vw"
+        h="100vh"
+        align="center"
+        justify="center"
+        flexDir={!isWideVersion ? "column" : "row"}
       >
-        <Stack spacing="4">
-          <Text fontSize="2xl" as="b">
-            Fazer Login
-          </Text>
-          <Input
-            name="email"
-            type="email"
-            label="E-mail"
-            error={errors.email}
-            {...register("email")}
-          />
-          <Input
-            name="password"
-            type="password"
-            label="Senha"
-            error={errors.password}
-            {...register("password")}
-          />
-          <Stack direction={["column", "row"]}>
-            <Link href="/">Esqueci minha Senha</Link>
-            <Spacer />
-            <Link href="/"> Continuar sem login</Link>
+        <Logo />
+        <Flex
+          as="form"
+          width="100%"
+          maxW={isWideVersion ? "500" : "300"}
+          bg="white"
+          p="8"
+          borderRadius={8}
+          m={isWideVersion ? "60px" : "20px"}
+          flexDir="column"
+          onSubmit={handleSubmit(handleSignIn)}
+        >
+          <Stack spacing="4">
+            <Text fontSize="2xl" as="b">
+              Fazer Login
+            </Text>
+            <Input
+              name="email"
+              type="email"
+              label="E-mail"
+              error={errors.email}
+              {...register("email")}
+            />
+            <Input
+              name="password"
+              type="password"
+              label="Senha"
+              error={errors.password}
+              {...register("password")}
+            />
+            <Stack direction={["column", "row"]}>
+              <Link href="/">Esqueci minha Senha</Link>
+              <Spacer />
+              <Link href="/"> Continuar sem login</Link>
+            </Stack>
           </Stack>
-        </Stack>
 
-        <Button
-          mt="6"
-          type="submit"
-          title="Entrar"
-          isLoading={formState.isSubmitting}
-        />
+          <Button
+            mt="6"
+            type="submit"
+            title="Entrar"
+            isLoading={formState.isSubmitting}
+          />
+        </Flex>
       </Flex>
-    </Flex>
+    </Box>
   );
 }
 

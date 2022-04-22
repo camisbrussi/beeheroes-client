@@ -6,11 +6,6 @@ export function OrganizationStatusWait({ organization, isResponsible = null }) {
       <Stack>
         {isResponsible ? (
           <>
-            <Link href={`/organizations/edit/${organization?.id}`}>
-              <Tag mt={8} ml={3} colorScheme="yellow">
-                Editar dados
-              </Tag>
-            </Link>
             <Text fontSize="6xl">Ebaaa!</Text>
             <Text>
               O cadastro deu certo e foi enviado ao administrador para ser

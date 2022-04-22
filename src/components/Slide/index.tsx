@@ -17,7 +17,7 @@ export const Slide = ({ imagesUrl }: SlideInfoProps) => {
       w="100%"
       maxW={1220}
       minW={1220}
-      h={["200px", "300px"]}
+      h={["200px", "500px"]}
       mx="auto"
       mb={["5", "10"]}
     >

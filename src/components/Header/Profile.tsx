@@ -1,19 +1,22 @@
 import {
   Flex,
-  Box,
-  Text,
   Avatar,
   Link,
   Spacer,
   Menu,
   MenuButton,
+  Modal,
+  useDisclosure,
+  Button,
 } from "@chakra-ui/react";
 import { useContext, useMemo } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { RegisterSelect } from "../modais/RegisterSelect";
 import { MenuProfile } from "./MenuProfile";
 
 export function Profile() {
   const { user } = useContext(AuthContext);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const userProfile = useMemo(
     () => (
@@ -39,14 +42,22 @@ export function Profile() {
               Fazer Login
             </Link>
             <Spacer />
-            <Link href="/signin" fontWeight="bold" p="4">
+            <Button
+              onClick={onOpen}
+              fontWeight="bold"
+              variant="link"
+              color="blue.600"
+            >
               Fazer Cadastro
-            </Link>
+            </Button>
           </Flex>
         )}
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <RegisterSelect />
+        </Modal>
       </Flex>
     ),
-    [user]
+    [isOpen, onClose, onOpen, user]
   );
 
   return <> {userProfile}</>;

@@ -17,6 +17,7 @@ import {
 } from "../../../@types/organization";
 import { withSSRAuth } from "../../../utils/withSSRAuth";
 import CreateOrganization from "../../../components/forms/CreateOrganization";
+import { Phone } from "../../../@types/phone";
 
 const createOrganizationFormSchema = yup.object().shape({
   nameOrganization: yup.string().required("Nome obrigatório"),
@@ -76,49 +77,63 @@ export default function EditOrganization({ organizationData }) {
     setValue("cityId", organizationData?.address?.city?.id || "", {
       shouldValidate: true,
     });
+    organizationData.phones.map((phone) => {
+      phone.is_whatsapp
+        ? setValue("cellphone", phone || "", {
+            shouldValidate: true,
+          })
+        : setValue("phone", phone || "");
+    });
   }, [organizationData, setValue]);
 
   const handleEditVolunteer: SubmitHandler<CreateOrganizationFormData> = async (
     values
   ) => {
+    let phones: Phone[] = [];
     if (values.organizationTypeId === "") {
       setError("organizationTypeID", {
         type: "manual",
         message: "Escolha um tipo",
       });
     }
+    if (organizationData?.phone !== values.phone) {
+      phones.push({
+        number: values.phone,
+        is_whatsapp: false,
+      });
+    }
+
+    if (organizationData?.cellphone !== values.cellphone) {
+      phones.push({
+        number: values.cellphone,
+        is_whatsapp: true,
+      });
+    }
 
     let data: EditOrganizationFormData = {};
-    organizationData?.name !== values.nameOrganization &&
-      (data.name = values.nameOrganization);
-    organizationData?.email !== values.emailOrganization &&
+    data.name = values.nameOrganization;
+    organizationData.email !== values.emailOrganization &&
       (data.email = values.emailOrganization);
-    organizationData?.avatar !== values.avatarOrganization &&
-      (data.avatar = values.avatarOrganization);
-    organizationData?.organization_type?.id !== values.organizationTypeId &&
-      (data.organizationTypeId = values.organizationTypeId);
-    organizationData?.description !== values.description &&
-      (data.description = values.description);
+    data.avatar = values.avatarOrganization;
+    data.organizationTypeId = values.organizationTypeId;
+    data.description = values.description;
     data.address = { city_id: Number(values.cityId) };
-    organizationData?.street !== values.street &&
-      (data.address.street = values.street);
-    organizationData?.number !== values.number &&
-      (data.address.number = values.number);
-    organizationData?.complement !== values.complement &&
-      (data.address.complement = values.complement);
-    organizationData?.district !== values.district &&
-      (data.address.district = values.district);
-    organizationData?.cep !== values.cep && (data.address.cep = values.cep);
-    organizationData?.cnpj !== values.cnpj && (data.cnpj = values.cnpj);
-    organizationData?.description !== values.description &&
-      (data.description = values.description);
+    data.address.street = values.street;
+    data.address.number = values.number;
+    data.address.complement = values.complement;
+    data.address.district = values.district;
+    data.address.cep = values.cep;
+    data.description = values.description;
+    data.phones = phones;
+
+    console.log(data);
 
     await api
       .put(`/organizations?id=${organizationData.id}`, {
         data,
       })
       .then(async () => {
-        Router.push(`/project/${organizationData.id}`);
+        Router.push(`/organizations/${organizationData.id}`);
       })
       .catch((error) => {
         if (error?.response?.data?.message) {

@@ -1,4 +1,4 @@
-import { Button, Icon, Stack } from "@chakra-ui/react";
+import { Button, Icon, Modal, Stack, useDisclosure } from "@chakra-ui/react";
 import { useContext } from "react";
 
 import {
@@ -12,11 +12,13 @@ import {
   RiHeart3Line,
 } from "react-icons/ri";
 import { AuthContext } from "../../context/AuthContext";
+import { RegisterSelect } from "../modais/RegisterSelect";
 import { NavLink } from "./NavLink";
 import { NavSection } from "./NavSection";
 
 export function SideBarNav() {
   const { user } = useContext(AuthContext);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <Stack spacing="10" align="flex-start">
@@ -32,9 +34,10 @@ export function SideBarNav() {
             <NavLink icon={RiLoginCircleLine} href="/signin">
               Fazer Login
             </NavLink>
-            <NavLink icon={RiHeart3Line} href="/signin">
+            <Button onClick={onOpen} variant="link">
+              <Icon as={RiHeart3Line} mx={2} />
               Fazer Cadastro
-            </NavLink>
+            </Button>
           </>
         )}
       </NavSection>
@@ -53,6 +56,9 @@ export function SideBarNav() {
           Voluntários
         </NavLink>
       </NavSection>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <RegisterSelect />
+      </Modal>
     </Stack>
   );
 }

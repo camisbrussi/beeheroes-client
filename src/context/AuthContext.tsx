@@ -24,15 +24,6 @@ export const AuthContext = createContext({} as AuthContextData);
 
 // let authChannel: BroadcastChannel;
 
-export function signOut() {
-  destroyCookie(undefined, "beeheroes.token", { path: "/" });
-  destroyCookie(undefined, "beeheroes.refreshToken", { path: "/" });
-
-  // authChannel.postMessage("signOut");
-
-  Router.push("/signin");
-}
-
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<UserSignIn>();
   const isAuthenticated = !!user;
@@ -48,6 +39,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
   //         break;
   //     }
   //   };
+
+  function signOut() {
+    destroyCookie(undefined, "beeheroes.token", { path: "/" });
+    destroyCookie(undefined, "beeheroes.refreshToken", { path: "/" });
+
+    // authChannel.postMessage("signOut");
+
+    Router.push("/signin");
+    setUser(null);
+  }
   // }, []);
 
   useEffect(() => {
@@ -93,7 +94,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       });
 
       api.defaults.headers["Authorization"] = `Barear ${token}`;
-      Router.back();
+      Router.push(`/users/profile/${id}`);
 
       return;
 

@@ -18,9 +18,9 @@ export function RegisterSelect() {
 
   function handleSubmit() {
     if (value === "1") {
-      Router.push("/organization/register");
+      Router.push("/organizations/register");
     } else {
-      Router.push("/volunteer/register");
+      Router.push("/volunteers/register");
     }
   }
   return (

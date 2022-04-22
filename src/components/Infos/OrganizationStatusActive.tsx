@@ -5,7 +5,6 @@ import { ListDonations } from "../Lists/DonationsOrganizationsList";
 import { Loading } from "../../components/Loading";
 import { ProfileAvatar } from "../../components/ProfileAvatar";
 import { Slide } from "../../components/Slide";
-import { AddressData } from "../../components/Infos/Address";
 import { OrganizationInfos } from "../../components/Infos/Organizations";
 import { ListProjects } from "../Lists/ProjectsOrganizationList";
 
@@ -13,6 +12,7 @@ export default function OrganizationData({
   organization,
   isResponsible = null,
 }) {
+  console.log(organization?.project);
   return (
     <>
       {organization ? (
@@ -25,20 +25,24 @@ export default function OrganizationData({
             px="6"
             direction="column"
           >
-            {organization?.images_url.length && (
-              <Slide imagesUrl={organization?.images_url} />
-            )}
-
             <OrganizationInfos
               data={organization}
               isResponsible={isResponsible}
             />
-            <AddressData data={organization?.address} />
+            <Box mt={10}>
+              {organization?.images_url.length ? (
+                <Slide imagesUrl={organization?.images_url} />
+              ) : (
+                ""
+              )}
+            </Box>
+
             <ListProjects
               data={organization?.projects}
               organizationId={organization.id}
               isResponsible={isResponsible}
             />
+
             <ListDonations
               data={organization?.donations}
               organizationId={organization.id}
