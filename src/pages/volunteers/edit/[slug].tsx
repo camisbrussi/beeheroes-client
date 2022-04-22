@@ -44,7 +44,6 @@ export default function EditVolunteer({ volunteerData }: EditVolunteerProps) {
     setValue("occupationAreaId", volunteerData?.occupation_area.id, {
       shouldValidate: true,
     });
-    setValue("profession", volunteerData?.profession, { shouldValidate: true });
   }, [volunteerData, setValue]);
 
   const handleEditUser: SubmitHandler<CreateVolunteerFormData> = async (
@@ -62,7 +61,6 @@ export default function EditVolunteer({ volunteerData }: EditVolunteerProps) {
       (data.description = values.description);
     volunteerData?.occupation_area.id !== values.occupationAreaId &&
       (data.occupation_area_id = values.occupationAreaId);
-    volunteerData.profession && (data.profession = values.profession);
 
     await api
       .put(`/volunteers?id=${volunteerData.id}`, {

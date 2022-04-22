@@ -35,14 +35,6 @@ export function VolunteerData({ data, isProfile, evaluations }: InfoUserProps) {
             </Text>
             <Flex>
               <Text fontSize="md" fontWeight="600">
-                Profissão:
-              </Text>
-              <Text fontWeight="400" mx={1}>
-                {data?.profession}
-              </Text>
-            </Flex>
-            <Flex>
-              <Text fontSize="md" fontWeight="600">
                 Área de Atuação:
               </Text>
               <Text fontWeight="400" mx={1}>

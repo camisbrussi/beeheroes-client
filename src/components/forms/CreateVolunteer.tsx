@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { SimpleGrid, Stack, HStack, Image, Text, Box } from "@chakra-ui/react";
 import { api } from "../../services/apiCLient";
-
-import { Input } from "../FormsComponents/Input";
 import { Select } from "../FormsComponents/Select";
 import { Textarea } from "../FormsComponents/TextArea";
 
@@ -69,13 +67,6 @@ export default function CreateVolunteer({
                 setValue("occupationAreaId", e.target.value);
               },
             })}
-          />
-          <Input
-            name="profession"
-            type="profession"
-            label="Profissão"
-            error={errors.profession}
-            {...register("profession")}
           />
         </SimpleGrid>
         <Textarea

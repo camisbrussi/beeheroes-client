@@ -10,13 +10,11 @@ export type CreateVolunteerFormData = {
   cityId: number;
   occupationAreaId: string;
   description: string;
-  profession: string;
 };
 
 export type Volunteer = {
   id: string;
   description: string;
-  profession: string;
   occupationArea?: OccupationArea;
   occupation_area?: OccupationArea;
   user: {
@@ -37,6 +35,5 @@ export type Volunteer = {
 export type EditVolunteerFormData = {
   id?: string;
   description?: string;
-  profession?: string;
   occupation_area_id?: string;
 };

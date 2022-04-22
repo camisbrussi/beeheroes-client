@@ -68,7 +68,6 @@ export default function RegisterVolunteer() {
           },
         },
         volunteer: {
-          profession: values.profession,
           description: values.description,
           occupation_area_id: values.occupationAreaId,
         },
