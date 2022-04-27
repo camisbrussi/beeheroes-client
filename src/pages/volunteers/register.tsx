@@ -42,14 +42,14 @@ export default function RegisterVolunteer() {
   const handleCreateVolunteer: SubmitHandler<CreateVolunteerFormData> = async (
     values
   ) => {
-    if (values.cityId) {
+    if (!values.cityId) {
       setError("cityId", {
         type: "manual",
         message: "Escolha uma cidade",
       });
     }
 
-    if (values.occupationAreaId) {
+    if (!values.occupationAreaId) {
       setError("occupationAreaId", {
         type: "manual",
         message: "Escolha uma área de atuação",

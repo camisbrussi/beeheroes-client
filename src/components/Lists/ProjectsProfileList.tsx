@@ -3,7 +3,7 @@ import {
   Box,
   Divider,
   Flex,
-  SimpleGrid,
+  Grid,
   useBreakpointValue,
 } from "@chakra-ui/react";
 import { ProjectListProps } from "../../@types/project";
@@ -29,13 +29,7 @@ export function ListProjectsProfile({ data }: ListProjectsProps) {
         <Text mt={8}>Lista de projetos</Text>
       </Flex>
       <Box>
-        <SimpleGrid
-          p={6}
-          columns={[2, 3]}
-          spacingX="40px"
-          spacingY="30px"
-          minChildWidth={isWideVersion ? "300px" : "150px"}
-        >
+        <Grid templateColumns="repeat(5, 1fr)" gap={10} mt={10}>
           {data?.map((project) => (
             <CardProject
               key={project.id}
@@ -45,7 +39,7 @@ export function ListProjectsProfile({ data }: ListProjectsProps) {
               }
             />
           ))}
-        </SimpleGrid>
+        </Grid>
       </Box>
     </Box>
   );

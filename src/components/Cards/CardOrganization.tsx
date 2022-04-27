@@ -8,19 +8,19 @@ export interface ItemInfoProps {
 
 export function CardOrganization({ item, slug }: ItemInfoProps) {
   return (
-    <Link href={`/${slug}/${item.id}`}>
-      <Box maxW="250px" bg="white" borderRadius="10" textAlign="left">
-        <Image
-          boxSize="250px"
-          objectFit="cover"
-          borderTopRadius="10"
-          src={
-            item?.avatar
-              ? `${process.env.NEXT_PUBLIC_AWS_BUCKET_URL}/avatar/${item?.avatar}`
-              : "/images/responsible.svg"
-          }
-          alt={item?.name}
-        />
+    <Box maxW="250px" bg="white" borderRadius="10" textAlign="left">
+      <Image
+        boxSize="250px"
+        objectFit="cover"
+        borderTopRadius="10"
+        src={
+          item?.avatar
+            ? `${process.env.NEXT_PUBLIC_AWS_BUCKET_URL}/avatar/${item?.avatar}`
+            : "/images/responsible.svg"
+        }
+        alt={item?.name}
+      />
+      <Link href={`/${slug}/${item.id}`}>
         <Flex
           justify="space-between"
           align="center"
@@ -38,8 +38,8 @@ export function CardOrganization({ item, slug }: ItemInfoProps) {
               {item?.city} / {item?.uf}
             </Text>
           </Flex>
-        </Flex>
-      </Box>
-    </Link>
+        </Flex>{" "}
+      </Link>
+    </Box>
   );
 }

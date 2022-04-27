@@ -81,26 +81,23 @@ export default function CreateUser({
               },
             })}
           />
-          {cities ? (
-            <Select
-              name="city"
-              id="city"
-              placeholder="Escolha uma cidade"
-              label="Cidade"
-              data={cities ? cities : []}
-              value={cityId}
-              error={errors.cityId}
-              {...(register("cityId"),
-              {
-                onChange: (e) => {
-                  setCityId(e.target.value);
-                  setValue("cityId", e.target.value);
-                },
-              })}
-            />
-          ) : (
-            <Spinner />
-          )}
+          <Select
+            name="city"
+            id="city"
+            placeholder="Escolha uma cidade"
+            label="Cidade"
+            data={cities ? cities : []}
+            disabled={!cities}
+            value={cityId}
+            error={errors.cityId}
+            {...(register("cityId"),
+            {
+              onChange: (e) => {
+                setCityId(e.target.value);
+                setValue("cityId", e.target.value);
+              },
+            })}
+          />
         </SimpleGrid>
       </Stack>
     </Stack>

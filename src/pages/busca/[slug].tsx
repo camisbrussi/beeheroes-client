@@ -91,10 +91,12 @@ export default function Search({ slug, query }: SearchProps) {
           <Icon as={RiSearchLine} fontSize="20"></Icon>
         </Flex>
       </Stack>
-      {slug === "organizations" && <OrganizationList items={items} />}
-      {slug === "projects" && <ProjectList items={items} />}
-      {slug === "volunteers" && <VolunteerList items={items} />}
-      {slug === "donations" && <DonationList items={items} />}
+      <Box>
+        {slug === "organizations" && <OrganizationList items={items} />}
+        {slug === "projects" && <ProjectList items={items} />}
+        {slug === "volunteers" && <VolunteerList items={items} />}
+        {slug === "donations" && <DonationList items={items} />}
+      </Box>
 
       <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <FilterModal onClose={onClose} slug={slug} query={query} />

@@ -42,8 +42,10 @@ export function ListProjects({
             </Link>
           )}
         </Flex>
-      ) : (
+      ) : organizationId ? (
         <Text mt={8}>A organização ainda não possui projetos cadastrados</Text>
+      ) : (
+        <Text mt={8}>O Voluntário ainda não participou de nenhum projeto</Text>
       )}
       <ProjectList items={data} />
     </Box>

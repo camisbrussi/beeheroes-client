@@ -21,10 +21,19 @@ interface SelectProps extends ChakraSelectProps {
   placeholder?: string;
   error?: FieldError;
   data?: dataOptions[];
+  disabled?: boolean;
 }
 
 const SelectBase: ForwardRefRenderFunction<HTMLSelectElement, SelectProps> = (
-  { name, placeholder = null, error = null, label = null, data, ...rest },
+  {
+    name,
+    placeholder = null,
+    error = null,
+    label = null,
+    data,
+    disabled = false,
+    ...rest
+  },
   ref
 ) => {
   return (
@@ -39,6 +48,7 @@ const SelectBase: ForwardRefRenderFunction<HTMLSelectElement, SelectProps> = (
           bgColor="blue.50"
           placeholder={placeholder}
           size="lg"
+          disabled={disabled}
           ref={ref}
           {...rest}
         >
