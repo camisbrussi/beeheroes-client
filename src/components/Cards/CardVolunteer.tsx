@@ -27,7 +27,7 @@ export function CardVolunteer({ item }: ItemInfoProps) {
               ? `${process.env.NEXT_PUBLIC_AWS_BUCKET_URL}/avatar/${item?.user?.avatar}`
               : "/images/volunteer.svg"
           }
-          alt={item?.user.name}
+          alt={item?.user?.name}
         />
         <Flex
           justify="space-between"

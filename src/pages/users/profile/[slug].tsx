@@ -31,6 +31,7 @@ interface Profile {
 }
 
 export default function Profile({ profile, slug }: Profile) {
+  console.log();
   const [isProfile, setIsProfile] = useState(false);
   const { user } = useContext(AuthContext);
 
@@ -66,7 +67,7 @@ export default function Profile({ profile, slug }: Profile) {
       <Box w="100%">
         <Header />
 
-        {user ? (
+        {profile ? (
           <>
             <Flex maxWidth={1480} m="auto" justify="center">
               <Flex direction="column">
