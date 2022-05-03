@@ -49,7 +49,7 @@ export default function Search({ slug, query }: SearchProps) {
   }, [query, search, slug]);
 
   return (
-    <Flex direction="column" w="100%" align="center">
+    <Flex direction="column" w="100%" align="center" mb={10}>
       <Header />
       <Stack
         maxW={1150}

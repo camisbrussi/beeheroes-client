@@ -163,6 +163,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       donation,
       organization,
     },
-    revalidate: 60 * 60, // 1 hour,
+    revalidate: 60,
   };
 };
