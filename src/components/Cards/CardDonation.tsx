@@ -30,7 +30,7 @@ export function CardDonation({ data, status = null }: CardInfoProps) {
       bg="white"
       boxShadow="md"
     >
-      <Link href={`/projects//${data.id}`}>
+      <Link href={`/donations/${data.id}`}>
         <Box p="6">
           <Center>
             <Box

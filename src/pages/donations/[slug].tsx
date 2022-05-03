@@ -21,6 +21,7 @@ import { OrganizationInfos } from "../../components/Infos/Organizations";
 import { OrganizationProps } from "../../@types/organization";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { withSSRGuest } from "../../utils/withSSRGuest";
 interface DonationProps {
   donation: Donation;
   organization: OrganizationProps;
@@ -61,7 +62,7 @@ export default function DonationData({
   };
 
   return (
-    <Box w="100%" minW={1440}>
+    <Box w="100%" minW={1440} pb={10}>
       <Header />
       {donation ? (
         <>
@@ -133,18 +134,11 @@ export default function DonationData({
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: true,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps = withSSRGuest(async (ctx) => {
   let donation: Donation;
   let organization: OrganizationProps;
 
-  const { slug } = params;
+  const { slug } = ctx.params;
 
   await api.get<Donation>(`/donations/find/?id=${slug}`).then((response) => {
     donation = response.data;
@@ -163,6 +157,5 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       donation,
       organization,
     },
-    revalidate: 1,
   };
-};
+});

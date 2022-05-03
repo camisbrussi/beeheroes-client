@@ -11,9 +11,8 @@ import {
   useDisclosure,
   Link,
   Tag,
-  SimpleGrid,
+  Grid,
 } from "@chakra-ui/react";
-import { GetStaticPaths, GetStaticProps } from "next";
 import { AiOutlineCalendar, AiOutlineExclamationCircle } from "react-icons/ai";
 import moment from "moment";
 import { useContext, useEffect, useState } from "react";
@@ -31,6 +30,7 @@ import { ProfileAvatar } from "../../components/ProfileAvatar";
 import { SubscriptionModal } from "../../components/modais/SubscriptionModal";
 import { AuthContext } from "../../context/AuthContext";
 import { OrganizationProps } from "../../@types/organization";
+import { withSSRGuest } from "../../utils/withSSRGuest";
 
 interface ProjectProps {
   project: Project;
@@ -59,7 +59,7 @@ export default function User({
   const projectFree = project?.vacancies === 0 && true;
 
   return (
-    <Box w="100%" minW={1440}>
+    <Box w="100%" minW={1440} pb={10}>
       <Header />
       {project ? (
         <>
@@ -160,7 +160,7 @@ export default function User({
           <Box w={1160} mt={20} mx="auto" fontSize="lg">
             <Divider mt="20px" borderColor="blue.600" />
             <Text mt={5}>Voluntários inscritos no projeto</Text>
-            <SimpleGrid minChildWidth="180px" spacing="2px">
+            <Grid templateColumns="repeat(5, 1fr)" gap={1}>
               {subscriptions?.map((subscription) => (
                 <ProfileAvatar
                   key={subscription.id}
@@ -169,7 +169,7 @@ export default function User({
                   statusSubscriptions={subscription.status}
                 />
               ))}
-            </SimpleGrid>
+            </Grid>
             <Flex mt={5} mb={5}>
               <Text>Legenda:</Text>
               <Flex ml={2}>
@@ -209,19 +209,12 @@ export default function User({
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: true,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps = withSSRGuest(async (ctx) => {
   let project: Project;
   let subscriptions: Subscription[];
   let organization: OrganizationProps;
 
-  const { slug } = params;
+  const { slug } = ctx.params;
 
   await api.get<Project>(`/projects/find/?id=${slug}`).then((response) => {
     project = response.data;
@@ -247,6 +240,5 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       subscriptions,
       organization,
     },
-    revalidate: 1,
   };
-};
+});

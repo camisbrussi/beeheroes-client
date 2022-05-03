@@ -16,6 +16,7 @@ import { ListProjects } from "../../../components/Lists/ProjectsOrganizationList
 import { Loading } from "../../../components/Loading";
 import { AuthContext } from "../../../context/AuthContext";
 import { api } from "../../../services/apiCLient";
+import { withSSRGuest } from "../../../utils/withSSRGuest";
 
 interface ProfileProps {
   user: User;
@@ -104,15 +105,8 @@ export default function Profile({ profile, slug }: Profile) {
   }
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: true,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { slug } = params;
+export const getServerSideProps = withSSRGuest(async (ctx) => {
+  const { slug } = ctx.params;
 
   let userData: User;
   let volunteer: Volunteer;
@@ -162,6 +156,5 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: { profile: profile || [], slug },
-    revalidate: 1,
   };
-};
+});

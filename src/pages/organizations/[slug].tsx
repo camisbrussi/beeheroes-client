@@ -10,6 +10,7 @@ import { OrganizationStatusInactive } from "../../components/Infos/OrganizationS
 import { OrganizationStatusWait } from "../../components/Infos/OrganizationStatusWait";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { withSSRGuest } from "../../utils/withSSRGuest";
 
 export interface Organizations {
   organization: OrganizationProps;
@@ -53,17 +54,10 @@ export default function OrganizationData({ organization }: Organizations) {
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: true,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps = withSSRGuest(async (ctx) => {
   let organization: OrganizationProps;
 
-  const { slug } = params;
+  const { slug } = ctx.params;
 
   await api
     .get<OrganizationProps>(`/organizations/find/?id=${slug}`)
@@ -75,6 +69,5 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       organization,
     },
-    revalidate: 1,
   };
-};
+});
