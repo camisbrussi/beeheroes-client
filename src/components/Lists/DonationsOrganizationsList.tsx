@@ -28,26 +28,27 @@ export const ListDonations = ({
   return (
     <Box w={1160} mt={20} mx="auto" fontSize="lg">
       <Divider borderColor="blue.600" />
-      {data.length ? (
-        <Flex>
-          <Text mt={8}>Doações em andamento</Text>
-          <Link href={`/project/busca/${organizationId}`}>
-            <Tag mt={8} ml={3} colorScheme="yellow">
-              Ver Todos
-            </Tag>
-          </Link>
-
-          {isResponsible && (
-            <Link href={`/donation/register/${organizationId}`}>
+      <Flex>
+        {data.length ? (
+          <Flex>
+            <Text mt={8}>Doações em andamento</Text>
+            <Link href={`/project/busca/${organizationId}`}>
               <Tag mt={8} ml={3} colorScheme="yellow">
-                Adicionar Doação
+                Ver Todos
               </Tag>
             </Link>
-          )}
-        </Flex>
-      ) : (
-        <Text mt={8}>A organização ainda não possui doações cadastradas</Text>
-      )}
+          </Flex>
+        ) : (
+          <Text mt={8}>A organização ainda não possui doações cadastradas</Text>
+        )}
+        {isResponsible && (
+          <Link href={`/donation/register/${organizationId}`}>
+            <Tag mt={8} ml={3} colorScheme="yellow">
+              Adicionar Doação
+            </Tag>
+          </Link>
+        )}
+      </Flex>
       <DonationList items={data} />
     </Box>
   );

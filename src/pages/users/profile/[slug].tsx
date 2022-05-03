@@ -64,7 +64,7 @@ export default function Profile({ profile, slug }: Profile) {
       }
     };
     return (
-      <Box w="100%">
+      <Box w="100%" pb={10}>
         <Header />
 
         {profile ? (

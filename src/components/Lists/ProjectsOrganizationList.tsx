@@ -29,24 +29,32 @@ export function ListProjects({
   });
   return (
     <Box w={1160} mt={20} mx="auto" fontSize="lg">
-      <Divider borderColor="blue.600" />
-      {data.length ? (
-        <Flex>
-          <Text mt={8}>Lista de projetos</Text>
-
-          {isResponsible && (
-            <Link href={`/project/register/${organizationId}`}>
-              <Tag mt={8} ml={3} colorScheme="yellow">
-                Adicionar Projeto
-              </Tag>
-            </Link>
-          )}
-        </Flex>
-      ) : organizationId ? (
-        <Text mt={8}>A organização ainda não possui projetos cadastrados</Text>
-      ) : (
-        <Text mt={8}>O Voluntário ainda não participou de nenhum projeto</Text>
-      )}
+      <Divider borderColor="blue.600" />{" "}
+      <Flex>
+        {data.length ? (
+          <Flex>
+            <Text mt={8}>Lista de projetos</Text>
+            <Tag mt={8} ml={3} colorScheme="yellow">
+              Ver Todos
+            </Tag>
+          </Flex>
+        ) : organizationId ? (
+          <Text mt={8}>
+            A organização ainda não possui projetos cadastrados
+          </Text>
+        ) : (
+          <Text mt={8}>
+            O Voluntário ainda não participou de nenhum projeto
+          </Text>
+        )}
+        {isResponsible && (
+          <Link href={`/project/register/${organizationId}`}>
+            <Tag mt={8} ml={3} colorScheme="yellow">
+              Adicionar Projeto
+            </Tag>
+          </Link>
+        )}{" "}
+      </Flex>
       <ProjectList items={data} />
     </Box>
   );
