@@ -16,6 +16,8 @@ export function setupApiClient(ctx = undefined) {
     },
   });
 
+  api.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+
   api.interceptors.response.use(
     (response) => {
       return response;
