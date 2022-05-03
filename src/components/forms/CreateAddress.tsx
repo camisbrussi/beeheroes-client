@@ -112,7 +112,7 @@ export default function CreateUser({
             name="cep"
             label="CEP"
             as={InputMask}
-            mask="99999-999"
+            // mask="99999-999"
             {...(register("cep"),
             {
               onBlur: (e) => getAddress(e.target.value),

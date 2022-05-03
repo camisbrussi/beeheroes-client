@@ -171,12 +171,12 @@ export default function EditOrganization({ organizationData }) {
             setError={setError}
             isEdit
           />
-          {/* <CreateAddress
+          <CreateAddress
             register={register}
             errors={errors}
             setValue={setValue}
             getValues={getValues}
-          /> */}
+          />
           <Flex justify="center">
             {Object.keys(errors).length > 0 && (
               <Text color="red">
