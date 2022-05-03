@@ -31,6 +31,7 @@ export default function Register({ slug }) {
     register,
     handleSubmit,
     formState,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(createProjectFormSchema),
@@ -52,7 +53,7 @@ export default function Register({ slug }) {
       })
       .then(async (response) => {
         project = response.data;
-        Router.push(`/project/${project.id}`);
+        Router.push(`/projects/${project.id}`);
       })
       .catch((error) => {
         console.log(error);
@@ -66,7 +67,11 @@ export default function Register({ slug }) {
         <Stack spacing="5" justify="space-between" w={1160} mt={5} mx="auto">
           <Text fontSize="3xl">Cadastro de Projeto</Text>
 
-          <CreateProject register={register} errors={errors} />
+          <CreateProject
+            register={register}
+            errors={errors}
+            setValue={setValue}
+          />
           <Flex justify="center">
             {Object.keys(errors).length > 0 && (
               <Text color="red">
