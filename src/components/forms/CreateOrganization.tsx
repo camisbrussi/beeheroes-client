@@ -23,8 +23,6 @@ export default function CreateOrganization({
   isEdit = null,
   getValues = null,
 }) {
-  console.log(getValues());
-
   const organizationValue = getValues ? getValues("organizationTypeId") : null;
   const [organizationTypes, setOrganizationTypes] = useState(null);
   const [organizationTypeId, setOrganizationTypeId] = useState("");

@@ -20,8 +20,6 @@ export default function CreateUser({
   const [stateId, setStateId] = useState(null);
   const [cityId, setCityId] = useState(null);
 
-  console.log(getValues());
-
   useEffect(() => {
     cityValue && setCityId(getValues("cityId"));
     stateValue && setStateId(getValues("stateId"));
