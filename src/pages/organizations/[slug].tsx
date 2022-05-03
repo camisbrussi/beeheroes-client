@@ -75,6 +75,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       organization,
     },
-    revalidate: 60,
+    revalidate: 1,
   };
 };

@@ -162,6 +162,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: { profile: profile || [], slug },
-    revalidate: 60,
+    revalidate: 1,
   };
 };
