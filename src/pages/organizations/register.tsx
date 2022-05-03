@@ -37,6 +37,8 @@ const createOrganizationFormSchema = yup.object().shape({
 export default function Register() {
   const { signIn } = useContext(AuthContext);
   useLayoutEffect(() => {
+    hotjar.initialize(2953049, 6);
+
     hotjar.event("button-click");
   }, []);
 

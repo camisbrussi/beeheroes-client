@@ -32,6 +32,8 @@ const createProjectFormSchema = yup.object().shape({
 
 export default function EditProject({ projectData }) {
   useLayoutEffect(() => {
+    hotjar.initialize(2953049, 6);
+
     hotjar.event("button-click");
   }, []);
   const {

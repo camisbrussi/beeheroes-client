@@ -32,6 +32,8 @@ export default function DonationData({
   organization,
 }: DonationProps) {
   useLayoutEffect(() => {
+    hotjar.initialize(2953049, 6);
+
     hotjar.event("button-click");
   }, []);
 

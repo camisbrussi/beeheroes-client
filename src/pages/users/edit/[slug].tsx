@@ -29,6 +29,8 @@ const createUserFormSchema = yup.object().shape({
 
 export default function EditVolunteer({ userData }: EditUserProps) {
   useLayoutEffect(() => {
+    hotjar.initialize(2953049, 6);
+
     hotjar.event("button-click");
   }, []);
 

@@ -18,6 +18,8 @@ export interface Organizations {
 
 export default function OrganizationData({ organization }: Organizations) {
   useLayoutEffect(() => {
+    hotjar.initialize(2953049, 6);
+
     hotjar.event("button-click");
   }, []);
 

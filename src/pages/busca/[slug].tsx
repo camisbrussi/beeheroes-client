@@ -31,6 +31,8 @@ interface SearchProps {
 
 export default function Search({ slug, query }: SearchProps) {
   useLayoutEffect(() => {
+    hotjar.initialize(2953049, 6);
+
     hotjar.event("button-click");
   }, []);
   const [search, setSearch] = useState("");

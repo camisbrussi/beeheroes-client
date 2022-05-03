@@ -34,6 +34,8 @@ interface Profile {
 
 export default function Profile({ profile, slug }: Profile) {
   useLayoutEffect(() => {
+    hotjar.initialize(2953049, 6);
+
     hotjar.event("button-click");
   }, []);
 

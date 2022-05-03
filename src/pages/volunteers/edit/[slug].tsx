@@ -27,6 +27,8 @@ const createVolunteerFormSchema = yup.object().shape({
 
 export default function EditVolunteer({ volunteerData }: EditVolunteerProps) {
   useLayoutEffect(() => {
+    hotjar.initialize(2953049, 6);
+
     hotjar.event("button-click");
   }, []);
 

@@ -45,6 +45,8 @@ export default function User({
   organization,
 }: ProjectProps) {
   useLayoutEffect(() => {
+    hotjar.initialize(2953049, 6);
+
     hotjar.event("button-click");
   }, []);
 

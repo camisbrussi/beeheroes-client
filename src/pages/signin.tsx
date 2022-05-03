@@ -30,6 +30,8 @@ const signInFormSchema = yup.object().shape({
 
 export default function SigIn() {
   useLayoutEffect(() => {
+    hotjar.initialize(2953049, 6);
+
     hotjar.event("button-click");
   }, []);
 

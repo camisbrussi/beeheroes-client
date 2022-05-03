@@ -28,6 +28,8 @@ const createVolunteerFormSchema = yup.object().shape({
 
 export default function RegisterVolunteer() {
   useLayoutEffect(() => {
+    hotjar.initialize(2953049, 6);
+
     hotjar.event("button-click");
   }, []);
 

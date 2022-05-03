@@ -8,6 +8,8 @@ import { useLayoutEffect } from "react";
 
 export default function Home() {
   useLayoutEffect(() => {
+    hotjar.initialize(2953049, 6);
+
     hotjar.event("button-click");
   }, []);
 
