@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { Box, Flex, Stack, Text } from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -31,8 +31,9 @@ const createProjectFormSchema = yup.object().shape({
 });
 
 export default function EditProject({ projectData }) {
-  hotjar.event("button-click");
-
+  useLayoutEffect(() => {
+    hotjar.event("button-click");
+  }, []);
   const {
     register,
     handleSubmit,

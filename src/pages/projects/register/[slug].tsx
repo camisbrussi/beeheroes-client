@@ -11,6 +11,7 @@ import { CreateProjectFormData } from "../../../@types/project";
 import Router from "next/router";
 import { withSSRAuth } from "../../../utils/withSSRAuth";
 import CreateProject from "../../../components/forms/CreateProject";
+import { useLayoutEffect } from "react";
 
 const createProjectFormSchema = yup.object().shape({
   name: yup.string().required("Nome obrigatório"),
@@ -28,7 +29,9 @@ const createProjectFormSchema = yup.object().shape({
 });
 
 export default function Register({ slug }) {
-  hotjar.event("button-click");
+  useLayoutEffect(() => {
+    hotjar.event("button-click");
+  }, []);
 
   const {
     register,

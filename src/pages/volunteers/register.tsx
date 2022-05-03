@@ -8,7 +8,7 @@ import { Button } from "../../components/Button";
 import CreateUser from "../../components/forms/CreateUser";
 import { Header } from "../../components/Header";
 import { api } from "../../services/apiCLient";
-import { useContext } from "react";
+import { useContext, useLayoutEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import CreateVolunteer from "../../components/forms/CreateVolunteer";
 import CreateAddressUser from "../../components/forms/CreateAddressUser";
@@ -27,7 +27,9 @@ const createVolunteerFormSchema = yup.object().shape({
 });
 
 export default function RegisterVolunteer() {
-  hotjar.event("button-click");
+  useLayoutEffect(() => {
+    hotjar.event("button-click");
+  }, []);
 
   const { signIn } = useContext(AuthContext);
 

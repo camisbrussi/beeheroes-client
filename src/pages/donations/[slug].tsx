@@ -19,7 +19,7 @@ import { Loading } from "../../components/Loading";
 import { Donation } from "../../@types/donation";
 import { OrganizationInfos } from "../../components/Infos/Organizations";
 import { OrganizationProps } from "../../@types/organization";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { withSSRGuest } from "../../utils/withSSRGuest";
 interface DonationProps {
@@ -31,7 +31,9 @@ export default function DonationData({
   donation,
   organization,
 }: DonationProps) {
-  hotjar.event("button-click");
+  useLayoutEffect(() => {
+    hotjar.event("button-click");
+  }, []);
 
   const [isResponsible, setIsResponsible] = useState(false);
   const { user } = useContext(AuthContext);

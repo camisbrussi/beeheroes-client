@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useLayoutEffect } from "react";
 
 import { Box, Flex, Stack, Text } from "@chakra-ui/react";
 import * as yup from "yup";
@@ -28,7 +28,9 @@ const createUserFormSchema = yup.object().shape({
 });
 
 export default function EditVolunteer({ userData }: EditUserProps) {
-  hotjar.event("button-click");
+  useLayoutEffect(() => {
+    hotjar.event("button-click");
+  }, []);
 
   const { signOut } = useContext(AuthContext);
 

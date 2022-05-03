@@ -11,6 +11,7 @@ import Router from "next/router";
 import { withSSRAuth } from "../../../utils/withSSRAuth";
 import CreateDonation from "../../../components/forms/CreateDonation";
 import { CreateDonationFormData } from "../../../@types/donation";
+import { useLayoutEffect } from "react";
 
 const createDonationFormSchema = yup.object().shape({
   name: yup.string().required("Nome obrigatório"),
@@ -18,7 +19,9 @@ const createDonationFormSchema = yup.object().shape({
 });
 
 export default function Register({ slug }) {
-  hotjar.event("button-click");
+  useLayoutEffect(() => {
+    hotjar.event("button-click");
+  }, []);
 
   const {
     register,

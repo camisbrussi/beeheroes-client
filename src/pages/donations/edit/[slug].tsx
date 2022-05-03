@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { Box, Flex, Stack, Text } from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -24,7 +24,9 @@ const createDonationFormSchema = yup.object().shape({
 });
 
 export default function EditDonation({ donationData }) {
-  hotjar.event("button-click");
+  useLayoutEffect(() => {
+    hotjar.event("button-click");
+  }, []);
   const {
     register,
     handleSubmit,

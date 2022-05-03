@@ -10,7 +10,7 @@ import CreateOrganization from "../../components/forms/CreateOrganization";
 import CreateUser from "../../components/forms/CreateUser";
 import { Header } from "../../components/Header";
 import { api } from "../../services/apiCLient";
-import { useContext } from "react";
+import { useContext, useLayoutEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { CreateOrganizationFormData } from "../../@types/organization";
 import { useRouter } from "next/router";
@@ -36,7 +36,9 @@ const createOrganizationFormSchema = yup.object().shape({
 
 export default function Register() {
   const { signIn } = useContext(AuthContext);
-  hotjar.event("button-click");
+  useLayoutEffect(() => {
+    hotjar.event("button-click");
+  }, []);
 
   const {
     register,

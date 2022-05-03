@@ -9,7 +9,7 @@ import {
   Link,
 } from "@chakra-ui/react";
 import { hotjar } from "react-hotjar";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
 import debounce from "lodash/debounce";
 import { Button } from "../../components/Button";
@@ -30,7 +30,9 @@ interface SearchProps {
 // TODO: aplicar lodash da forma correta para não fazer requisição para o back a cada letra digitada
 
 export default function Search({ slug, query }: SearchProps) {
-  hotjar.event("button-click");
+  useLayoutEffect(() => {
+    hotjar.event("button-click");
+  }, []);
   const [search, setSearch] = useState("");
   const [items, setItems] = useState([]);
 

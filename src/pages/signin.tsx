@@ -16,7 +16,7 @@ import Link from "next/link";
 import { Logo } from "../components/Logo";
 import { Input } from "../components/FormsComponents/Input";
 import { Button } from "../components/Button";
-import { useContext } from "react";
+import { useContext, useLayoutEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { GetServerSideProps } from "next";
 import { withSSRGuest } from "../utils/withSSRGuest";
@@ -29,7 +29,9 @@ const signInFormSchema = yup.object().shape({
 });
 
 export default function SigIn() {
-  hotjar.event("button-click");
+  useLayoutEffect(() => {
+    hotjar.event("button-click");
+  }, []);
 
   const {
     register,

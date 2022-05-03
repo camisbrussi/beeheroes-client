@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { Box, Flex, Stack, Text } from "@chakra-ui/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
@@ -26,7 +26,9 @@ const createVolunteerFormSchema = yup.object().shape({
 });
 
 export default function EditVolunteer({ volunteerData }: EditVolunteerProps) {
-  hotjar.event("button-click");
+  useLayoutEffect(() => {
+    hotjar.event("button-click");
+  }, []);
 
   const {
     register,

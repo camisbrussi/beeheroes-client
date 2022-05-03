@@ -8,7 +8,7 @@ import { OrganizationProps } from "../../@types/organization";
 import OrganizationStatusActive from "../../components/Infos/OrganizationStatusActive";
 import { OrganizationStatusInactive } from "../../components/Infos/OrganizationStatusInactive";
 import { OrganizationStatusWait } from "../../components/Infos/OrganizationStatusWait";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { withSSRGuest } from "../../utils/withSSRGuest";
 
@@ -17,7 +17,9 @@ export interface Organizations {
 }
 
 export default function OrganizationData({ organization }: Organizations) {
-  hotjar.event("button-click");
+  useLayoutEffect(() => {
+    hotjar.event("button-click");
+  }, []);
 
   const [isResponsible, setIsResponsible] = useState(false);
   const { user } = useContext(AuthContext);

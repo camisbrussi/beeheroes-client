@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { AiOutlineCalendar, AiOutlineExclamationCircle } from "react-icons/ai";
 import moment from "moment";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useLayoutEffect, useState } from "react";
 import Router from "next/router";
 import { hotjar } from "react-hotjar";
 
@@ -44,7 +44,9 @@ export default function User({
   subscriptions,
   organization,
 }: ProjectProps) {
-  hotjar.event("button-click");
+  useLayoutEffect(() => {
+    hotjar.event("button-click");
+  }, []);
 
   const [isResponsible, setIsResponsible] = useState(false);
   const { user } = useContext(AuthContext);
