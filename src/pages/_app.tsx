@@ -4,7 +4,6 @@ import { theme } from "../styles/theme";
 import { AuthProvider } from "../context/AuthContext";
 import { hotjar } from "react-hotjar";
 import { useEffect } from "react";
-import { useRouter } from "next/router";
 
 import "../styles/slide.scss";
 

@@ -12,7 +12,6 @@ export default function OrganizationData({
   organization,
   isResponsible = null,
 }) {
-  console.log(organization?.project);
   return (
     <>
       {organization ? (
