@@ -34,7 +34,7 @@ export function ListProjects({
         {data.length ? (
           <Flex>
             <Text mt={8}>Lista de projetos</Text>
-            <Link href={`/projects/busca/${organizationId}`}>
+            <Link href={`/busca/projects?organization_id=${organizationId}`}>
               <Tag mt={8} ml={3} colorScheme="yellow">
                 Ver Todos
               </Tag>

@@ -32,7 +32,7 @@ export const ListDonations = ({
         {data.length ? (
           <Flex>
             <Text mt={8}>Doações em andamento</Text>
-            <Link href={`/donations/busca/${organizationId}`}>
+            <Link href={`/busca/donations?organization_id=${organizationId}`}>
               <Tag mt={8} ml={3} colorScheme="yellow">
                 Ver Todos
               </Tag>
