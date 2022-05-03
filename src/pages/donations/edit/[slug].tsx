@@ -70,7 +70,7 @@ export default function EditDonation({ donationData }) {
         data,
       })
       .then(async () => {
-        Router.push(`/donation/${donationData.id}`);
+        Router.push(`/donations/${donationData.id}`);
       })
       .catch((error) => {
         console.log(error);

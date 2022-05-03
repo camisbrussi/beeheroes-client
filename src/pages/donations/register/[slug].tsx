@@ -40,7 +40,7 @@ export default function Register({ slug }) {
       })
       .then(async (response) => {
         donation = response.data;
-        Router.push(`/donation/${donation.id}`);
+        Router.push(`/donations/${donation.id}`);
       })
       .catch((error) => {
         console.log(error);
