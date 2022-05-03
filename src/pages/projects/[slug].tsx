@@ -17,6 +17,7 @@ import { AiOutlineCalendar, AiOutlineExclamationCircle } from "react-icons/ai";
 import moment from "moment";
 import { useContext, useEffect, useState } from "react";
 import Router from "next/router";
+import { hotjar } from "react-hotjar";
 
 import { Header } from "../../components/Header";
 import { api } from "../../services/apiCLient";
@@ -43,6 +44,8 @@ export default function User({
   subscriptions,
   organization,
 }: ProjectProps) {
+  hotjar.event("button-click");
+
   const [isResponsible, setIsResponsible] = useState(false);
   const { user } = useContext(AuthContext);
 

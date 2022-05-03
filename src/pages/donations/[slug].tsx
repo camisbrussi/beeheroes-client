@@ -10,8 +10,8 @@ import {
   Link,
   Tag,
 } from "@chakra-ui/react";
-import { GetStaticPaths, GetStaticProps } from "next";
 import { RiHandCoinLine } from "react-icons/ri";
+import { hotjar } from "react-hotjar";
 
 import { Header } from "../../components/Header";
 import { api } from "../../services/apiCLient";
@@ -31,6 +31,8 @@ export default function DonationData({
   donation,
   organization,
 }: DonationProps) {
+  hotjar.event("button-click");
+
   const [isResponsible, setIsResponsible] = useState(false);
   const { user } = useContext(AuthContext);
 

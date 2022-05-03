@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Router from "next/router";
+import { hotjar } from "react-hotjar";
 
 import { Button } from "../../../components/Button";
 import CreateAddress from "../../../components/forms/CreateAddress";
@@ -30,6 +31,8 @@ const createOrganizationFormSchema = yup.object().shape({
 });
 
 export default function EditOrganization({ organizationData }) {
+  hotjar.event("button-click");
+
   const {
     register,
     handleSubmit,

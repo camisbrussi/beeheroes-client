@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Router from "next/router";
+import { hotjar } from "react-hotjar";
 
 import { EditUserFormData, User } from "../../../@types/user";
 import { CreateVolunteerFormData } from "../../../@types/volunteer";
@@ -27,6 +28,8 @@ const createUserFormSchema = yup.object().shape({
 });
 
 export default function EditVolunteer({ userData }: EditUserProps) {
+  hotjar.event("button-click");
+
   const { signOut } = useContext(AuthContext);
 
   const {

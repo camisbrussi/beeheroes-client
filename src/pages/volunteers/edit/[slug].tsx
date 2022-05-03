@@ -4,6 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Router from "next/router";
+import { hotjar } from "react-hotjar";
 
 import {
   CreateVolunteerFormData,
@@ -25,6 +26,8 @@ const createVolunteerFormSchema = yup.object().shape({
 });
 
 export default function EditVolunteer({ volunteerData }: EditVolunteerProps) {
+  hotjar.event("button-click");
+
   const {
     register,
     handleSubmit,

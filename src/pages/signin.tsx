@@ -6,6 +6,8 @@ import {
   useBreakpointValue,
   Box,
 } from "@chakra-ui/react";
+import { hotjar } from "react-hotjar";
+
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -27,6 +29,8 @@ const signInFormSchema = yup.object().shape({
 });
 
 export default function SigIn() {
+  hotjar.event("button-click");
+
   const {
     register,
     handleSubmit,

@@ -2,6 +2,7 @@ import { Box, Flex, Stack, Text } from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { hotjar } from "react-hotjar";
 
 import { Button } from "../../../components/Button";
 import { Header } from "../../../components/Header";
@@ -17,6 +18,8 @@ const createDonationFormSchema = yup.object().shape({
 });
 
 export default function Register({ slug }) {
+  hotjar.event("button-click");
+
   const {
     register,
     handleSubmit,

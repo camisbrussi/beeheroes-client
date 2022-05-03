@@ -2,6 +2,7 @@ import { Box, Flex, Stack, Text } from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { hotjar } from "react-hotjar";
 
 import { Button } from "../../components/Button";
 import CreateUser from "../../components/forms/CreateUser";
@@ -26,6 +27,8 @@ const createVolunteerFormSchema = yup.object().shape({
 });
 
 export default function RegisterVolunteer() {
+  hotjar.event("button-click");
+
   const { signIn } = useContext(AuthContext);
 
   const {

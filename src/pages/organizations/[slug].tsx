@@ -1,5 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react";
-import { GetStaticPaths, GetStaticProps } from "next";
+import { hotjar } from "react-hotjar";
 
 import { Header } from "../../components/Header";
 
@@ -17,6 +17,8 @@ export interface Organizations {
 }
 
 export default function OrganizationData({ organization }: Organizations) {
+  hotjar.event("button-click");
+
   const [isResponsible, setIsResponsible] = useState(false);
   const { user } = useContext(AuthContext);
 

@@ -1,5 +1,6 @@
 import { Box, Divider, Flex, Text } from "@chakra-ui/react";
-import { GetStaticPaths, GetStaticProps } from "next";
+import { hotjar } from "react-hotjar";
+
 import { useContext, useEffect, useState } from "react";
 import { Evaluation } from "../../../@types/evaluation";
 import { Organization } from "../../../@types/organization";
@@ -32,7 +33,8 @@ interface Profile {
 }
 
 export default function Profile({ profile, slug }: Profile) {
-  console.log();
+  hotjar.event("button-click");
+
   const [isProfile, setIsProfile] = useState(false);
   const { user } = useContext(AuthContext);
 
