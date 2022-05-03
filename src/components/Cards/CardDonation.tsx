@@ -1,4 +1,4 @@
-import { Link, Box, Badge, Flex } from "@chakra-ui/react";
+import { Link, Box, Badge, Center } from "@chakra-ui/react";
 import { Donation } from "../../@types/donation";
 
 interface CardInfoProps {
@@ -32,20 +32,22 @@ export function CardDonation({ data, status = null }: CardInfoProps) {
     >
       <Link href={`/projects//${data.id}`}>
         <Box p="6">
-          <Box
-            mt="1"
-            fontWeight="semibold"
-            as="h4"
-            lineHeight="tight"
-            isTruncated
-          >
-            {data.name}
-          </Box>
-          <Box alignItems="center">
+          <Center>
+            <Box
+              mt="1"
+              fontWeight="semibold"
+              as="h4"
+              lineHeight="tight"
+              isTruncated
+            >
+              {data.name}
+            </Box>
+          </Center>
+          <Center>
             <Badge borderRadius="full" colorScheme={status?.color}>
               {status?.name}
             </Badge>
-          </Box>
+          </Center>
           {value ? (
             <Box
               color="gray.500"
@@ -55,9 +57,15 @@ export function CardDonation({ data, status = null }: CardInfoProps) {
               textTransform="uppercase"
               mt={3}
             >
-              <Box>{value} (Valor Necessário)</Box>
-              <Box>&bull;</Box>
-              <Box>{collected} (Valor Arrecadado)</Box>
+              <Center>
+                <Box>{value} (Valor Necessário)</Box>
+              </Center>
+              <Center>
+                <Box>&bull;</Box>
+              </Center>
+              <Center>
+                <Box>{collected} (Valor Arrecadado)</Box>
+              </Center>
             </Box>
           ) : (
             <Box>Local de coleta na descrição da doação</Box>
