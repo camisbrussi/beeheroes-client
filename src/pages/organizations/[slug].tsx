@@ -76,4 +76,5 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       organization,
     },
     revalidate: 60,
+  };
 };
