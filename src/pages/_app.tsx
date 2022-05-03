@@ -17,7 +17,7 @@ import { Header } from "../components/Header";
 
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
-    hotjar.initialize(2945278, 6);
+    hotjar.initialize(2953049, 6);
   }, []);
 
   return (

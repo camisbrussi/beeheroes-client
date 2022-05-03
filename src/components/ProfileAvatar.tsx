@@ -21,7 +21,6 @@ export function ProfileAvatar({
   isProject = null,
   statusSubscriptions = null,
 }: ProfileAvatarProps) {
-  console.log(data);
   const status = customDataStatus.subscription[statusSubscriptions];
 
   return (
