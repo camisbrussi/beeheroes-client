@@ -140,7 +140,7 @@ export default function User({
                 </Flex>
               ) : (
                 (project?.total_subscription !== project?.vacancies ||
-                  projectFree) && (
+                  (projectFree && project.status === 1)) && (
                   <Button
                     title="Fazer Inscrição"
                     onClick={user ? onOpen : () => Router.push("/signin")}

@@ -82,7 +82,7 @@ export default function EditProject({ projectData }) {
         data,
       })
       .then(async () => {
-        Router.push(`/project/${projectData.id}`);
+        Router.push(`/projects/${projectData.id}`);
       })
       .catch((error) => {
         console.log(error);
