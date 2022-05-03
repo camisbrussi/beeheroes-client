@@ -39,7 +39,8 @@ export function Header() {
       <Alert status="warning">
         <AlertIcon />
         Esse site foi construído para uma pesquisa do trabalho de conclusão, os
-        dados apresentados são fictícios.
+        dados apresentados são fictícios. Para mais informações:
+        camila.sbrussi@universo.univates.br
       </Alert>
     </>
   );

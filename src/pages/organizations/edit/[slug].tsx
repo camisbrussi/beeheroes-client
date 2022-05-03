@@ -41,7 +41,6 @@ export default function EditOrganization({ organizationData }) {
   } = useForm({
     resolver: yupResolver(createOrganizationFormSchema),
   });
-
   useEffect(() => {
     setValue("nameOrganization", organizationData?.name, {
       shouldValidate: true,
@@ -57,7 +56,7 @@ export default function EditOrganization({ organizationData }) {
     });
     setValue(
       "organizationTypeId",
-      organizationData.organization_type?.id || "",
+      organizationData?.organization_type?.id || "",
       {
         shouldValidate: true,
       }
@@ -77,14 +76,14 @@ export default function EditOrganization({ organizationData }) {
     setValue("cityId", organizationData?.address?.city?.id || "", {
       shouldValidate: true,
     });
-    organizationData.phones.map((phone) => {
+    organizationData?.phones?.map((phone) => {
       phone.is_whatsapp
         ? setValue("cellphone", phone || "", {
             shouldValidate: true,
           })
         : setValue("phone", phone || "");
     });
-  }, [organizationData, setValue]);
+  }, [getValues, organizationData, setValue]);
 
   const handleEditVolunteer: SubmitHandler<CreateOrganizationFormData> = async (
     values
@@ -168,16 +167,16 @@ export default function EditOrganization({ organizationData }) {
             register={register}
             errors={errors}
             setValue={setValue}
-            setError={setError}
             getValues={getValues}
+            setError={setError}
             isEdit
           />
-          <CreateAddress
+          {/* <CreateAddress
             register={register}
             errors={errors}
             setValue={setValue}
             getValues={getValues}
-          />
+          /> */}
           <Flex justify="center">
             {Object.keys(errors).length > 0 && (
               <Text color="red">

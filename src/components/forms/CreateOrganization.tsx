@@ -23,9 +23,11 @@ export default function CreateOrganization({
   isEdit = null,
   getValues = null,
 }) {
+  console.log(getValues());
+
   const organizationValue = getValues ? getValues("organizationTypeId") : null;
-  const [organizationTypes, setOrganizationTypes] = useState();
-  const [organizationTypeId, setOrganizationTypeId] = useState(null);
+  const [organizationTypes, setOrganizationTypes] = useState(null);
+  const [organizationTypeId, setOrganizationTypeId] = useState("");
 
   useEffect(() => {
     organizationValue && setOrganizationTypeId(organizationValue);
@@ -110,7 +112,7 @@ export default function CreateOrganization({
           <Input
             name="phone"
             as={InputMask}
-            mask="(99) 9999-9999"
+            // mask="(99) 9999-9999"
             label="Telefone Fixo"
             info="Opcional"
             error={errors.phone}
@@ -120,7 +122,7 @@ export default function CreateOrganization({
             <Input
               name="cellphone"
               as={InputMask}
-              mask="(99) 99999-9999"
+              // mask="(99) 99999-9999"
               label="Whatsapp"
               error={errors.cellphone}
               {...register("cellphone")}

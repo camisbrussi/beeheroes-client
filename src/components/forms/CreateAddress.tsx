@@ -1,11 +1,4 @@
-import {
-  SimpleGrid,
-  Stack,
-  HStack,
-  Image,
-  Text,
-  Spinner,
-} from "@chakra-ui/react";
+import { SimpleGrid, Stack, HStack, Image, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import InputMask from "react-input-mask";
 import { api } from "../../services/apiCLient";
@@ -26,6 +19,8 @@ export default function CreateUser({
   const [states, setState] = useState(null);
   const [stateId, setStateId] = useState(null);
   const [cityId, setCityId] = useState(null);
+
+  console.log(getValues());
 
   useEffect(() => {
     cityValue && setCityId(getValues("cityId"));
