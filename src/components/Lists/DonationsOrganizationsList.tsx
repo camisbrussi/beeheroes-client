@@ -32,7 +32,7 @@ export const ListDonations = ({
         {data.length ? (
           <Flex>
             <Text mt={8}>Doações em andamento</Text>
-            <Link href={`/project/busca/${organizationId}`}>
+            <Link href={`/donations/busca/${organizationId}`}>
               <Tag mt={8} ml={3} colorScheme="yellow">
                 Ver Todos
               </Tag>
@@ -42,7 +42,7 @@ export const ListDonations = ({
           <Text mt={8}>A organização ainda não possui doações cadastradas</Text>
         )}
         {isResponsible && (
-          <Link href={`/donation/register/${organizationId}`}>
+          <Link href={`/donations/register/${organizationId}`}>
             <Tag mt={8} ml={3} colorScheme="yellow">
               Adicionar Doação
             </Tag>

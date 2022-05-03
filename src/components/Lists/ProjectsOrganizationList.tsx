@@ -34,9 +34,11 @@ export function ListProjects({
         {data.length ? (
           <Flex>
             <Text mt={8}>Lista de projetos</Text>
-            <Tag mt={8} ml={3} colorScheme="yellow">
-              Ver Todos
-            </Tag>
+            <Link href={`/projects/busca/${organizationId}`}>
+              <Tag mt={8} ml={3} colorScheme="yellow">
+                Ver Todos
+              </Tag>
+            </Link>
           </Flex>
         ) : organizationId ? (
           <Text mt={8}>
@@ -48,7 +50,7 @@ export function ListProjects({
           </Text>
         )}
         {isResponsible && (
-          <Link href={`/project/register/${organizationId}`}>
+          <Link href={`/projects/register/${organizationId}`}>
             <Tag mt={8} ml={3} colorScheme="yellow">
               Adicionar Projeto
             </Tag>
