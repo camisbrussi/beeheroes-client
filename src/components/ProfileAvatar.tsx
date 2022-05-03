@@ -21,12 +21,13 @@ export function ProfileAvatar({
   isProject = null,
   statusSubscriptions = null,
 }: ProfileAvatarProps) {
+  console.log(data);
   const status = customDataStatus.subscription[statusSubscriptions];
 
   return (
     <Stack w={40} mt={10} direction="column" align="left">
       {data && (
-        <Link href={`/users/profile/${data.user_id}`}>
+        <Link href={`/users/profile/${data.user_id || data.id}`}>
           <VStack>
             <Avatar
               size="lg"
