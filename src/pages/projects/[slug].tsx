@@ -52,6 +52,7 @@ export default function User({
 
   const [isResponsible, setIsResponsible] = useState(false);
   const { user } = useContext(AuthContext);
+  console.log(project);
 
   useEffect(() => {
     organization?.responsibles?.map((responsible) => {
@@ -63,7 +64,12 @@ export default function User({
   const startDate = moment(project?.start).format("DD/MM/YYYY, h:mm");
   const endDate = moment(project?.end).format("DD/MM/YYYY, h:mm");
 
-  const projectFree = project?.vacancies === 0 && true;
+  const IsThereSlots =
+    project?.vacancies === 0 ||
+    (project?.total_subscription !== project?.vacancies && true);
+  const canInscription = IsThereSlots && project?.status === 1;
+
+  console.log(canInscription);
 
   return (
     <Box w="100%" minW={1440} pb={10}>
@@ -139,8 +145,7 @@ export default function User({
                   </Link>
                 </Flex>
               ) : (
-                (project?.total_subscription !== project?.vacancies ||
-                  (projectFree && project.status === 1)) && (
+                canInscription && (
                   <Button
                     title="Fazer Inscrição"
                     onClick={user ? onOpen : () => Router.push("/signin")}
