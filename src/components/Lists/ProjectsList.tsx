@@ -5,7 +5,7 @@ import customDataStatus from "../../utils/status.json";
 export function ProjectList({ items }) {
   return (
     <Box maxW="1240" h="100%" px={["4", "10"]}>
-      <Grid templateColumns="repeat(5, 1fr)" gap={10} mt={10}>
+      <Grid templateColumns="repeat(3, 1fr)" gap={10} mt={10}>
         {items?.map((item) => (
           <CardProject
             key={item.id}
