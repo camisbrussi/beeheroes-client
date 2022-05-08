@@ -13,7 +13,7 @@ import { OrganizationStatusInactive } from "../../../components/Infos/Organizati
 import { OrganizationStatusWait } from "../../../components/Infos/OrganizationStatusWait";
 import { UserData } from "../../../components/Infos/User";
 import { VolunteerData } from "../../../components/Infos/Volunteer";
-import { ListProjects } from "../../../components/Lists/ProjectsOrganizationList";
+import { ListProjectsProfile } from "../../../components/Lists/ProjectsProfileList";
 import { Loading } from "../../../components/Loading";
 import { AuthContext } from "../../../context/AuthContext";
 import { api } from "../../../services/apiCLient";
@@ -86,7 +86,7 @@ export default function Profile({ profile, slug }: Profile) {
                     isProfile={isProfile}
                   />
                 )}
-                {project && <ListProjects data={project} />}
+                {project && <ListProjectsProfile data={project} />}
 
                 {organization && (
                   <Box w={1160} mt={5} mx="auto" fontSize="lg">

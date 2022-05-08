@@ -18,10 +18,6 @@ interface ListProjectsProps {
 }
 
 export function ListProjectsProfile({ data }: ListProjectsProps) {
-  const isWideVersion = useBreakpointValue({
-    base: false,
-    lg: true,
-  });
   return (
     <Box w="100%" mt={20} fontSize="lg">
       <Divider borderColor="blue.600" />
@@ -29,7 +25,7 @@ export function ListProjectsProfile({ data }: ListProjectsProps) {
         <Text mt={8}>Lista de projetos</Text>
       </Flex>
       <Box>
-        <Grid templateColumns="repeat(5, 1fr)" gap={10} mt={10}>
+        <Grid templateColumns="repeat(3, 1fr)" gap={10} mt={10}>
           {data?.map((project) => (
             <CardProject
               key={project.id}

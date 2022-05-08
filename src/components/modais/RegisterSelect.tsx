@@ -17,7 +17,7 @@ export function RegisterSelect() {
   const [value, setValue] = useState("1");
 
   function handleSubmit() {
-    if (value === "1") {
+    if (value === "2") {
       Router.push("/organizations/register");
     } else {
       Router.push("/volunteers/register");
@@ -32,11 +32,11 @@ export function RegisterSelect() {
         <ModalBody>
           <RadioGroup onChange={setValue} value={value}>
             <Stack direction="column">
-              <Radio mt={5} colorScheme="yellow" value="1">
-                Quero fazer o cadastro de uma organização
-              </Radio>
-              <Radio colorScheme="yellow" value="2">
+              <Radio colorScheme="yellow" value="1">
                 Quero ser um voluntário
+              </Radio>
+              <Radio mt={5} colorScheme="yellow" value="2">
+                Quero fazer o cadastro de uma organização
               </Radio>
             </Stack>
           </RadioGroup>

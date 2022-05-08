@@ -1,12 +1,4 @@
-import {
-  Text,
-  Box,
-  Divider,
-  Link,
-  Tag,
-  Flex,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import { Text, Box, Divider, Link, Tag, Flex } from "@chakra-ui/react";
 import { Donation } from "../../@types/donation";
 import { DonationList } from "./DonationList";
 
@@ -21,10 +13,6 @@ export const ListDonations = ({
   isResponsible,
   organizationId,
 }: ListDonationsProps) => {
-  const isWideVersion = useBreakpointValue({
-    base: false,
-    lg: true,
-  });
   return (
     <Box w={1160} mt={20} mx="auto" fontSize="lg">
       <Divider borderColor="blue.600" />
